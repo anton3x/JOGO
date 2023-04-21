@@ -22,3 +22,4 @@ while True:
     pygame.display.update()
 #def escolha():
 
+print('piroca')

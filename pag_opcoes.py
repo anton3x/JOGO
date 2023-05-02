@@ -13,16 +13,16 @@ pygame.display.set_caption("Lucky Numbers")
 ColorBack = {"azul": [0, 132, 252], "vermelho": [137, 28, 36]}
 
 class Botao(pygame.sprite.Sprite):
-    def __init__(self, *groups):
+    def __init__(self, *groups,image, image1, image2):
         super().__init__(*groups)
 
-        self.image = pygame.image.load("imagens_gerais/red_button01.png").convert_alpha()
+        self.image = pygame.image.load(image).convert_alpha()
         self.image = pygame.transform.scale(self.image, [190, 49])
         self.rect = pygame.Rect(190, 49, 190, 49)
         self.rect = self.image.get_rect()
 
-        self.image1 = pygame.image.load("imagens_gerais/red_button01.png").convert_alpha()
-        self.image2 = pygame.image.load("imagens_gerais/red_button02.png").convert_alpha()
+        self.image1 = pygame.image.load(image1).convert_alpha()
+        self.image2 = pygame.image.load(image2).convert_alpha()
 
         self.touche = False
 
@@ -44,19 +44,21 @@ class Botao(pygame.sprite.Sprite):
         pass
 
 
+
 ButtonGrups = pygame.sprite.Group()
 
-Botao1 = Botao(ButtonGrups)
+Botao1 = Botao(ButtonGrups,image="imagens_gerais/red_button01.png",image1="imagens_gerais/red_button01.png",image2="imagens_gerais/red_button02.png")
 Botao1.rect.center = (250, 300)
 
-Botao2 = Botao(ButtonGrups)
+Botao2 = Botao(ButtonGrups,image="imagens_gerais/red_button01.png",image1="imagens_gerais/red_button01.png",image2="imagens_gerais/red_button02.png")
 Botao2.rect.center = (512, 300)
 
-Botao4 = Botao(ButtonGrups)
+Botao4 = Botao(ButtonGrups,image="imagens_gerais/red_button01.png",image1="imagens_gerais/red_button01.png",image2="imagens_gerais/red_button02.png")
 Botao4.rect.center = (512, 400)
 
-Botao3 = Botao(ButtonGrups)
+Botao3 = Botao(ButtonGrups,image="imagens_gerais/red_button01.png",image1="imagens_gerais/red_button01.png",image2="imagens_gerais/red_button02.png")
 Botao3.rect.center = (250, 400)
+
 
 while JogoLoop:
     fps.tick(60)
@@ -68,6 +70,16 @@ while JogoLoop:
         if Botao1.touche == True:
             tela.fill(ColorBack["vermelho"])
             Partida.partida()
+
+        if Botao2.touche == True:
+            tela.fill(ColorBack["azul"])
+
+
+        if Botao3.touche == True:
+            tela.fill(ColorBack["azul"])
+
+        if Botao4.touche == True:
+            tela.fill(ColorBack["azul"])
 
         else:
             tela.fill(ColorBack["azul"])

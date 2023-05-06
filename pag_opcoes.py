@@ -53,6 +53,7 @@ Botao1.rect.center = (250, 300)
 Botao2 = Botao(ButtonGrups,image="imagens_gerais/red_button01.png",image1="imagens_gerais/red_button01.png",image2="imagens_gerais/red_button02.png")
 Botao2.rect.center = (512, 300)
 
+
 Botao4 = Botao(ButtonGrups,image="imagens_gerais/red_button01.png",image1="imagens_gerais/red_button01.png",image2="imagens_gerais/red_button02.png")
 Botao4.rect.center = (512, 400)
 

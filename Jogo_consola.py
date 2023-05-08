@@ -61,88 +61,150 @@ def verificar_taboleiro(taboleiro, linha, coluna, trevo):
             continue
     return True
 
+def primeira_rodada(taboleiro, excluidos, totaltrevos):
+    key = True
+    aVnE = False  # algum valor nos excluidos
 
-def turnoj(taboleiroj, excluidos):
+    while key:
+        trevo = []
+        for i in range(4):  # gerar 4 valores de 1 até totaltrevos
+            trevo.append(random.randint(1, totaltrevos))
+
+        for i in range(4):
+            if i == 3:  # se estiver no 4 elemento
+                if trevo[i] not in excluidos and not aVnE:  # e o quarto elemento nao estiver na lista dos excluidos e a key ainda for True
+                    key = False  # acaba o loop
+                    for j in range(4):  # adiciona todos á lista dos excluidos, pois vao ser usados agora
+                        excluidos.append(trevo[j])
+                if trevo[i] in excluidos:
+                    aVnE = True
+
+    for i in range(4):
+        if trevo[i] > 20:
+            trevo[i] -= 20
+
+    trevo.sort()
+
+    for i in range(4):
+        if trevo[i] > 20:
+            trevo[i] += 20
+        taboleiro[i][i] = trevo[i]
+
+    return False
+
+def turnoj(taboleiroj, excluidos, totaltrevos, key_inicial, table):
     print("JOGADOR")
-    key = True
+    if key_inicial[1]:#se for a primeira jogada
+        key_inicial[1] = primeira_rodada(taboleiroj, excluidos, totaltrevos)
 
-    while key:
-        trevo = random.randint(1, 80)
-        if trevo not in excluidos:
-            key = False
-            excluidos.append(trevo)
-
-    key = True
-    print("Trevo - ", trevo)
-
-    while key:
-        linha = int(input("Em que linha queres colocar o trevo: "))
-        coluna = int(input("Em que coluna queres colocar o trevo: "))
-
-        if taboleiroj[linha][coluna] == 0:
-            if verificar_taboleiro(taboleiroj, linha, coluna, trevo):
-                taboleiroj[linha][coluna] = trevo
+    else:
+        key = True
+        while key:
+            trevo = random.randint(1, totaltrevos)
+            if trevo not in excluidos:
                 key = False
+                excluidos.append(trevo)
+
+        key = True
+        print("Trevo - ", trevo)
+
+        while key:
+            tabela = input("Queres colocar o trevo na table (S/N): ")
+            if tabela == "S":
+                table.append(trevo)
+                key = False
+            else:
+                linha = int(input("Em que linha queres colocar o trevo: "))
+                coluna = int(input("Em que coluna queres colocar o trevo: "))
+
+                if taboleiroj[linha][coluna] == 0:
+                    if verificar_taboleiro(taboleiroj, linha, coluna, trevo):
+                        taboleiroj[linha][coluna] = trevo
+                        key = False
+                else:
+                    if verificar_taboleiro(taboleiroj, linha, coluna, trevo):
+                        table.append(taboleiroj[linha][coluna])
+                        taboleiroj[linha][coluna] = trevo
+                        key = False
 
     exibir_taboleiro(taboleiroj)
 
-def turnob(taboleirob, excluidos):
+def turnob(taboleirob, excluidos,totaltrevos, key_inicial, table):
     print("BOT")
-    key = True
 
-    while key:
-        trevo = random.randint(1, 80)
-        if trevo not in excluidos:
-            key = False
-            excluidos.append(trevo)
+    if key_inicial[0]:#se for a primeira jogada
+        key_inicial[0] = primeira_rodada(taboleirob, excluidos, totaltrevos)
 
-    key = True
-    print("Trevo - ", trevo)
+    else:
+        print("BOT")
+        key = True
 
-    while key:
-        linha = random.randint(0, 3)
-        coluna = random.randint(0, 3)
-        if taboleirob[linha][coluna] == 0:
-            if verificar_taboleiro(taboleirob, linha, coluna, trevo):
-                taboleirob[linha][coluna] = trevo
+        while key:
+            trevo = random.randint(1, totaltrevos)
+            if trevo not in excluidos:
                 key = False
+                excluidos.append(trevo)
+
+        key = True
+        print("Trevo - ", trevo)
+
+        while key:
+            """tabela = input("Queres colocar o trevo na table (S/N): ")
+            if tabela == "S":
+                key = False
+                table.append(trevo)
+            else:"""
+            linha = random.randint(0, 3)
+            coluna = random.randint(0, 3)
+            if taboleirob[linha][coluna] == 0:
+                if verificar_taboleiro(taboleirob, linha, coluna, trevo):
+                    taboleirob[linha][coluna] = trevo
+                    key = False
+            else:
+                if verificar_taboleiro(taboleirob, linha, coluna, trevo):
+                    taboleirob[linha][coluna] = trevo
+                    key = False
+                    table.append(trevo)
 
     exibir_taboleiro(taboleirob)
 
 
 def opcaoA():
-    B_preenhido = True
-    J_prenchido = True
-    trevos = []
-    taboleiroJ = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
-    taboleiroB = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+
+    B_preenhido = False #o bot ja preencheu o taboleiro?
+    J_prenchido = False #o jogador ja preencheu o taboleiro?
+    trevos = [] #todos os trevos vao parar aqui para que nao haja repeticao na geracao de trevos
+    taboleiroJ = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]] #taboleiro do jogador
+    taboleiroB = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]] #taboleiro do bot
+    table = []
 
     nome = input("\nNome do jogador: ")
 
     numero = random.randint(0, 1)  # quem comeca
 
+    Comeco = [True, True]
     print(taboleiroJ)
     if numero == 0:
         print("Bot começa!")
-        while B_preenhido or J_prenchido:
-            turnob(taboleiroB, trevos)
-            turnoj(taboleiroJ, trevos)
-
-            a = int(input("cheat: "))
+        while not B_preenhido and not J_prenchido:
+            turnob(taboleiroB, trevos, 40, Comeco, table)
+            turnoj(taboleiroJ, trevos, 40, Comeco, table)
+            print(table)
+            """a = int(input("cheat: "))
             if a == 0:
                 B_preenhido = False
-                J_prenchido = False
+                J_prenchido = False"""
         # print(trevos)
     else:
         print("O %s começa!" % nome)
-        while B_preenhido or J_prenchido:
-            turnoj(taboleiroJ, trevos)
-            turnob(taboleiroB, trevos)
-
-            a = int(input("cheat: "))
+        while not B_preenhido or not J_prenchido:
+            turnoj(taboleiroJ, trevos, 40, Comeco, table)
+            turnob(taboleiroB, trevos, 40, Comeco, table)
+            print(table)
+            """a = int(input("cheat: "))
             if a == 0:
                 B_preenhido = False
-                J_prenchido = False
+                J_prenchido = False"""
         # print(trevos)
 
 

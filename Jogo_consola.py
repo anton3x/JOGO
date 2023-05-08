@@ -204,7 +204,7 @@ def opcaoA():
     Comeco = [True, True]
     if numero == 0:
         print("Bot começa!")
-        while (not B_preenhido and not J_prenchido) and not (len(trevos) == 40):#as condicoes de fim do jogo sao alguem ja ter preenchido todo o taboleiro ou os trevos esgotarem-se
+        while (not B_preenhido and not J_prenchido) and not (len(trevos) == 40):#as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
             turnob(taboleiroB, trevos, 40, Comeco, table)
             turnoj(taboleiroJ, trevos, 40, Comeco, table)
             print(table)

@@ -1,6 +1,5 @@
 import pygame
 
-
 fps = pygame.time.Clock()
 largura = 1024
 altura = 600
@@ -47,17 +46,17 @@ class Botao(pygame.sprite.Sprite):
 
 ButtonGrups = pygame.sprite.Group()
 
-Botao1 = Botao(ButtonGrups,image="imagens_gerais/red_button01.png",image1="imagens_gerais/red_button01.png",image2="imagens_gerais/red_button02_A.png")
+Botao1 = Botao(ButtonGrups,image="imagens_gerais/red_button01.png",image1="imagens_gerais/red_button01.png",image2="imagens_gerais/red_button02.png")
 Botao1.rect.center = (250, 300)
 
-Botao2 = Botao(ButtonGrups,image="imagens_gerais/red_button01.png",image1="imagens_gerais/red_button01.png",image2="imagens_gerais/red_button02_B.png")
+Botao2 = Botao(ButtonGrups,image="imagens_gerais/red_button01.png",image1="imagens_gerais/red_button01.png",image2="imagens_gerais/red_button02.png")
 Botao2.rect.center = (512, 300)
 
 
-Botao4 = Botao(ButtonGrups,image="imagens_gerais/red_button01.png",image1="imagens_gerais/red_button01.png",image2="imagens_gerais/red_button02_D.png")
+Botao4 = Botao(ButtonGrups,image="imagens_gerais/red_button01.png",image1="imagens_gerais/red_button01.png",image2="imagens_gerais/red_button02.png")
 Botao4.rect.center = (512, 400)
 
-Botao3 = Botao(ButtonGrups,image="imagens_gerais/red_button01.png",image1="imagens_gerais/red_button01.png",image2="imagens_gerais/red_button02_C.png")
+Botao3 = Botao(ButtonGrups,image="imagens_gerais/red_button01.png",image1="imagens_gerais/red_button01.png",image2="imagens_gerais/red_button02.png")
 Botao3.rect.center = (250, 400)
 
 

@@ -1,5 +1,4 @@
 import pygame
-import Partida
 
 fps = pygame.time.Clock()
 largura = 1024
@@ -70,7 +69,6 @@ while JogoLoop:
 
         if Botao1.touche == True:
             tela.fill(ColorBack["vermelho"])
-            Partida.partida()
 
         if Botao2.touche == True:
             tela.fill(ColorBack["azul"])

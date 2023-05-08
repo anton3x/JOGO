@@ -1,3 +1,4 @@
+import copy
 import random
 
 """ Realizar o turno do primeiro jogador. Considera-se um turno de um jogador o conjunto
@@ -23,6 +24,12 @@ def exibir_taboleiro(taboleiro):
         print(str(taboleiro[i][0]), " | ", str(taboleiro[i][1]), " | ", str(taboleiro[i][2]), " | ", str(taboleiro[i][3]))
     print("\n")
 def verificar_taboleiro(taboleiro, linha, coluna, trevo):
+    taboleiro1 = copy.deepcopy(taboleiro)
+    taboleiro1[linha][coluna] = trevo
+    #print("TASSDADSAD -", taboleiro1)
+    lista_coluna = []
+    lista_linha = []
+
     if trevo > 60:
         trevo_real = trevo - 60
     elif trevo > 40:
@@ -32,33 +39,45 @@ def verificar_taboleiro(taboleiro, linha, coluna, trevo):
     else:
         trevo_real = trevo
 
-    for i in range(coluna):
-        if taboleiro[linha][i] > 60:
-            el_taboleiro = taboleiro[linha][i] - 60
-        elif taboleiro[linha][i] > 40:
-            el_taboleiro = taboleiro[linha][i] - 40
-        elif taboleiro[linha][i] > 20:
-            el_taboleiro = taboleiro[linha][i] - 20
+    for i in range(4):
+        if  taboleiro1[i][coluna] > 60:
+            lista_linha.append(taboleiro1[i][coluna] - 60)
+        elif  taboleiro1[i][coluna] > 40:
+            lista_linha.append(taboleiro1[i][coluna] - 40)
+        elif  taboleiro1[i][coluna] > 20:
+            lista_linha.append(taboleiro1[i][coluna] - 20)
         else:
-            el_taboleiro = taboleiro[linha][i]
-        if el_taboleiro > trevo_real:
-            return False
+            if taboleiro1[i][coluna] == 0:
+                continue
+            else:
+                lista_coluna.append(taboleiro1[i][coluna])
+
+        if taboleiro1[linha][i] > 60:
+            lista_coluna.append(taboleiro1[linha][i] - 60)
+        elif taboleiro1[linha][i] > 40:
+            lista_coluna.append(taboleiro1[linha][i] - 40)
+        elif taboleiro1[linha][i] > 20:
+            lista_coluna.append(taboleiro1[linha][i] - 20)
+        else:
+            if taboleiro1[linha][i] == 0:
+                continue
+            else:
+                lista_linha.append(taboleiro1[linha][i])
+    #print(lista_coluna)
+    #print(lista_linha)
+    for i in range(len(lista_coluna)):
+        if not (i == (len(lista_coluna) - 1)):
+            if lista_coluna[i] > lista_coluna[i + 1]:
+                return False
+        else:
+            continue
+    for i in range(len(lista_linha)):
+        if not (i == (len(lista_linha) - 1)):
+            if lista_linha[i] > lista_linha[i + 1]:
+                return False
         else:
             continue
 
-    for j in range(linha):
-        if  taboleiro[j][coluna] > 60:
-            el_taboleiro = taboleiro[j][coluna] - 60
-        elif  taboleiro[j][coluna] > 40:
-            el_taboleiro = taboleiro[j][coluna] - 40
-        elif  taboleiro[j][coluna] > 20:
-            el_taboleiro = taboleiro[j][coluna] - 20
-        else:
-            el_taboleiro = taboleiro[j][coluna]
-        if taboleiro[j][coluna] > trevo_real:
-            return False
-        else:
-            continue
     return True
 
 def primeira_rodada(taboleiro, excluidos, totaltrevos):
@@ -164,7 +183,7 @@ def turnob(taboleirob, excluidos,totaltrevos, key_inicial, table):
                 if verificar_taboleiro(taboleirob, linha, coluna, trevo):
                     taboleirob[linha][coluna] = trevo
                     key = False
-                    table.append(trevo)
+                    excluidos.append(trevo)
 
     exibir_taboleiro(taboleirob)
 
@@ -183,10 +202,9 @@ def opcaoA():
     numero = random.randint(0, 1)  # quem comeca
 
     Comeco = [True, True]
-    print(taboleiroJ)
     if numero == 0:
         print("Bot começa!")
-        while not B_preenhido and not J_prenchido:
+        while (not B_preenhido and not J_prenchido) and not (len(trevos) == 40):#as condicoes de fim do jogo sao alguem ja ter preenchido todo o taboleiro ou os trevos esgotarem-se
             turnob(taboleiroB, trevos, 40, Comeco, table)
             turnoj(taboleiroJ, trevos, 40, Comeco, table)
             print(table)
@@ -197,7 +215,7 @@ def opcaoA():
         # print(trevos)
     else:
         print("O %s começa!" % nome)
-        while not B_preenhido or not J_prenchido:
+        while not (B_preenhido or not J_prenchido) and not (len(trevos) == 40):
             turnoj(taboleiroJ, trevos, 40, Comeco, table)
             turnob(taboleiroB, trevos, 40, Comeco, table)
             print(table)

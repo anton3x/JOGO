@@ -1,5 +1,10 @@
 import pygame
 from Botao1 import botao1
+from Botao2 import botao2
+from Botao3 import botao3
+from Botao4 import botao4
+
+
 fps = pygame.time.Clock()
 largura = 1024
 altura = 600
@@ -70,17 +75,19 @@ while JogoLoop:
             tela.fill(ColorBack["vermelho"])
             botao1()
 
-
-
         if Botao2.touche == True:
             tela.fill(ColorBack["azul"])
+            botao2()
 
 
         if Botao3.touche == True:
             tela.fill(ColorBack["azul"])
+            botao3()
+
 
         if Botao4.touche == True:
             tela.fill(ColorBack["azul"])
+            botao4()
 
         else:
             tela.fill(ColorBack["azul"])

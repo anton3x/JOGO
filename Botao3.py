@@ -1,5 +1,5 @@
 import pygame
-def botao1():
+def botao3():
     fps = pygame.time.Clock()
     largura = 1024
     altura = 600

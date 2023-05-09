@@ -114,12 +114,12 @@ def botao1():
    # ColorBack = {"azul": [0, 132, 252], "vermelho": [137, 28, 36], "laranja": [255, 117, 24]}
     pygame.display.set_caption("Lucky Numbers")
 
-    class Botao11(pygame.sprite.Sprite):
+    class Botao(pygame.sprite.Sprite):
         def __init__(self, *groups, image, image1, image2):
             super().__init__(*groups)
 
             self.image = pygame.image.load(image).convert_alpha()
-            self.image = pygame.transform.scale(self.image, [190, 49])
+            self.image = pygame.transform.scale(self.image, [50, 50]) #tamanho e proporcao do botao
             self.rect = pygame.Rect(190, 49, 190, 49)
             self.rect = self.image.get_rect()
 
@@ -137,19 +137,18 @@ def botao1():
                 if self.mouse[0]:
                     self.touche = True
                     pygame.mouse.get_rel()
-                    self.image = self.image2
+                    #self.image = self.image2
 
                 else:
                     self.touche = False
-                    self.image = self.image1
+                    #self.image = self.image1
 
             pass
 
     ButtonGrups = pygame.sprite.Group()
 
-    Botao1 = Botao11(ButtonGrups, image="imagens_gerais/voltaratras.png", image1="imagens_gerais/voltaratras.png",
-                   image2="imagens_gerais/voltaratras.png")
-    Botao1.rect.center = (250, 300)
+    Botao1 = Botao(ButtonGrups, image="imagens_gerais/voltaratras.png", image1="imagens_gerais/voltaratras.png",image2="imagens_gerais/voltaratras.png")
+    Botao1.rect.center = (250, 200)
 
     while JogoLoop:
         #fps.tick(60)

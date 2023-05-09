@@ -79,7 +79,6 @@ def verificar_taboleiro(taboleiro, linha, coluna, trevo):
             continue
 
     return True
-
 def primeira_rodada(taboleiro, excluidos, totaltrevos):
     key = True
     aVnE = False  # algum valor nos excluidos
@@ -148,9 +147,8 @@ def turnoj(taboleiroj, excluidos, totaltrevos, key_inicial, table):
 
     exibir_taboleiro(taboleiroj)
 
-def turnob(taboleirob, excluidos,totaltrevos, key_inicial, table):
-    print("BOT")
-
+def turnob(taboleirob, excluidos,totaltrevos, key_inicial):
+    print("turno")
     if key_inicial[0]:#se for a primeira jogada
         key_inicial[0] = primeira_rodada(taboleirob, excluidos, totaltrevos)
 
@@ -168,11 +166,6 @@ def turnob(taboleirob, excluidos,totaltrevos, key_inicial, table):
         print("Trevo - ", trevo)
 
         while key:
-            """tabela = input("Queres colocar o trevo na table (S/N): ")
-            if tabela == "S":
-                key = False
-                table.append(trevo)
-            else:"""
             linha = random.randint(0, 3)
             coluna = random.randint(0, 3)
             if taboleirob[linha][coluna] == 0:
@@ -205,7 +198,8 @@ def opcaoA():
     if numero == 0:
         print("Bot começa!")
         while (not B_preenhido and not J_prenchido) and not (len(trevos) == 40):#as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
-            turnob(taboleiroB, trevos, 40, Comeco, table)
+            print("1")
+            turnob(taboleiroB, trevos, 40, Comeco)
             turnoj(taboleiroJ, trevos, 40, Comeco, table)
             print(table)
             """a = int(input("cheat: "))
@@ -217,7 +211,7 @@ def opcaoA():
         print("O %s começa!" % nome)
         while not (B_preenhido or not J_prenchido) and not (len(trevos) == 40):
             turnoj(taboleiroJ, trevos, 40, Comeco, table)
-            turnob(taboleiroB, trevos, 40, Comeco, table)
+            turnob(taboleiroB, trevos, 40, Comeco)
             print(table)
             """a = int(input("cheat: "))
             if a == 0:
@@ -236,8 +230,7 @@ def opcaoD():
 key = True
 
 while key:
-    print(
-        "A. Jogar uma Partida\nB. Carregar uma partida a partir de um ficheiro\nC. Apresentar uma descrição do jogo\nD. Sair da aplicação.")
+    print("A. Jogar uma Partida\nB. Carregar uma partida a partir de um ficheiro\nC. Apresentar uma descrição do jogo\nD. Sair da aplicação.")
     op = input("Seleciona a opcao: ")
     match op:
         case "A":

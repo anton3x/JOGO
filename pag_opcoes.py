@@ -1,5 +1,5 @@
 import pygame
-
+from Botao1 import botao1
 fps = pygame.time.Clock()
 largura = 1024
 altura = 600
@@ -68,7 +68,7 @@ while JogoLoop:
 
         if Botao1.touche == True:
             tela.fill(ColorBack["vermelho"])
-
+            botao1()
 
 
 

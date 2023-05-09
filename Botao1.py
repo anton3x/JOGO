@@ -46,8 +46,8 @@ def botao1():
 
     ButtonGrups = pygame.sprite.Group()
 
-    Botao1 = Botao11(ButtonGrups, image="imagens_gerais/voltaratras.png", image1="imagens_gerais/voltaratras.png",
-                   image2="imagens_gerais/voltaratras.png")
+    Botao1 = Botao11(ButtonGrups, image="imagens_gerais/red_button01_A.png", image1="imagens_gerais/red_button01_A.png",
+                   image2="imagens_gerais/red_button02_A.png")
     Botao1.rect.center = (250, 300)
 
     while JogoLoop:
@@ -65,6 +65,7 @@ def botao1():
             pygame.display.update()
         #pygame.display.update()
     pygame.quit()
+
 
 
 

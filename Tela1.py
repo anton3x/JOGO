@@ -1,6 +1,8 @@
 import pygame
-def botao4():
-    fps = pygame.time.Clock()
+#from pag_opcoes import main_menu
+def tela1():
+    pygame.init()
+    #fps = pygame.time.Clock()
     largura = 1024
     altura = 600
 
@@ -8,7 +10,7 @@ def botao4():
 
     tela = pygame.display.set_mode([largura, altura])
     tela.fill([255, 117, 24])
-    # ColorBack = {"azul": [0, 132, 252], "vermelho": [137, 28, 36], "laranja": [255, 117, 24]}
+   # ColorBack = {"azul": [0, 132, 252], "vermelho": [137, 28, 36], "laranja": [255, 117, 24]}
     pygame.display.set_caption("Lucky Numbers")
 
     class Botao11(pygame.sprite.Sprite):
@@ -45,21 +47,25 @@ def botao4():
     ButtonGrups = pygame.sprite.Group()
 
     Botao1 = Botao11(ButtonGrups, image="imagens_gerais/red_button01_A.png", image1="imagens_gerais/red_button01_A.png",
-                     image2="imagens_gerais/red_button02_A.png")
+                   image2="imagens_gerais/red_button02_A.png")
     Botao1.rect.center = (250, 300)
 
     while JogoLoop:
-        # fps.tick(60)
+        #fps.tick(60)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 JogoLoop = False
             if Botao1.touche == True:
                 pygame.quit()
-                # main_menu()
+                #main_menu()
 
             ButtonGrups.update()
             ButtonGrups.draw(tela)
 
             pygame.display.update()
-        # pygame.display.update()
+        #pygame.display.update()
     pygame.quit()
+
+
+
+

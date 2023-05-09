@@ -113,7 +113,7 @@ def primeira_rodada(taboleiro, excluidos, totaltrevos):
 
 def turnoj(taboleiroj, excluidos, totaltrevos, key_inicial, table):
     print("JOGADOR")
-    if key_inicial[1]:#se for a primeira jogada
+    if key_inicial[1]: #se for a primeira jogada
         key_inicial[1] = primeira_rodada(taboleiroj, excluidos, totaltrevos)
 
     else:
@@ -129,7 +129,7 @@ def turnoj(taboleiroj, excluidos, totaltrevos, key_inicial, table):
 
         while key:
             tabela = input("Queres colocar o trevo na table (S/N): ")
-            if tabela == "S":
+            if tabela == "S" or tabela == "s":
                 table.append(trevo)
                 key = False
             else:

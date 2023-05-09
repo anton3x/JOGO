@@ -162,17 +162,19 @@ def turnob(taboleirob, excluidos,totaltrevos, key_inicial):
                 excluidos.append(trevo)
 
         key = True
-        print("Trevo - ", trevo)
+        print("Bot retirou do baralho o trevo n: %d " % (trevo))
 
         while key:
             linha = random.randint(0, 3)
             coluna = random.randint(0, 3)
             if taboleirob[linha][coluna] == 0:
                 if verificar_taboleiro(taboleirob, linha, coluna, trevo):
+                    print("O bot colocou o trevo na linha %d e coluna %d\n" % (linha, coluna))
                     taboleirob[linha][coluna] = trevo
                     key = False
             else:
                 if verificar_taboleiro(taboleirob, linha, coluna, trevo):
+                    print("O bot colocou o trevo na linha %d e coluna %d\n" % (linha, coluna))
                     taboleirob[linha][coluna] = trevo
                     key = False
                     excluidos.append(trevo)
@@ -191,7 +193,7 @@ def opcaoA():
 
     nome = input("\nNome do jogador: ")
 
-    numero = 1  # quem comeca
+    numero = random.randint(0, 1) # quem comeca
 
     Comeco = [True, True]
     if numero == 0:

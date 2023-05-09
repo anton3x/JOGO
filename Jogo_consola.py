@@ -198,7 +198,6 @@ def opcaoA():
     if numero == 0:
         print("Bot começa!")
         while (not B_preenhido and not J_prenchido) and not (len(trevos) == 40):#as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
-            print("1")
             turnob(taboleiroB, trevos, 40, Comeco)
             turnoj(taboleiroJ, trevos, 40, Comeco, table)
             print(table)
@@ -209,7 +208,7 @@ def opcaoA():
         # print(trevos)
     else:
         print("O %s começa!" % nome)
-        while not (B_preenhido or not J_prenchido) and not (len(trevos) == 40):
+        while (not B_preenhido or not J_prenchido) and not (len(trevos) == 40):
             turnoj(taboleiroJ, trevos, 40, Comeco, table)
             turnob(taboleiroB, trevos, 40, Comeco)
             print(table)

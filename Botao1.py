@@ -1,6 +1,6 @@
 import pygame
-#from pag_opcoes import main_menu
-def botao1():
+from pag_opcoes import main_menu
+"""def botao1():
     pygame.init()
     #fps = pygame.time.Clock()
     largura = 1024
@@ -57,15 +57,12 @@ def botao1():
                 JogoLoop = False
             if Botao1.touche == True:
                 pygame.quit()
-                #main_menu()
+                main_menu()
 
             ButtonGrups.update()
             ButtonGrups.draw(tela)
 
             pygame.display.update()
         #pygame.display.update()
-    pygame.quit()
-
-
-
-
+    pygame.quit() 
+    """

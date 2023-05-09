@@ -148,7 +148,6 @@ def turnoj(taboleiroj, excluidos, totaltrevos, key_inicial, table):
     exibir_taboleiro(taboleiroj)
 
 def turnob(taboleirob, excluidos,totaltrevos, key_inicial):
-    print("turno")
     if key_inicial[0]:#se for a primeira jogada
         key_inicial[0] = primeira_rodada(taboleirob, excluidos, totaltrevos)
 
@@ -192,7 +191,7 @@ def opcaoA():
 
     nome = input("\nNome do jogador: ")
 
-    numero = random.randint(0, 1)  # quem comeca
+    numero = 1  # quem comeca
 
     Comeco = [True, True]
     if numero == 0:

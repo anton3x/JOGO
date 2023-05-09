@@ -231,7 +231,7 @@ def opcaoB():
 def opcaoC():
     print("C")
 def opcaoD():
-    print("D")
+    exit()
 
 key = True
 

@@ -1,8 +1,8 @@
 import pygame
 #from Botao1 import botao1
-from Botao2 import botao2
-from Botao3 import botao3
-from Botao4 import botao4
+from Tela2 import tela2
+from Tela3 import tela3
+from Tela4 import tela4
 def main_menu():
     #pygame.init()
     fps = pygame.time.Clock()
@@ -73,21 +73,21 @@ def main_menu():
 
             if Botao1.touche == True:
                 tela.fill(ColorBack["vermelho"])
-                botao1()
+                tela1()
 
             if Botao2.touche == True:
                 tela.fill(ColorBack["azul"])
-                botao2()
+                tela2()
 
 
             if Botao3.touche == True:
                 tela.fill(ColorBack["azul"])
-                botao3()
+                tela3()
 
 
             if Botao4.touche == True:
                 tela.fill(ColorBack["azul"])
-                botao4()
+                tela4()
 
             else:
                 tela.fill(ColorBack["azul"])
@@ -101,7 +101,7 @@ def main_menu():
 
 
 
-def botao1():
+def tela1():
     pygame.init()
     #fps = pygame.time.Clock()
     largura = 1024
@@ -166,5 +166,7 @@ def botao1():
             pygame.display.update()
         #pygame.display.update()
     pygame.quit()
+
+
 
 main_menu()

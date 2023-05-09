@@ -1,5 +1,5 @@
 import pygame
-from Botao1 import botao1
+#from Botao1 import botao1
 from Botao2 import botao2
 from Botao3 import botao3
 from Botao4 import botao4

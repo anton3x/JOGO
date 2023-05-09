@@ -46,17 +46,16 @@ class Botao(pygame.sprite.Sprite):
 
 ButtonGrups = pygame.sprite.Group()
 
-Botao1 = Botao(ButtonGrups,image="imagens_gerais/red_button01.png",image1="imagens_gerais/red_button01_A.png",image2="imagens_gerais/red_button02_A.png")
+Botao1 = Botao(ButtonGrups,image="imagens_gerais/red_button01_A.png",image1="imagens_gerais/red_button01_A.png",image2="imagens_gerais/red_button02_A.png")
 Botao1.rect.center = (250, 300)
 
-Botao2 = Botao(ButtonGrups,image="imagens_gerais/red_button01.png",image1="imagens_gerais/red_button01_B.png",image2="imagens_gerais/red_button02_B.png")
+Botao2 = Botao(ButtonGrups,image="imagens_gerais/red_button01_B.png",image1="imagens_gerais/red_button01_B.png",image2="imagens_gerais/red_button02_B.png")
 Botao2.rect.center = (512, 300)
 
-
-Botao4 = Botao(ButtonGrups,image="imagens_gerais/red_button01.png",image1="imagens_gerais/red_button01_D.png",image2="imagens_gerais/red_button02_D.png")
+Botao4 = Botao(ButtonGrups,image="imagens_gerais/red_button01_D.png",image1="imagens_gerais/red_button01_D.png",image2="imagens_gerais/red_button02_D.png")
 Botao4.rect.center = (512, 400)
 
-Botao3 = Botao(ButtonGrups,image="imagens_gerais/red_button01.png",image1="imagens_gerais/red_button01_C.png",image2="imagens_gerais/red_button02_C.png")
+Botao3 = Botao(ButtonGrups,image="imagens_gerais/red_button01_C.png",image1="imagens_gerais/red_button01_C.png",image2="imagens_gerais/red_button02_C.png")
 Botao3.rect.center = (250, 400)
 
 
@@ -69,6 +68,9 @@ while JogoLoop:
 
         if Botao1.touche == True:
             tela.fill(ColorBack["vermelho"])
+
+
+
 
         if Botao2.touche == True:
             tela.fill(ColorBack["azul"])

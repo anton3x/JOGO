@@ -123,8 +123,9 @@ def tela1():
             self.rect = pygame.Rect(190, 49, 190, 49)
             self.rect = self.image.get_rect()
 
-            self.image1 = pygame.image.load(image1).convert_alpha()
-            self.image2 = pygame.image.load(image2).convert_alpha() #profundidade
+            #no botao de voltar para tras ainda nao existe a imagem de profundidade
+            #self.image1 = pygame.image.load(image1).convert_alpha()
+            #self.image2 = pygame.image.load(image2).convert_alpha() #profundidade
 
             self.touche = False
 
@@ -137,11 +138,11 @@ def tela1():
                 if self.mouse[0]:
                     self.touche = True
                     pygame.mouse.get_rel()
-                    self.image = self.image2
+                    #self.image = self.image2 #no botao de voltar para tras ainda nao existe a imagem de profundidade
 
                 else:
                     self.touche = False
-                    #self.image = self.image1
+                    #self.image = self.image1 #no botao de voltar para tras ainda nao existe a imagem de profundidade
 
             pass
 

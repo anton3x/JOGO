@@ -3,6 +3,7 @@ import pygame
 from Tela2 import tela2
 from Tela3 import tela3
 from Tela4 import tela4
+
 def main_menu():
     #pygame.init()
     fps = pygame.time.Clock()
@@ -75,6 +76,7 @@ def main_menu():
                 tela.fill(ColorBack["vermelho"])
                 tela1()
 
+
             if Botao2.touche == True:
                 tela.fill(ColorBack["azul"])
                 tela2()
@@ -99,8 +101,6 @@ def main_menu():
     pygame.quit()
 
 
-
-
 def tela1():
     pygame.init()
     #fps = pygame.time.Clock()
@@ -119,12 +119,12 @@ def tela1():
             super().__init__(*groups)
 
             self.image = pygame.image.load(image).convert_alpha()
-            self.image = pygame.transform.scale(self.image, [190, 49])
+            self.image = pygame.transform.scale(self.image, [50, 50])#dimensoes botao voltar atras
             self.rect = pygame.Rect(190, 49, 190, 49)
             self.rect = self.image.get_rect()
 
             self.image1 = pygame.image.load(image1).convert_alpha()
-            self.image2 = pygame.image.load(image2).convert_alpha()
+            self.image2 = pygame.image.load(image2).convert_alpha() #profundidade
 
             self.touche = False
 
@@ -149,7 +149,7 @@ def tela1():
 
     Botao1 = Botao11(ButtonGrups, image="imagens_gerais/voltaratras.png", image1="imagens_gerais/voltaratras.png",
                    image2="imagens_gerais/voltaratras.png")
-    Botao1.rect.center = (250, 300)
+    Botao1.rect.center = (50, 50)#localizaçao botão voltar atrás
 
     while JogoLoop:
         #fps.tick(60)
@@ -165,6 +165,7 @@ def tela1():
 
             pygame.display.update()
         #pygame.display.update()
+
     pygame.quit()
 
 def tela2():
@@ -185,7 +186,7 @@ def tela2():
             super().__init__(*groups)
 
             self.image = pygame.image.load(image).convert_alpha()
-            self.image = pygame.transform.scale(self.image, [190, 49])
+            self.image = pygame.transform.scale(self.image, [50, 50])#dimensoes botao voltar atras
             self.rect = pygame.Rect(190, 49, 190, 49)
             self.rect = self.image.get_rect()
 
@@ -215,7 +216,7 @@ def tela2():
 
     Botao2 = Botao11(ButtonGrups, image="imagens_gerais/voltaratras.png", image1="imagens_gerais/voltaratras.png",
                    image2="imagens_gerais/voltaratras.png")
-    Botao2.rect.center = (250, 300)
+    Botao2.rect.center = (50, 50) #localizaçao botão voltar atrás
 
     while JogoLoop:
         #fps.tick(60)
@@ -251,7 +252,7 @@ def tela3():
             super().__init__(*groups)
 
             self.image = pygame.image.load(image).convert_alpha()
-            self.image = pygame.transform.scale(self.image, [190, 49])
+            self.image = pygame.transform.scale(self.image, [50, 50])#dimensoes botao voltar atras
             self.rect = pygame.Rect(190, 49, 190, 49)
             self.rect = self.image.get_rect()
 
@@ -281,7 +282,7 @@ def tela3():
 
     Botao3 = Botao11(ButtonGrups, image="imagens_gerais/voltaratras.png", image1="imagens_gerais/voltaratras.png",
                    image2="imagens_gerais/voltaratras.png")
-    Botao3.rect.center = (250, 300)
+    Botao3.rect.center = (50, 50) #localizaçao botão voltar atrás
 
     while JogoLoop:
         #fps.tick(60)
@@ -317,7 +318,7 @@ def tela4():
             super().__init__(*groups)
 
             self.image = pygame.image.load(image).convert_alpha()
-            self.image = pygame.transform.scale(self.image, [190, 49])
+            self.image = pygame.transform.scale(self.image, [50, 50])#dimensoes botao voltar atras
             self.rect = pygame.Rect(190, 49, 190, 49)
             self.rect = self.image.get_rect()
 
@@ -347,7 +348,7 @@ def tela4():
 
     Botao4 = Botao11(ButtonGrups, image="imagens_gerais/voltaratras.png", image1="imagens_gerais/voltaratras.png",
                    image2="imagens_gerais/voltaratras.png")
-    Botao4.rect.center = (250, 300)
+    Botao4.rect.center = (50, 50) #localizaçao botão voltar atrás
 
     while JogoLoop:
         #fps.tick(60)
@@ -364,4 +365,7 @@ def tela4():
             pygame.display.update()
         #pygame.display.update()
     pygame.quit()
+
+
 main_menu()
+

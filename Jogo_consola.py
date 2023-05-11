@@ -121,29 +121,30 @@ def verificar_taboleiro(taboleiro, linha, coluna, trevo):
             continue
 
     return True
-def primeira_rodada(taboleiro, excluidos, totaltrevos):
+def primeira_rodada(taboleiro, excluidos, totaltrevos): #funcao destinada a gerar os trevos e colocar no taboleiro na primeira ronda do jogo
     key = True
-    aVnE = False  # algum valor nos excluidos
+    #aVnE = False  # algum valor nos excluidos
 
-    while key:
-        trevo = []
+    while key: #enquanto a key for verdade
+        trevo = [] #cria-se uma lista de trevos vazia
         for i in range(4):  # gerar 4 valores de 1 até totaltrevos
-            if len(trevo) == 0:
-                b = random.randint(1, totaltrevos)
-                trevo.append(b)
-                excluidos.append(b)
-            else:
-                key1 = True
-                while key1:
-                    t = random.randint(1, totaltrevos)
-                    if t not in trevo:
-                        key1 = False
-                        trevo.append(t)
-                        excluidos.append(t)
-        if len(trevo) == 4:
+            if len(trevo) == 0: # se a lista estiver vazia, qualquer trevo que sair poderá ser usado pois ainda nao existe nenhum
+                b = random.randint(1, totaltrevos)  #gera-se um trevo
+                trevo.append(b) #adiciona-se á lista dos trevos
+                excluidos.append(b) # e adiciona-se á lista dos trevos ja usados
+            else:   #se existirem trevos na lista de trevos
+                key1 = True #key1 é verdade que vai ser usada para a geracao de um trevo
+                while key1: #enquanto for verdade
+                    t = random.randint(1, totaltrevos) #gera-se um trevo
+                    if (t not in trevo) and (t not in excluidos):  #se ele nao estiver na lista, ou seja, se ele ainda nao foi usado desta vez e se nao foi usado no programa (lista excluidos)
+                        key1 = False    #o loop while vai parar
+                        trevo.append(t) #adiciona-se o trevo á lista
+                        excluidos.append(t) #e adiciona-se o trevo á lista dos excluidos
+
+        if len(trevo) == 4: #para parar o loop principal, se ja existirem os 4 elementos na lista dos trevos, a key vai ser falsa
             key = False
 
-
+        """
         for i in range(4):
             if i == 3:  # se estiver no 4 elemento
                 if trevo[i] not in excluidos and not aVnE:  # e o quarto elemento nao estiver na lista dos excluidos e a key ainda for True
@@ -152,20 +153,35 @@ def primeira_rodada(taboleiro, excluidos, totaltrevos):
                         excluidos.append(trevo[j])
                 if trevo[i] in excluidos:
                     aVnE = True
+        """
 
+    elementos_vetor = [0, 0, 0, 0]  # usado para verificar se o elemento foi convertido no for em baixo, pois se lhe tirar 20 é dificil verificar se foi feita a operacao
+    posicoes_originais = {}  # dicionário para armazenar as posições originais de cada elemento
+
+    #[1,5,4,10]
+    {0,1,2,3}
+    [1,4,5,10]
+
+    # remove 20 de todos os elementos > 20 e armazena as posições originais
     for i in range(4):
         if trevo[i] > 20:
+            elementos_vetor[i] = 1
             trevo[i] -= 20
+        posicoes_originais[trevo[i]] = i
 
-    trevo.sort()
+    # ordena a lista
+    lista_ordenada = sorted(trevo)
 
+    # adiciona 20 aos elementos correspondentes
     for i in range(4):
-        if trevo[i] > 20:
-            trevo[i] += 20
-        taboleiro[i][i] = trevo[i]
+        if elementos_vetor[posicoes_originais[lista_ordenada[i]]] == 1:
+            lista_ordenada[i] += 20
+
+
+
 
     return False
-def turnoj(nome, taboleiroj, excluidos, totaltrevos, key_inicial, table, jogador):
+def turnoj(nome, taboleiroj, excluidos, totaltrevos, key_inicial, table, jogador):#funcao destinada ao turno do jogador
     print("JOGADOR")
     if key_inicial[1]: #se for a primeira jogada
         key_inicial[1] = primeira_rodada(taboleiroj, excluidos, totaltrevos)
@@ -189,22 +205,26 @@ def turnoj(nome, taboleiroj, excluidos, totaltrevos, key_inicial, table, jogador
             if tabela == "S" or tabela == "s":
                 table.append(trevo)
                 key = False
+                print("\nO trevo %d foi colocado na table\n" % trevo)
             else:
                 linha = int(input("Em que linha queres colocar o trevo: "))
                 coluna = int(input("Em que coluna queres colocar o trevo: "))
 
                 if taboleiroj[linha][coluna] == 0:
                     if verificar_taboleiro(taboleiroj, linha, coluna, trevo):
+                        print("\nO trevo %d foi colocado na linha %d, coluna %d\n" % (trevo, linha, coluna))
                         taboleiroj[linha][coluna] = trevo
                         key = False
                 else:
                     if verificar_taboleiro(taboleiroj, linha, coluna, trevo):
+                        print("\nO trevo %d foi colocado na linha %d, coluna %d\n" % (trevo, linha, coluna))
+                        print("\nO trevo %d foi colocado na table pois foi substituido pelo trevo %d\n" % (trevo, taboleiroj[linha][coluna]))
                         table.append(taboleiroj[linha][coluna])
                         taboleiroj[linha][coluna] = trevo
                         key = False
 
     guardar_na_mem(nome, taboleiroj, excluidos, table, jogador) #vai alterar na memoria os valores do taboleiro pelos atuais
-def turnob(taboleirob, excluidos,totaltrevos, key_inicial, table, jogador):
+def turnob(taboleirob, excluidos,totaltrevos, key_inicial, table, jogador):#funcao destinada ao turno do bot
     if key_inicial[0]:#se for a primeira jogada
         print("BOT")
         key_inicial[0] = primeira_rodada(taboleirob, excluidos, totaltrevos)
@@ -233,9 +253,10 @@ def turnob(taboleirob, excluidos,totaltrevos, key_inicial, table, jogador):
             else:
                 if verificar_taboleiro(taboleirob, linha, coluna, trevo):
                     print("O bot colocou o trevo na linha %d e coluna %d\n" % (linha, coluna))
+                    print("\nO trevo %d foi colocado na table pois foi substituido pelo trevo %d\n" % (trevo, taboleirob[linha][coluna]))
+                    table.append(taboleirob[linha][coluna])
                     taboleirob[linha][coluna] = trevo
                     key = False
-                    excluidos.append(trevo)
 
     exibir_taboleiro(taboleirob)
     guardar_na_mem("BOT", taboleirob, excluidos, table, jogador)
@@ -260,6 +281,7 @@ def opcaoA():
         print("Bot começa!")
         while (not B_preenhido and not J_prenchido) and not (len(trevos) == 40):#as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
             turnob(taboleiroB, trevos, 40, Comeco, table, nome)
+            input("a")
             turnoj(nome,taboleiroJ, trevos, 40, Comeco, table, "BOT")
             #print(table)
             """a = int(input("cheat: "))
@@ -271,6 +293,7 @@ def opcaoA():
         print("O %s começa!" % nome)
         while (not B_preenhido or not J_prenchido) and not (len(trevos) == 40):
             turnoj(nome, taboleiroJ, trevos, 40, Comeco, table, "BOT")
+            input("a")
             turnob(taboleiroB, trevos, 40, Comeco, table, nome)
             #print(table)
             """a = int(input("cheat: "))

@@ -21,13 +21,17 @@ interromper para continuar mais tarde.
 e. Todas as ações dos jogadores devem ser mantidas em memória, apresentando
 na consola as ações do último turno dos dois jogadores"""
 
-def initial_write_to_mem(name_player, player_board):
+def initial_write_to_mem(name_player, player_board, excluidos, table):
     with open("save.txt", "w") as f:
         f.write(name_player +"/"+ str(player_board))
         f.write("\n")
         f.write("BOT/" + str(player_board))
+        f.write("\n")
+        f.write("excluidos/" + str(excluidos))
+        f.write("\n")
+        f.write("table/" + str(table))
     f.close()
-def guardar_na_mem(name, tabuleiro_player):
+def guardar_na_mem(name, tabuleiro_player, excluidos, table):
     dicionario = {}
 
     with open("save.txt", "r") as f:
@@ -42,6 +46,10 @@ def guardar_na_mem(name, tabuleiro_player):
     for x in dicionario.keys():
         if x == name:
             dicionario[x] = tabuleiro_player
+
+    dicionario["excluidos"] = excluidos
+
+    dicionario["table"] = table
 
     with open("save.txt", "w") as f:
         for y in dicionario.keys():
@@ -176,8 +184,8 @@ def turnoj(nome, taboleiroj, excluidos, totaltrevos, key_inicial, table):
                         key = False
 
     exibir_taboleiro(taboleiroj)
-    guardar_na_mem(nome, taboleiroj) #vai alterar na memoria os valores do taboleiro pelos atuais
-def turnob(taboleirob, excluidos,totaltrevos, key_inicial):
+    guardar_na_mem(nome, taboleiroj, excluidos, table) #vai alterar na memoria os valores do taboleiro pelos atuais
+def turnob(taboleirob, excluidos,totaltrevos, key_inicial, table):
     if key_inicial[0]:#se for a primeira jogada
         key_inicial[0] = primeira_rodada(taboleirob, excluidos, totaltrevos)
 
@@ -210,7 +218,7 @@ def turnob(taboleirob, excluidos,totaltrevos, key_inicial):
                     excluidos.append(trevo)
 
     exibir_taboleiro(taboleirob)
-    guardar_na_mem("BOT", taboleirob)
+    guardar_na_mem("BOT", taboleirob, excluidos, table)
 
 def opcaoA():
 
@@ -224,7 +232,7 @@ def opcaoA():
 
     nome = input("\nNome do jogador: ")
 
-    initial_write_to_mem(nome, taboleiroJ) #guarda os taboleiros na mem com os nomes do bot e do jogador
+    initial_write_to_mem(nome, taboleiroJ, trevos, table) #guarda os taboleiros na mem com os nomes do bot e do jogador
 
     numero = random.randint(0, 1) # quem comeca
 
@@ -232,8 +240,52 @@ def opcaoA():
     if numero == 0:
         print("Bot começa!")
         while (not B_preenhido and not J_prenchido) and not (len(trevos) == 40):#as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
-            turnob(taboleiroB, trevos, 40, Comeco)
+            turnob(taboleiroB, trevos, 40, Comeco, table)
             turnoj(nome,taboleiroJ, trevos, 40, Comeco, table)
+            print(table)
+            """a = int(input("cheat: "))
+            if a == 0:
+                B_preenhido = False
+                J_prenchido = False"""
+        # print(trevos)
+    else:
+        print("O %s começa!" % nome)
+        while (not B_preenhido or not J_prenchido) and not (len(trevos) == 40):
+            turnoj(nome, taboleiroJ, trevos, 40, Comeco, table)
+            turnob(taboleiroB, trevos, 40, Comeco, table)
+            print(table)
+            """a = int(input("cheat: "))
+            if a == 0:
+                B_preenhido = False
+                J_prenchido = False"""
+        # print(trevos)
+def opcaoB():
+    dicionario = {}
+    B_preenhido = False  # o bot ja preencheu o taboleiro?
+    J_prenchido = False  # o jogador ja preencheu o taboleiro?
+    trevos = []  # todos os trevos vao parar aqui para que nao haja repeticao na geracao de trevos
+    table = []
+
+    with open("save.txt", "r") as f:
+        linhas = f.readlines()
+
+    for linha in linhas:
+        nome, tabuleiro_str = linha.strip().split("/")
+        tabuleiro = eval(tabuleiro_str)
+        dicionario[nome] = tabuleiro
+
+    taboleiroB = dicionario["BOT"]
+    taboleiroJ = dicionario["asda"]
+
+    numero = random.randint(0, 1)  # quem comeca
+    nome = "asda"
+    Comeco = [True, True]
+
+    if numero == 0:
+        print("Bot começa!")
+        while (not B_preenhido and not J_prenchido) and not (len(trevos) == 40):  # as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
+            turnob(taboleiroB, trevos, 40, Comeco)
+            turnoj(nome, taboleiroJ, trevos, 40, Comeco, table)
             print(table)
             """a = int(input("cheat: "))
             if a == 0:
@@ -250,17 +302,6 @@ def opcaoA():
             if a == 0:
                 B_preenhido = False
                 J_prenchido = False"""
-        # print(trevos)
-def opcaoB():
-    dicionario = {}
-
-    with open("save.txt", "r") as f:
-        linhas = f.readlines()
-
-    for linha in linhas:
-        nome, tabuleiro_str = linha.strip().split("/")
-        tabuleiro = eval(tabuleiro_str)
-        dicionario[nome] = tabuleiro
 
 def opcaoC():
     print(' Lucky Numbers é um jogo de tabuleiro no qual o utilizador tem que fazer uma sequência crescente de números tanto horizontalmente como verticalmente.\n A cada jogada é fornecida um numero novo,exceto quando na jogada anterior o utilizador não tenha posto no tabuleiro o número que lhe foi atribuido ou se trocou com um dos números\n que já estava no tabuleiro, nestes casos, o número substituido vai para a mesa de cima, a qual ambos os jogadores têm acesso\n e que podem utilizar para futuras trocas de números se assim lhes der jeito. ')

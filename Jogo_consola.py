@@ -31,7 +31,7 @@ def initial_write_to_mem(name_player, player_board, excluidos, table):
         f.write("\n")
         f.write("table/" + str(table))
     f.close()
-def guardar_na_mem(name, tabuleiro_player, excluidos, table):
+def guardar_na_mem(name, tabuleiro_player, excluidos, table, jogador):
     dicionario = {}
 
     with open("save.txt", "r") as f:
@@ -41,6 +41,7 @@ def guardar_na_mem(name, tabuleiro_player, excluidos, table):
         nome, tabuleiro_str = linha.strip().split("/")
         tabuleiro = eval(tabuleiro_str)
         dicionario[nome] = tabuleiro
+
     f.close()
 
     for x in dicionario.keys():
@@ -51,13 +52,15 @@ def guardar_na_mem(name, tabuleiro_player, excluidos, table):
 
     dicionario["table"] = table
 
+    dicionario["jogador"] = [jogador]
+
     with open("save.txt", "w") as f:
         for y in dicionario.keys():
             f.write(y + "/" + str(dicionario[y]) + "\n")
 
     f.close()
 
-    print(dicionario)
+    #print(dicionario)
 def exibir_taboleiro(taboleiro):
     for i in range(4):
         print(str(taboleiro[i][0]), " | ", str(taboleiro[i][1]), " | ", str(taboleiro[i][2]), " | ", str(taboleiro[i][3]))
@@ -125,7 +128,21 @@ def primeira_rodada(taboleiro, excluidos, totaltrevos):
     while key:
         trevo = []
         for i in range(4):  # gerar 4 valores de 1 até totaltrevos
-            trevo.append(random.randint(1, totaltrevos))
+            if len(trevo) == 0:
+                b = random.randint(1, totaltrevos)
+                trevo.append(b)
+                excluidos.append(b)
+            else:
+                key1 = True
+                while key1:
+                    t = random.randint(1, totaltrevos)
+                    if t not in trevo:
+                        key1 = False
+                        trevo.append(t)
+                        excluidos.append(t)
+        if len(trevo) == 4:
+            key = False
+
 
         for i in range(4):
             if i == 3:  # se estiver no 4 elemento
@@ -148,10 +165,11 @@ def primeira_rodada(taboleiro, excluidos, totaltrevos):
         taboleiro[i][i] = trevo[i]
 
     return False
-def turnoj(nome, taboleiroj, excluidos, totaltrevos, key_inicial, table):
+def turnoj(nome, taboleiroj, excluidos, totaltrevos, key_inicial, table, jogador):
     print("JOGADOR")
     if key_inicial[1]: #se for a primeira jogada
         key_inicial[1] = primeira_rodada(taboleiroj, excluidos, totaltrevos)
+        exibir_taboleiro(taboleiroj)
 
     else:
         key = True
@@ -163,6 +181,8 @@ def turnoj(nome, taboleiroj, excluidos, totaltrevos, key_inicial, table):
 
         key = True
         print("Trevo - ", trevo)
+
+        exibir_taboleiro(taboleiroj)
 
         while key:
             tabela = input("Queres colocar o trevo na table (S/N): ")
@@ -183,10 +203,10 @@ def turnoj(nome, taboleiroj, excluidos, totaltrevos, key_inicial, table):
                         taboleiroj[linha][coluna] = trevo
                         key = False
 
-    exibir_taboleiro(taboleiroj)
-    guardar_na_mem(nome, taboleiroj, excluidos, table) #vai alterar na memoria os valores do taboleiro pelos atuais
-def turnob(taboleirob, excluidos,totaltrevos, key_inicial, table):
+    guardar_na_mem(nome, taboleiroj, excluidos, table, jogador) #vai alterar na memoria os valores do taboleiro pelos atuais
+def turnob(taboleirob, excluidos,totaltrevos, key_inicial, table, jogador):
     if key_inicial[0]:#se for a primeira jogada
+        print("BOT")
         key_inicial[0] = primeira_rodada(taboleirob, excluidos, totaltrevos)
 
     else:
@@ -218,8 +238,7 @@ def turnob(taboleirob, excluidos,totaltrevos, key_inicial, table):
                     excluidos.append(trevo)
 
     exibir_taboleiro(taboleirob)
-    guardar_na_mem("BOT", taboleirob, excluidos, table)
-
+    guardar_na_mem("BOT", taboleirob, excluidos, table, jogador)
 def opcaoA():
 
     B_preenhido = False #o bot ja preencheu o taboleiro?
@@ -240,9 +259,9 @@ def opcaoA():
     if numero == 0:
         print("Bot começa!")
         while (not B_preenhido and not J_prenchido) and not (len(trevos) == 40):#as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
-            turnob(taboleiroB, trevos, 40, Comeco, table)
-            turnoj(nome,taboleiroJ, trevos, 40, Comeco, table)
-            print(table)
+            turnob(taboleiroB, trevos, 40, Comeco, table, nome)
+            turnoj(nome,taboleiroJ, trevos, 40, Comeco, table, "BOT")
+            #print(table)
             """a = int(input("cheat: "))
             if a == 0:
                 B_preenhido = False
@@ -251,9 +270,9 @@ def opcaoA():
     else:
         print("O %s começa!" % nome)
         while (not B_preenhido or not J_prenchido) and not (len(trevos) == 40):
-            turnoj(nome, taboleiroJ, trevos, 40, Comeco, table)
-            turnob(taboleiroB, trevos, 40, Comeco, table)
-            print(table)
+            turnoj(nome, taboleiroJ, trevos, 40, Comeco, table, "BOT")
+            turnob(taboleiroB, trevos, 40, Comeco, table, nome)
+            #print(table)
             """a = int(input("cheat: "))
             if a == 0:
                 B_preenhido = False
@@ -274,18 +293,19 @@ def opcaoB():
         tabuleiro = eval(tabuleiro_str)
         dicionario[nome] = tabuleiro
 
-    taboleiroB = dicionario["BOT"]
-    taboleiroJ = dicionario["asda"]
+    taboleiroB = dicionario["BOT"] #taboleiro do bot com base na memoria
+    taboleiroJ = dicionario["aa"] #taboleiro do jogador com base na memoria
 
-    numero = random.randint(0, 1)  # quem comeca
-    nome = "asda"
-    Comeco = [True, True]
+    prox_jogador = dicionario["jogador"] #proximo jogador a jogar com base na memoria
+    #numero = random.randint(0, 1)  # quem comeca
+    nome = "aa"
+    Comeco = [False, False]
 
-    if numero == 0:
+    if prox_jogador == "BOT":
         print("Bot começa!")
         while (not B_preenhido and not J_prenchido) and not (len(trevos) == 40):  # as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
-            turnob(taboleiroB, trevos, 40, Comeco)
-            turnoj(nome, taboleiroJ, trevos, 40, Comeco, table)
+            turnob(taboleiroB, trevos, 40, Comeco, table, nome)
+            turnoj(nome, taboleiroJ, trevos, 40, Comeco, table, "BOT")
             print(table)
             """a = int(input("cheat: "))
             if a == 0:
@@ -295,8 +315,8 @@ def opcaoB():
     else:
         print("O %s começa!" % nome)
         while (not B_preenhido or not J_prenchido) and not (len(trevos) == 40):
-            turnoj(nome, taboleiroJ, trevos, 40, Comeco, table)
-            turnob(taboleiroB, trevos, 40, Comeco)
+            turnoj(nome, taboleiroJ, trevos, 40, Comeco, table, "BOT")
+            turnob(taboleiroB, trevos, 40, Comeco, table, nome)
             print(table)
             """a = int(input("cheat: "))
             if a == 0:

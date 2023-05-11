@@ -43,7 +43,7 @@ class Botao(pygame.sprite.Sprite):
 screen = pygame.display.set_mode((largura, altura))
 
 # dá load da imagem
-imagem_fundo = pygame.image.load("imagens_jogo/background_edit.jpg").convert()
+imagem_fundo = pygame.image.load("imagens_jogo/background_edit.jpg").convert_alpha()
 imagem_fundo = pygame.transform.scale(imagem_fundo, (500, 500))
 
 # faz o blit + posicao da imagem
@@ -66,10 +66,10 @@ Botao4 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="ima
 Botao4.rect.center = (516, 100)
 
 # dá load da imagem
-imagem1_fundo = pygame.image.load("imagens_jogo/1_de_verde.png").convert()
-imagem2_fundo = pygame.image.load("imagens_jogo/2_de_verde.png").convert()
-imagem3_fundo = pygame.image.load("imagens_jogo/3_de_verde.png").convert()
-imagem4_fundo = pygame.image.load("imagens_jogo/4_de_verde.png").convert()
+imagem1_fundo = pygame.image.load("imagens_jogo/1_de_verde.png").convert_alpha()
+imagem2_fundo = pygame.image.load("imagens_jogo/2_de_verde.png").convert_alpha()
+imagem3_fundo = pygame.image.load("imagens_jogo/3_de_verde.png").convert_alpha()
+imagem4_fundo = pygame.image.load("imagens_jogo/4_de_verde.png").convert_alpha()
 
 imagem1_verde_exibida = False
 imagem2_verde_exibida = False
@@ -90,7 +90,7 @@ while True:
             print("IMAGEM1")
 
             # exibe a imagem 1 verde
-            imagem1_fundo = pygame.transform.scale(imagem1_fundo, (50, 50))
+            imagem1_fundo = pygame.transform.scale(imagem1_fundo, (130, 130))
             screen.blit(imagem1_fundo, (10, 10))
             imagem1_verde_exibida = True
 

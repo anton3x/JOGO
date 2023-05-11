@@ -158,10 +158,6 @@ def primeira_rodada(taboleiro, excluidos, totaltrevos): #funcao destinada a gera
     elementos_vetor = [0, 0, 0, 0]  # usado para verificar se o elemento foi convertido no for em baixo, pois se lhe tirar 20 é dificil verificar se foi feita a operacao
     posicoes_originais = {}  # dicionário para armazenar as posições originais de cada elemento
 
-    #[1,5,4,10]
-    {0,1,2,3}
-    [1,4,5,10]
-
     # remove 20 de todos os elementos > 20 e armazena as posições originais
     for i in range(4):
         if trevo[i] > 20:
@@ -177,8 +173,7 @@ def primeira_rodada(taboleiro, excluidos, totaltrevos): #funcao destinada a gera
         if elementos_vetor[posicoes_originais[lista_ordenada[i]]] == 1:
             lista_ordenada[i] += 20
 
-
-
+        taboleiro[i][i] = lista_ordenada[i]
 
     return False
 def turnoj(nome, taboleiroj, excluidos, totaltrevos, key_inicial, table, jogador):#funcao destinada ao turno do jogador
@@ -281,7 +276,6 @@ def opcaoA():
         print("Bot começa!")
         while (not B_preenhido and not J_prenchido) and not (len(trevos) == 40):#as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
             turnob(taboleiroB, trevos, 40, Comeco, table, nome)
-            input("a")
             turnoj(nome,taboleiroJ, trevos, 40, Comeco, table, "BOT")
             #print(table)
             """a = int(input("cheat: "))
@@ -293,7 +287,6 @@ def opcaoA():
         print("O %s começa!" % nome)
         while (not B_preenhido or not J_prenchido) and not (len(trevos) == 40):
             turnoj(nome, taboleiroJ, trevos, 40, Comeco, table, "BOT")
-            input("a")
             turnob(taboleiroB, trevos, 40, Comeco, table, nome)
             #print(table)
             """a = int(input("cheat: "))
@@ -318,8 +311,9 @@ def opcaoB():
 
     taboleiroB = dicionario["BOT"] #taboleiro do bot com base na memoria
     taboleiroJ = dicionario["aa"] #taboleiro do jogador com base na memoria
-
     prox_jogador = dicionario["jogador"] #proximo jogador a jogar com base na memoria
+    trevos = dicionario["excluidos"] #obter os trevos "excluidos" que ja foram usados
+    table = dicionario["table"] #obter os trevos que estavam na table
     #numero = random.randint(0, 1)  # quem comeca
     nome = "aa"
     Comeco = [False, False]

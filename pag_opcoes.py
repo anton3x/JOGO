@@ -100,8 +100,6 @@ def main_menu():
 
             pygame.display.update()
     pygame.quit()
-
-
 def tela1():
     pygame.init()
     #fps = pygame.time.Clock()

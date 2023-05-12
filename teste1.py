@@ -16,7 +16,7 @@ posx4 = 411
 posy4 = posy1
 
 posx5 = posx1
-posy5 = 345
+posy5 = 344
 posx6 = posx2
 posy6 = posy5
 posx7 = posx3
@@ -25,7 +25,7 @@ posx8 = posx4
 posy8 = posy5
 
 posx9 = posx1
-posy9 = 431
+posy9 = 429
 posx10 = posx2
 posy10 = posy9
 posx11 = posx3
@@ -34,7 +34,7 @@ posx12 = posx4
 posy12 = posy9
 
 posx13 = posx1
-posy13 = 517
+posy13 = 514
 posx14 = posx2
 posy14 = posy13
 posx15 = posx3
@@ -174,7 +174,6 @@ while True:
         imagem1_fundo = pygame.transform.scale(imagem1_fundo, (73, 73))
         screen.blit(imagem1_fundo, (posx1-36, posy1-36))
         imagem1_verde_exibida = True
-
     if Botao2.touche == True and not imagem2_verde_exibida:
         print("IMAGEM2")
 
@@ -182,8 +181,6 @@ while True:
         imagem2_fundo = pygame.transform.scale(imagem2_fundo, (73, 73))
         screen.blit(imagem2_fundo, (posx2-36, posy2-36))
         imagem2_verde_exibida = True
-
-
     if Botao3.touche == True and not imagem3_verde_exibida:
         print("IMAGEM3")
 
@@ -191,7 +188,6 @@ while True:
         imagem3_fundo = pygame.transform.scale(imagem3_fundo, (73, 73))
         screen.blit(imagem3_fundo, (posx3-36, posy3-36))
         imagem3_verde_exibida = True
-
     if Botao4.touche == True and not imagem4_verde_exibida:
         print("IMAGEM4")
 
@@ -199,97 +195,90 @@ while True:
         imagem4_fundo = pygame.transform.scale(imagem4_fundo, (73, 73))
         screen.blit(imagem4_fundo, (posx4-36, posy4-36))
         imagem4_verde_exibida = True
-    if Botao1.touche == True and not imagem1_verde_exibida:
-        print("IMAGEM1")
+    if Botao5.touche == True and not imagem5_verde_exibida:
+        print("IMAGEM5")
 
         # exibe a imagem 1 verde
-        imagem1_fundo = pygame.transform.scale(imagem1_fundo, (73, 73))
-        screen.blit(imagem1_fundo, (153-36, 259-36))
-        imagem1_verde_exibida = True
-    if Botao1.touche == True and not imagem1_verde_exibida:
-        print("IMAGEM1")
+        imagem5_fundo = pygame.transform.scale(imagem5_fundo, (73, 73))
+        screen.blit(imagem5_fundo, (posx5-36, posy5-36))
+        imagem5_verde_exibida = True
+    if Botao6.touche == True and not imagem6_verde_exibida:
+        print("IMAGEM6")
 
         # exibe a imagem 1 verde
-        imagem1_fundo = pygame.transform.scale(imagem1_fundo, (73, 73))
-        screen.blit(imagem1_fundo, (153-36, 259-36))
-        imagem1_verde_exibida = True
-    if Botao1.touche == True and not imagem1_verde_exibida:
-        print("IMAGEM1")
+        imagem6_fundo = pygame.transform.scale(imagem6_fundo, (73, 73))
+        screen.blit(imagem6_fundo, (posx6-36, posy6-36))
+        imagem6_verde_exibida = True
+    if Botao7.touche == True and not imagem7_verde_exibida:
+        print("IMAGEM7")
 
         # exibe a imagem 1 verde
-        imagem1_fundo = pygame.transform.scale(imagem1_fundo, (73, 73))
-        screen.blit(imagem1_fundo, (153-36, 259-36))
-        imagem1_verde_exibida = True
-    if Botao1.touche == True and not imagem1_verde_exibida:
-        print("IMAGEM1")
+        imagem7_fundo = pygame.transform.scale(imagem7_fundo, (73, 73))
+        screen.blit(imagem7_fundo, (153-36, 259-36))
+        imagem7_verde_exibida = True
+    if Botao8.touche == True and not imagem8_verde_exibida:
+        print("IMAGEM8")
 
         # exibe a imagem 1 verde
-        imagem1_fundo = pygame.transform.scale(imagem1_fundo, (73, 73))
-        screen.blit(imagem1_fundo, (153-36, 259-36))
-        imagem1_verde_exibida = True
-    if Botao1.touche == True and not imagem1_verde_exibida:
-        print("IMAGEM1")
+        imagem8_fundo = pygame.transform.scale(imagem8_fundo, (73, 73))
+        screen.blit(imagem8_fundo, (posx8-36, posy8-36))
+        imagem8_verde_exibida = True
+    if Botao9.touche == True and not imagem9_verde_exibida:
+        print("IMAGEM9")
 
         # exibe a imagem 1 verde
-        imagem1_fundo = pygame.transform.scale(imagem1_fundo, (73, 73))
-        screen.blit(imagem1_fundo, (153-36, 259-36))
-        imagem1_verde_exibida = True
-    if Botao1.touche == True and not imagem1_verde_exibida:
-        print("IMAGEM1")
+        imagem9_fundo = pygame.transform.scale(imagem9_fundo, (73, 73))
+        screen.blit(imagem9_fundo, (posx9-36, posy9-36))
+        imagem9_verde_exibida = True
+    if Botao10.touche == True and not imagem10_verde_exibida:
+        print("IMAGEM10")
 
         # exibe a imagem 1 verde
-        imagem1_fundo = pygame.transform.scale(imagem1_fundo, (73, 73))
-        screen.blit(imagem1_fundo, (153-36, 259-36))
-        imagem1_verde_exibida = True
-    if Botao1.touche == True and not imagem1_verde_exibida:
-        print("IMAGEM1")
+        imagem10_fundo = pygame.transform.scale(imagem10_fundo, (73, 73))
+        screen.blit(imagem10_fundo, (posx10-36, posy10-36))
+        imagem10_verde_exibida = True
+    if Botao11.touche == True and not imagem11_verde_exibida:
+        print("IMAGEM11")
 
         # exibe a imagem 1 verde
-        imagem1_fundo = pygame.transform.scale(imagem1_fundo, (73, 73))
-        screen.blit(imagem1_fundo, (153-36, 259-36))
-        imagem1_verde_exibida = True
-    if Botao1.touche == True and not imagem1_verde_exibida:
-        print("IMAGEM1")
+        imagem11_fundo = pygame.transform.scale(imagem11_fundo, (73, 73))
+        screen.blit(imagem11_fundo, (posx11-36, posy11-36))
+        imagem11_verde_exibida = True
+    if Botao12.touche == True and not imagem12_verde_exibida:
+        print("IMAGEM12")
 
         # exibe a imagem 1 verde
-        imagem1_fundo = pygame.transform.scale(imagem1_fundo, (73, 73))
-        screen.blit(imagem1_fundo, (153-36, 259-36))
-        imagem1_verde_exibida = True
-    if Botao1.touche == True and not imagem1_verde_exibida:
-        print("IMAGEM1")
+        imagem12_fundo = pygame.transform.scale(imagem12_fundo, (73, 73))
+        screen.blit(imagem12_fundo, (posx12-36, posy12-36))
+        imagem12_verde_exibida = True
+    if Botao13.touche == True and not imagem13_verde_exibida:
+        print("IMAGEM13")
 
         # exibe a imagem 1 verde
-        imagem1_fundo = pygame.transform.scale(imagem1_fundo, (73, 73))
-        screen.blit(imagem1_fundo, (153-36, 259-36))
-        imagem1_verde_exibida = True
-    if Botao1.touche == True and not imagem1_verde_exibida:
-        print("IMAGEM1")
+        imagem13_fundo = pygame.transform.scale(imagem13_fundo, (73, 73))
+        screen.blit(imagem13_fundo, (posx13-36, posy13-36))
+        imagem13_verde_exibida = True
+    if Botao14.touche == True and not imagem14_verde_exibida:
+        print("IMAGEM14")
 
         # exibe a imagem 1 verde
-        imagem1_fundo = pygame.transform.scale(imagem1_fundo, (73, 73))
-        screen.blit(imagem1_fundo, (153-36, 259-36))
-        imagem1_verde_exibida = True
-    if Botao1.touche == True and not imagem1_verde_exibida:
-        print("IMAGEM1")
+        imagem14_fundo = pygame.transform.scale(imagem14_fundo, (73, 73))
+        screen.blit(imagem14_fundo, (posx14-36, posy14-36))
+        imagem14_verde_exibida = True
+    if Botao15.touche == True and not imagem15_verde_exibida:
+        print("IMAGEM15")
 
         # exibe a imagem 1 verde
-        imagem1_fundo = pygame.transform.scale(imagem1_fundo, (73, 73))
-        screen.blit(imagem1_fundo, (153-36, 259-36))
-        imagem1_verde_exibida = True
-    if Botao1.touche == True and not imagem1_verde_exibida:
-        print("IMAGEM1")
+        imagem15_fundo = pygame.transform.scale(imagem15_fundo, (73, 73))
+        screen.blit(imagem15_fundo, (posx15-36, posy15-36))
+        imagem15_verde_exibida = True
+    if Botao16.touche == True and not imagem16_verde_exibida:
+        print("IMAGEM16")
 
         # exibe a imagem 1 verde
-        imagem1_fundo = pygame.transform.scale(imagem1_fundo, (73, 73))
-        screen.blit(imagem1_fundo, (153-36, 259-36))
-        imagem1_verde_exibida = True
-    if Botao1.touche == True and not imagem1_verde_exibida:
-        print("IMAGEM1")
-
-        # exibe a imagem 1 verde
-        imagem1_fundo = pygame.transform.scale(imagem1_fundo, (73, 73))
-        screen.blit(imagem1_fundo, (153-36, 259-36))
-        imagem1_verde_exibida = True
+        imagem16_fundo = pygame.transform.scale(imagem16_fundo, (73, 73))
+        screen.blit(imagem16_fundo, (posx16-36, posy16-36))
+        imagem16_verde_exibida = True
 
 
     ButtonGrups.draw(screen)
@@ -305,6 +294,30 @@ while True:
         screen.blit(imagem3_fundo, (posx3-36, posy3-36))
     if imagem4_verde_exibida:  # evitar que seja possivel clicar varias vezes
         screen.blit(imagem4_fundo, (posx4-36, posy4-36))
+    if imagem5_verde_exibida:  # evitar que seja possivel clicar varias vezes
+        screen.blit(imagem5_fundo, (posx5-36, posy5-36))
+    if imagem6_verde_exibida:  # evitar que seja possivel clicar varias vezes
+        screen.blit(imagem6_fundo, (posx6-36, posy6-36))
+    if imagem7_verde_exibida:  # evitar que seja possivel clicar varias vezes
+        screen.blit(imagem7_fundo, (posx7-36, posy7-36))
+    if imagem8_verde_exibida:  # evitar que seja possivel clicar varias vezes
+        screen.blit(imagem8_fundo, (posx8-36, posy8-36))
+    if imagem9_verde_exibida:  # evitar que seja possivel clicar varias vezes
+        screen.blit(imagem9_fundo, (posx9-36, posy9-36))
+    if imagem10_verde_exibida:  # evitar que seja possivel clicar varias vezes
+        screen.blit(imagem10_fundo, (posx10-36, posy10-36))
+    if imagem11_verde_exibida:  # evitar que seja possivel clicar varias vezes
+        screen.blit(imagem11_fundo, (posx11-36, posy11-36))
+    if imagem12_verde_exibida:  # evitar que seja possivel clicar varias vezes
+        screen.blit(imagem12_fundo, (posx12-36, posy12-36))
+    if imagem13_verde_exibida:  # evitar que seja possivel clicar varias vezes
+        screen.blit(imagem13_fundo, (posx13-36, posy13-36))
+    if imagem14_verde_exibida:  # evitar que seja possivel clicar varias vezes
+        screen.blit(imagem14_fundo, (posx14-36, posy14-36))
+    if imagem15_verde_exibida:  # evitar que seja possivel clicar varias vezes
+        screen.blit(imagem15_fundo, (posx15-36, posy15-36))
+    if imagem16_verde_exibida:  # evitar que seja possivel clicar varias vezes
+        screen.blit(imagem16_fundo, (posx16-36, posy16-36))
 
     pygame.display.flip()
     pygame.display.update()

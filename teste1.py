@@ -6,8 +6,8 @@ posy = 100
 
 pygame.init()
 
-largura = 800
-altura = 800
+largura = 1200
+altura = 700
 
 cor_de_fundo = pygame.Color(0, 132, 252)  # cor vai ser o azul usado na tela dos botoes inicial
 
@@ -43,8 +43,8 @@ class Botao(pygame.sprite.Sprite):
 screen = pygame.display.set_mode((largura, altura))
 
 # dá load da imagem
-imagem_fundo = pygame.image.load("imagens_jogo/background_edit.jpg").convert_alpha()
-imagem_fundo = pygame.transform.scale(imagem_fundo, (500, 500))
+imagem_fundo = pygame.image.load("imagens_jogo/jogo_2_jogadores.jpg").convert_alpha()
+imagem_fundo = pygame.transform.scale(imagem_fundo, (1200, 700))
 
 # faz o blit + posicao da imagem
 screen.blit(imagem_fundo, (10, 10))

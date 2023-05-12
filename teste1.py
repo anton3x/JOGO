@@ -43,11 +43,11 @@ class Botao(pygame.sprite.Sprite):
 screen = pygame.display.set_mode((largura, altura))
 
 # dá load da imagem
-imagem_fundo = pygame.image.load("imagens_jogo/jogo_2_jogadores.jpg").convert_alpha()
+imagem_fundo = pygame.image.load("imagens_jogo/template_jogo_final.png").convert_alpha()
 imagem_fundo = pygame.transform.scale(imagem_fundo, (1200, 700))
 
 # faz o blit + posicao da imagem
-screen.blit(imagem_fundo, (10, 10))
+screen.blit(imagem_fundo, (0, 0))
 
 # é uma função do Pygame que atualiza a tela.
 pygame.display.flip()
@@ -91,7 +91,7 @@ while True:
 
             # exibe a imagem 1 verde
             imagem1_fundo = pygame.transform.scale(imagem1_fundo, (130, 130))
-            screen.blit(imagem1_fundo, (10, 10))
+            screen.blit(imagem1_fundo, (0, 0))
             imagem1_verde_exibida = True
 
         if Botao2.touche == True and not imagem2_verde_exibida:
@@ -121,7 +121,7 @@ while True:
         ButtonGrups.draw(screen)
 
     screen.fill(cor_de_fundo)
-    screen.blit(imagem_fundo, (10, 10))
+    screen.blit(imagem_fundo, (0, 0))
 
     if imagem1_verde_exibida: #evitar que seja possivel clicar varias vezes
         screen.blit(imagem1_fundo, (70, 70))

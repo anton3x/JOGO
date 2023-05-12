@@ -151,6 +151,7 @@ def botao1():
                    image2="imagens_gerais/voltaratras.png")
     Botao1.rect.center = (250, 300)
 
+
     while JogoLoop:
         #fps.tick(60)
         for event in pygame.event.get():

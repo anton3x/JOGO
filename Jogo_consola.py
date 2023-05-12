@@ -113,7 +113,7 @@ def primeira_rodada(taboleiro, excluidos, totaltrevos):
 
 def turnoj(taboleiroj, excluidos, totaltrevos, key_inicial, table):
     print("JOGADOR")
-    if key_inicial[1]: #se for a primeira jogada
+    if key_inicial[1]:#se for a primeira jogada
         key_inicial[1] = primeira_rodada(taboleiroj, excluidos, totaltrevos)
 
     else:
@@ -215,7 +215,7 @@ def opcaoA():
         # print(trevos)
     else:
         print("O %s começa!" % nome)
-        while not (B_preenhido or not J_prenchido) and not (len(trevos) == 40):
+        while (not B_preenhido or not J_prenchido) and not (len(trevos) == 40):
             turnoj(taboleiroJ, trevos, 40, Comeco, table)
             turnob(taboleiroB, trevos, 40, Comeco, table)
             print(table)

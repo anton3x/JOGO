@@ -79,14 +79,14 @@ def exibir_taboleiro(taboleiro,screen, posx1, posx2, posx3, posx4, posx5, posx6,
         for j in range(4):#colunas
             n_botao += 1
             if taboleiro[i][j] !=0:
-                imagem_fundo = pygame.image.load("trevos/" + str(taboleiro[0][0]) + ".png").convert_alpha()
+                imagem_fundo = pygame.image.load("trevos/" + str(taboleiro[i][j]) + ".png").convert_alpha()
                 imagem_fundo = pygame.transform.scale(imagem_fundo, (73, 73))
                 x = eval("posx" + str(n_botao))
                 y = eval("posy" + str(n_botao))
                 screen.blit(imagem_fundo, (x - 36, y - 36))
 
     if taboleiro[4][0] != 0:
-        imagem_fundo = pygame.image.load("trevos/" + str(taboleiro[0][0]) + ".png").convert_alpha()
+        imagem_fundo = pygame.image.load("trevos/" + str(taboleiro[4][0]) + ".png").convert_alpha()
         imagem_fundo = pygame.transform.scale(imagem_fundo, (73, 73))
         x = 281
         y = 615
@@ -744,8 +744,8 @@ def tela6(nome):
         print("Bot começa!")
         while (not B_preenhido and not J_prenchido) and not (len(trevos) == 40):  # as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
             #aaa(imagem1_verde_exibida, imagem1_fundo, imagem17_fundo, imagem17_verde_exibida, Botao1, Botao17, screen, posx1, posy1, cor_de_fundo, imagem_fundo, ButtonGrups)
-            turnob(taboleiroB, trevos, 40, Comeco, table, nome)
-            turnoj(imagem_fundo,screen, nome, taboleiroJ, trevos, 40, Comeco, table, "BOT", imagem17_fundo,ButtonGrups, imagem2_fundo, imagem3_fundo, imagem4_fundo, imagem5_fundo, imagem6_fundo,
+            turnob(taboleiroB, trevos, 20, Comeco, table, nome)
+            turnoj(imagem_fundo,screen, nome, taboleiroJ, trevos, 20, Comeco, table, "BOT", imagem17_fundo,ButtonGrups, imagem2_fundo, imagem3_fundo, imagem4_fundo, imagem5_fundo, imagem6_fundo,
                                       imagem7_fundo, imagem8_fundo, imagem9_fundo, imagem10_fundo, imagem11_fundo,
                                       imagem12_fundo, imagem13_fundo, imagem14_fundo, imagem15_fundo, imagem16_fundo,
                                       Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
@@ -769,7 +769,7 @@ def tela6(nome):
         print("O %s começa!" % nome)
         while (not B_preenhido or not J_prenchido) and not (len(trevos) == 40):
             #aaa(imagem1_verde_exibida, imagem1_fundo, imagem17_fundo, imagem17_verde_exibida, Botao1, Botao17, screen, posx1, posy1, cor_de_fundo, imagem_fundo, ButtonGrups)
-            turnoj(imagem_fundo,screen, nome, taboleiroJ, trevos, 40, Comeco, table, "BOT", imagem17_fundo, ButtonGrups, imagem2_fundo, imagem3_fundo, imagem4_fundo, imagem5_fundo, imagem6_fundo,
+            turnoj(imagem_fundo,screen, nome, taboleiroJ, trevos, 20, Comeco, table, "BOT", imagem17_fundo, ButtonGrups, imagem2_fundo, imagem3_fundo, imagem4_fundo, imagem5_fundo, imagem6_fundo,
                                       imagem7_fundo, imagem8_fundo, imagem9_fundo, imagem10_fundo, imagem11_fundo,
                                       imagem12_fundo, imagem13_fundo, imagem14_fundo, imagem15_fundo, imagem16_fundo,
                                       Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
@@ -782,7 +782,7 @@ def tela6(nome):
                                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                                       posy14, posy15, posy16)
-            turnob(taboleiroB, trevos, 40, Comeco, table, nome)
+            turnob(taboleiroB, trevos, 20, Comeco, table, nome)
 
             # print(table)
             """a = int(input("cheat: "))

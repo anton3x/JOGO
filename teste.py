@@ -1,5 +1,6 @@
 import copy
-
+from config_jog1 import *
+from config_jog2 import *
 import pygame
 import pygame_gui
 import sys
@@ -68,29 +69,47 @@ def guardar_na_mem(name, tabuleiro_player, excluidos, table, jogador):
     f.close()
 
     #print(dicionario)
-def exibir_taboleiro(taboleiro,screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,posy14, posy15, posy16):
+def exibir_taboleiro(taboleiro,screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1, Bot=0):
     for i in range(4):
         print(str(taboleiro[i][0]), " | ", str(taboleiro[i][1]), " | ", str(taboleiro[i][2]), " | ", str(taboleiro[i][3]))
     print("\n")
-
-
     n_botao = 0
-    for i in range(4):#linhas
-        for j in range(4):#colunas
-            n_botao += 1
-            if taboleiro[i][j] !=0:
-                imagem_fundo = pygame.image.load("trevos/" + str(taboleiro[i][j]) + ".png").convert_alpha()
-                imagem_fundo = pygame.transform.scale(imagem_fundo, (73, 73))
-                x = eval("posx" + str(n_botao))
-                y = eval("posy" + str(n_botao))
-                screen.blit(imagem_fundo, (x - 36, y - 36))
 
-    if taboleiro[4][0] != 0:
-        imagem_fundo = pygame.image.load("trevos/" + str(taboleiro[4][0]) + ".png").convert_alpha()
-        imagem_fundo = pygame.transform.scale(imagem_fundo, (73, 73))
-        x = 281
-        y = 615
-        screen.blit(imagem_fundo, (x - 36, y - 36))
+    if Bot != 1:
+        for i in range(4):#linhas
+            for j in range(4):#colunas
+                n_botao += 1
+                if taboleiro[i][j] !=0:
+                    imagem_fundo = pygame.image.load("trevos/" + str(taboleiro[i][j]) + ".png").convert_alpha()
+                    imagem_fundo = pygame.transform.scale(imagem_fundo, (73, 73))
+                    x = eval("posx" + str(n_botao))
+                    y = eval("posy" + str(n_botao))
+                    screen.blit(imagem_fundo, (x - 36, y - 36))
+
+        if taboleiro[4][0] != 0:
+            imagem_fundo = pygame.image.load("trevos/" + str(taboleiro[4][0]) + ".png").convert_alpha()
+            imagem_fundo = pygame.transform.scale(imagem_fundo, (73, 73))
+            x = 281
+            y = 615
+            screen.blit(imagem_fundo, (x - 36, y - 36))
+    else:
+        for i in range(4):  # linhas
+            for j in range(4):  # colunas
+                n_botao += 1
+                if taboleiro[i][j] != 0:
+                    imagem_fundo = pygame.image.load("trevos/" + str(taboleiro[i][j]) + ".png").convert_alpha()
+                    imagem_fundo = pygame.transform.scale(imagem_fundo, (73, 73))
+                    x = eval("posx" + str(n_botao) + "_1")
+                    y = eval("posy" + str(n_botao)+ "_1")
+                    screen.blit(imagem_fundo, (x - 36, y - 36))
+
+        if taboleiro[4][0] != 0:
+            imagem_fundo = pygame.image.load("trevos/" + str(taboleiro[4][0]) + ".png").convert_alpha()
+            imagem_fundo = pygame.transform.scale(imagem_fundo, (73, 73))
+            x = 726
+            y = 615
+            screen.blit(imagem_fundo, (x - 36, y - 36))
+
 
 
     pygame.display.flip()
@@ -229,7 +248,7 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
             exibir_taboleiro(taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                              posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                              posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                             posy14, posy15, posy16)
+                             posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
             pygame.display.flip()
             pygame.display.update()
 
@@ -272,7 +291,7 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                                          posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                          posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12,
                                          posy13,
-                                         posy14, posy15, posy16)
+                                         posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
                         pygame.display.flip()
                         pygame.display.update()
 
@@ -292,7 +311,7 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                     exibir_taboleiro(taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                      posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                      posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                     posy14, posy15, posy16)
+                                     posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
                     pygame.display.flip()
                     pygame.display.update()
 
@@ -328,7 +347,7 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                 exibir_taboleiro(taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                  posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                  posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                 posy14, posy15, posy16)
+                                 posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
                 Botao18.touche = False
                 pygame.display.flip()
                 pygame.display.update()
@@ -338,7 +357,7 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                 exibir_taboleiro(taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                  posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                  posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                 posy14, posy15, posy16)
+                                 posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
                 pygame.display.flip()
                 pygame.display.update()
 
@@ -385,13 +404,15 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                 break
 
     guardar_na_mem(nome, taboleiroj, excluidos, table, jogador) #vai alterar na memoria os valores do taboleiro pelos atuais
-def turnob(taboleirob, excluidos,totaltrevos, key_inicial, table, jogador):#funcao destinada ao turno do bot
+def turnob(screen, taboleirob, excluidos,totaltrevos, key_inicial, table, jogador):#funcao destinada ao turno do bot
     if key_inicial[0]:#se for a primeira jogada
         print("BOT")
         key_inicial[0] = primeira_rodada(taboleirob, excluidos, totaltrevos)
+
         for i in range(4):
             print(str(taboleirob[i][0]), " | ", str(taboleirob[i][1]), " | ", str(taboleirob[i][2]), " | ", str(taboleirob[i][3]))
         print("\n")
+
 
     else:
         print("BOT")
@@ -425,7 +446,7 @@ def turnob(taboleirob, excluidos,totaltrevos, key_inicial, table, jogador):#func
             print(str(taboleirob[i][0]), " | ", str(taboleirob[i][1]), " | ", str(taboleirob[i][2]), " | ",
                   str(taboleirob[i][3]))
         print("\n")
-    #exibir_taboleiro(taboleirob)
+
     guardar_na_mem("BOT", taboleirob, excluidos, table, jogador)
 def main_menu():
     #pygame.init()
@@ -587,60 +608,6 @@ def tela6(nome):
     largura = 1200
     altura = 700
 
-    posx1 = 153
-    posy1 = 259
-    posx2 = 239
-    posy2 = posy1
-    posx3 = 325
-    posy3 = posy1
-    posx4 = 411
-    posy4 = posy1
-
-    posx5 = posx1
-    posy5 = 344
-    posx6 = posx2
-    posy6 = posy5
-    posx7 = posx3
-    posy7 = posy5
-    posx8 = posx4
-    posy8 = posy5
-
-    posx9 = posx1
-    posy9 = 429
-    posx10 = posx2
-    posy10 = posy9
-    posx11 = posx3
-    posy11 = posy9
-    posx12 = posx4
-    posy12 = posy9
-
-    posx13 = posx1
-    posy13 = 514
-    posx14 = posx2
-    posy14 = posy13
-    posx15 = posx3
-    posy15 = posy13
-    posx16 = posx4
-    posy16 = posy13
-
-    imagem1_verde_exibida = False
-    imagem2_verde_exibida = False
-    imagem3_verde_exibida = False
-    imagem4_verde_exibida = False
-    imagem5_verde_exibida = False
-    imagem6_verde_exibida = False
-    imagem7_verde_exibida = False
-    imagem8_verde_exibida = False
-    imagem9_verde_exibida = False
-    imagem10_verde_exibida = False
-    imagem11_verde_exibida = False
-    imagem12_verde_exibida = False
-    imagem13_verde_exibida = False
-    imagem14_verde_exibida = False
-    imagem15_verde_exibida = False
-    imagem16_verde_exibida = False
-    imagem17_verde_exibida = False
-
     cor_de_fundo = pygame.Color(0, 132, 252)  # cor vai ser o azul usado na tela dos botoes inicial
 
     class Botao(pygame.sprite.Sprite):
@@ -681,7 +648,6 @@ def tela6(nome):
 
     # é uma função do Pygame que atualiza a tela.
     pygame.display.flip()
-
     # ButtonGrups é uma variável que contém um objeto do tipo Group.
     ButtonGrups = pygame.sprite.Group()
 
@@ -734,18 +700,63 @@ def tela6(nome):
     Botao16 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
                     image2="imagens_gerais/red_button02.png", posx=posx16, posy=posy16)
     Botao16.rect.center = (posx16, posy16)
+    Botao19 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
+                   image2="imagens_gerais/red_button02.png", posx=posx1_1, posy=posy1_1)
+    Botao19.rect.center = (posx1_1, posy1_1)
+    Botao20 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
+                   image2="imagens_gerais/red_button02.png", posx=posx2_1, posy=posy2_1)
+    Botao20.rect.center = (posx2_1, posy2_1)
+    Botao21 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
+                   image2="imagens_gerais/red_button02.png", posx=posx3_1, posy=posy3_1)
+    Botao21.rect.center = (posx3_1, posy3_1)
+    Botao22 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
+                   image2="imagens_gerais/red_button02.png", posx=posx4_1, posy=posy4_1)
+    Botao22.rect.center = (posx4_1, posy4_1)
+    Botao23 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
+                   image2="imagens_gerais/red_button02.png", posx=posx5_1, posy=posy5_1)
+    Botao23.rect.center = (posx5_1, posy5_1)
+    Botao24 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
+                   image2="imagens_gerais/red_button02.png", posx=posx6_1, posy=posy6_1)
+    Botao24.rect.center = (posx6_1, posy6_1)
+    Botao25 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
+                   image2="imagens_gerais/red_button02.png", posx=posx7_1, posy=posy7_1)
+    Botao25.rect.center = (posx7_1, posy7_1)
+    Botao26 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
+                   image2="imagens_gerais/red_button02.png", posx=posx8_1, posy=posy8_1)
+    Botao26.rect.center = (posx8_1, posy8_1)
+    Botao27 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
+                   image2="imagens_gerais/red_button02.png", posx=posx9_1, posy=posy9_1)
+    Botao27.rect.center = (posx9_1, posy9_1)
+    Botao28 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
+                    image2="imagens_gerais/red_button02.png", posx=posx10_1, posy=posy1_1)
+    Botao28.rect.center = (posx10_1, posy10_1)
+    Botao29 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
+                    image2="imagens_gerais/red_button02.png", posx=posx11_1, posy=posy11_1)
+    Botao29.rect.center = (posx11_1, posy11_1)
+    Botao30 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
+                    image2="imagens_gerais/red_button02.png", posx=posx12_1, posy=posy12_1)
+    Botao30.rect.center = (posx12_1, posy12_1)
+    Botao31 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
+                    image2="imagens_gerais/red_button02.png", posx=posx13_1, posy=posy13_1)
+    Botao31.rect.center = (posx13_1, posy13_1)
+    Botao32 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
+                    image2="imagens_gerais/red_button02.png", posx=posx14_1, posy=posy14_1)
+    Botao32.rect.center = (posx14_1, posy14_1)
+    Botao33 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
+                    image2="imagens_gerais/red_button02.png", posx=posx15_1, posy=posy15_1)
+    Botao33.rect.center = (posx15_1, posy15_1)
+    Botao34 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
+                    image2="imagens_gerais/red_button02.png", posx=posx16_1, posy=posy16_1)
+    Botao34.rect.center = (posx16_1, posy16_1)
+
+
+
     Botao17 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
                     image2="imagens_gerais/red_button02.png", posx=110, posy=88, dim=44)
     Botao17.rect.center = (110, 88)
     Botao18 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
                     image2="imagens_gerais/red_button02.png", posx=495, posy=87, dim=44)
     Botao18.rect.center = (495, 87)
-
-
-
-
-
-
 
     # dá load da imagem
     imagem1_fundo = pygame.image.load("verdes/1.png").convert_alpha()
@@ -766,6 +777,7 @@ def tela6(nome):
     imagem16_fundo = pygame.image.load("verdes/1.png").convert_alpha()
     imagem17_fundo = pygame.image.load("verdes/1.png").convert_alpha()
 
+
     #jogo abaixo
     B_preenhido = False  # o bot ja preencheu o taboleiro?
     J_prenchido = False  # o jogador ja preencheu o taboleiro?
@@ -783,7 +795,11 @@ def tela6(nome):
         print("Bot começa!")
         while (not B_preenhido and not J_prenchido) and not (len(trevos) == 40):  # as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
             #aaa(imagem1_verde_exibida, imagem1_fundo, imagem17_fundo, imagem17_verde_exibida, Botao1, Botao17, screen, posx1, posy1, cor_de_fundo, imagem_fundo, ButtonGrups)
-            turnob(taboleiroB, trevos, 20, Comeco, table, nome)
+            turnob(screen, taboleiroB, trevos, 20, Comeco, table, nome)
+            exibir_taboleiro(taboleiroB, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+                             posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
+                             posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
+                             posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1, Bot=1)
             turnoj(imagem_fundo,screen, nome, taboleiroJ, trevos, 20, Comeco, table, "BOT", imagem17_fundo,ButtonGrups, imagem2_fundo, imagem3_fundo, imagem4_fundo, imagem5_fundo, imagem6_fundo,
                                       imagem7_fundo, imagem8_fundo, imagem9_fundo, imagem10_fundo, imagem11_fundo,
                                       imagem12_fundo, imagem13_fundo, imagem14_fundo, imagem15_fundo, imagem16_fundo,
@@ -796,7 +812,7 @@ def tela6(nome):
             exibir_taboleiro(taboleiroJ, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                      posy14, posy15, posy16)
+                                      posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
             # print(table)
             """a = int(input("cheat: "))
             if a == 0:
@@ -808,7 +824,7 @@ def tela6(nome):
         print("O %s começa!" % nome)
         while (not B_preenhido or not J_prenchido) and not (len(trevos) == 40):
             #aaa(imagem1_verde_exibida, imagem1_fundo, imagem17_fundo, imagem17_verde_exibida, Botao1, Botao17, screen, posx1, posy1, cor_de_fundo, imagem_fundo, ButtonGrups)
-            turnoj(imagem_fundo,screen, nome, taboleiroJ, trevos, 20, Comeco, table, "BOT", imagem17_fundo, ButtonGrups, imagem2_fundo, imagem3_fundo, imagem4_fundo, imagem5_fundo, imagem6_fundo,
+            turnoj(imagem_fundo,screen, nome, taboleiroJ, trevos, 40, Comeco, table, "BOT", imagem17_fundo, ButtonGrups, imagem2_fundo, imagem3_fundo, imagem4_fundo, imagem5_fundo, imagem6_fundo,
                                       imagem7_fundo, imagem8_fundo, imagem9_fundo, imagem10_fundo, imagem11_fundo,
                                       imagem12_fundo, imagem13_fundo, imagem14_fundo, imagem15_fundo, imagem16_fundo,
                                       Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
@@ -820,8 +836,12 @@ def tela6(nome):
             exibir_taboleiro(taboleiroJ, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                      posy14, posy15, posy16)
-            turnob(taboleiroB, trevos, 20, Comeco, table, nome)
+                                      posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
+            turnob(screen, taboleiroB, trevos, 40, Comeco, table, nome)
+            exibir_taboleiro(taboleiroB, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+                             posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
+                             posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
+                             posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1, Bot=1)
 
             # print(table)
             """a = int(input("cheat: "))
@@ -878,160 +898,102 @@ def escolha_posicao_trevo(ButtonGrups,screen, imagem2_fundo,imagem3_fundo,imagem
                 sys.exit()
 
             ButtonGrups.update()
-        if Botao1.touche == True:
-            print("IMAGEM1")
 
-            # exibe a imagem 1 verde
-            #imagem1_fundo = pygame.transform.scale(imagem1_fundo, (73, 73))
-            #screen.blit(imagem1_fundo, (posx1 - 36, posy1 - 36))
+        if Botao1.touche == True:
+
+            print("IMAGEM1")
             Botao1.touche = False
             return [0,0]
-            imagem1_verde_exibida = True
-        if Botao2.touche == True:
-            print("IMAGEM2")
 
-            # exibe a imagem 1 verde
-            #imagem2_fundo = pygame.transform.scale(imagem2_fundo, (73, 73))
-            #screen.blit(imagem2_fundo, (posx2 - 36, posy2 - 36))
+        if Botao2.touche == True:
+
+            print("IMAGEM2")
             Botao2.touche = False
             return [0, 1]
-            imagem2_verde_exibida = True
-        if Botao3.touche == True:
-            print("IMAGEM3")
 
-            # exibe a imagem 1 verde
-            #imagem3_fundo = pygame.transform.scale(imagem3_fundo, (73, 73))
-            #screen.blit(imagem3_fundo, (posx3 - 36, posy3 - 36))
+        if Botao3.touche == True:
+
+            print("IMAGEM3")
             Botao3.touche = False
             return [0, 2]
-            imagem3_verde_exibida = True
-        if Botao4.touche == True:
-            print("IMAGEM4")
 
-            # exibe a imagem 1 verde
-            #imagem4_fundo = pygame.transform.scale(imagem4_fundo, (73, 73))
-            #screen.blit(imagem4_fundo, (posx4 - 36, posy4 - 36))
+        if Botao4.touche == True:
+
+            print("IMAGEM4")
             Botao4.touche = False
             return [0, 3]
-            imagem4_verde_exibida = True
-        if Botao5.touche == True:
-            print("IMAGEM5")
 
-            # exibe a imagem 1 verde
-            #imagem5_fundo = pygame.transform.scale(imagem5_fundo, (73, 73))
-            #screen.blit(imagem5_fundo, (posx5 - 36, posy5 - 36))
+        if Botao5.touche == True:
+
+            print("IMAGEM5")
             Botao5.touche = False
             return [1,0]
-            imagem5_verde_exibida = True
-        if Botao6.touche == True:
-            print("IMAGEM6")
 
-            # exibe a imagem 1 verde
-            #imagem6_fundo = pygame.transform.scale(imagem6_fundo, (73, 73))
-            # screen.blit(imagem6_fundo, (posx6 - 36, posy6 - 36))
+        if Botao6.touche == True:
+
+            print("IMAGEM6")
             Botao6.touche = False
             return [1,1]
-            imagem6_verde_exibida = True
-        if Botao7.touche == True:
-            print("IMAGEM7")
 
-            # exibe a imagem 1 verde
-            #imagem7_fundo = pygame.transform.scale(imagem7_fundo, (73, 73))
-            # screen.blit(imagem7_fundo, (posx7 - 36, posy7 - 36))
+        if Botao7.touche == True:
+
+            print("IMAGEM7")
             Botao7.touche = False
             return [1, 2]
-            imagem7_verde_exibida = True
-        if Botao8.touche == True:
-            print("IMAGEM8")
 
-            # exibe a imagem 1 verde
-            #imagem8_fundo = pygame.transform.scale(imagem8_fundo, (73, 73))
-            #screen.blit(imagem8_fundo, (posx8 - 36, posy8 - 36))
+        if Botao8.touche == True:
+
+            print("IMAGEM8")
             Botao8.touche = False
             return [1,3]
-            imagem8_verde_exibida = True
-        if Botao9.touche == True:
-            print("IMAGEM9")
 
-            # exibe a imagem 1 verde
-            #imagem9_fundo = pygame.transform.scale(imagem9_fundo, (73, 73))
-            #screen.blit(imagem9_fundo, (posx9 - 36, posy9 - 36))
+        if Botao9.touche == True:
+
+            print("IMAGEM9")
             Botao9.touche = False
             return [2,0]
-            imagem9_verde_exibida = True
-        if Botao10.touche == True:
-            print("IMAGEM10")
 
-            # exibe a imagem 1 verde
-            #imagem10_fundo = pygame.transform.scale(imagem10_fundo, (73, 73))
-            #screen.blit(imagem10_fundo, (posx10 - 36, posy10 - 36))
+        if Botao10.touche == True:
+
+            print("IMAGEM10")
             Botao10.touche = False
             return [2,1]
-            imagem10_verde_exibida = True
-        if Botao11.touche == True:
-            print("IMAGEM11")
 
-            # exibe a imagem 1 verde
-            #imagem11_fundo = pygame.transform.scale(imagem11_fundo, (73, 73))
-            #screen.blit(imagem11_fundo, (posx11 - 36, posy11 - 36))
+        if Botao11.touche == True:
+
+            print("IMAGEM11")
             Botao11.touche = False
             return [2,2]
-            imagem11_verde_exibida = True
-        if Botao12.touche == True:
-            print("IMAGEM12")
 
-            # exibe a imagem 1 verde
-            #imagem12_fundo = pygame.transform.scale(imagem12_fundo, (73, 73))
-            #screen.blit(imagem12_fundo, (posx12 - 36, posy12 - 36))
+        if Botao12.touche == True:
+
+            print("IMAGEM12")
             Botao12.touche = False
             return [2,3]
-            imagem12_verde_exibida = True
-        if Botao13.touche == True:
-            print("IMAGEM13")
 
-            # exibe a imagem 1 verde
-            #imagem13_fundo = pygame.transform.scale(imagem13_fundo, (73, 73))
-            #screen.blit(imagem13_fundo, (posx13 - 36, posy13 - 36))
+        if Botao13.touche == True:
+
+            print("IMAGEM13")
             Botao13.touche = False
             return [3,0]
-            imagem13_verde_exibida = True
-        if Botao14.touche == True:
-            print("IMAGEM14")
 
-            # exibe a imagem 1 verde
-            #imagem14_fundo = pygame.transform.scale(imagem14_fundo, (73, 73))
-            #screen.blit(imagem14_fundo, (posx14 - 36, posy14 - 36))
+        if Botao14.touche == True:
+
+            print("IMAGEM14")
             Botao14.touche = False
             return [3, 1]
-            imagem14_verde_exibida = True
-        if Botao15.touche == True:
-            print("IMAGEM15")
 
-            # exibe a imagem 1 verde
-            #imagem15_fundo = pygame.transform.scale(imagem15_fundo, (73, 73))
-            #screen.blit(imagem15_fundo, (posx15 - 36, posy15 - 36))
+        if Botao15.touche == True:
+
+            print("IMAGEM15")
             Botao15.touche = False
             return [3,2]
-            imagem15_verde_exibida = True
-        if Botao16.touche == True:
-            print("IMAGEM16")
 
-            # exibe a imagem 1 verde
-            #imagem16_fundo = pygame.transform.scale(imagem16_fundo, (73, 73))
-            #screen.blit(imagem16_fundo, (posx16 - 36, posy16 - 36))
+        if Botao16.touche == True:
+
+            print("IMAGEM16")
             Botao16.touche = False
             return [3,3]
-            imagem16_verde_exibida = True
-
-        """if Botao17.touche == True:
-            print("IMAGEM17")
-
-            # exibe a imagem 1 verde
-            imagem17_fundo = pygame.transform.scale(imagem17_fundo, (73, 73))
-            screen.blit(imagem17_fundo, (281 - 36, 615 - 36))
-            return [0,0]
-            imagem17_verde_exibida = True
-        """
 
         pygame.display.flip()
         pygame.display.update()

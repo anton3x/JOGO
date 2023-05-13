@@ -239,7 +239,7 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
             if resposta == "S" or resposta == "s":
                 if len(table) != 1:
                     print("Table - ", table)
-                    linha = input("Qual trevo queres da table(0-n): ")
+                    linha = int(input("Qual trevo queres da table(0-n): "))
                     trevo = table[linha]
                     table.remove(trevo)
                     taboleiroj[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro

@@ -299,7 +299,6 @@ def tela3():
             pygame.display.update()
         #pygame.display.update()
     pygame.quit()
-
 def tela4():
     pygame.init()
     #fps = pygame.time.Clock()
@@ -365,6 +364,7 @@ def tela4():
             pygame.display.update()
         #pygame.display.update()
     pygame.quit()
+
 def tela5():
     pygame.init()
 

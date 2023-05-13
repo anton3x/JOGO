@@ -238,7 +238,7 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
 
     else:
         key = True
-        if len(table) == 0:
+        if len(table) == 0: #quando nao existem trevos na table, tem que gerar um novo
             while key:
                 trevo = random.randint(1, totaltrevos)
                 if trevo not in excluidos:
@@ -253,7 +253,7 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
             pygame.display.update()
 
             guardar_na_mem(nome, taboleiroj, excluidos, table,jogador)  # vai alterar na memoria os valores do taboleiro pelos atuais
-        else:
+        else:   #se ja existirem trevos na table, pode usar um do baralho ou usar um da table
             key1 = True
             while key1:
                 for event in pygame.event.get():
@@ -263,10 +263,10 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                         sys.exit()
 
                     ButtonGrups.update()
-                if Botao18.touche == True:
+                if Botao18.touche == True: #pressionou a table
                     print("TABLE TOCADA")
 
-                    if len(table) != 1:
+                    if len(table) != 1: #se existirem mais que um elementos na table, tem que escolher qual quer
 
                         print("Table - ", table)
                         linha = int(input("Qual trevo queres da table(0-n): "))
@@ -282,7 +282,7 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                         pygame.display.flip()
                         pygame.display.update()
                         break
-                    else:
+                    else:   #se só existir 1, tem que ser o que está lá
                         trevo = table[0]
                         table.remove(trevo)
                         taboleiroj[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
@@ -300,7 +300,7 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                     # screen.blit(imagem1_fundo, (posx1 - 36, posy1 - 36))
                     Botao18.touche = False
                     break
-                if Botao17.touche == True:
+                if Botao17.touche == True:  #se ele pressionou o baralho
                     key = True
                     while key:
                         trevo = random.randint(1, totaltrevos)
@@ -375,6 +375,7 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                 linha = resultado[0]
                 coluna = resultado[1]
                 #print(linha,coluna)
+                if linha == -9 and coluna == -9:
 
                 if taboleiroj[linha][coluna] == 0:
                     #print("verificar")
@@ -889,7 +890,7 @@ def aaa(imagem1_verde_exibida, imagem1_fundo, imagem17_fundo, imagem17_verde_exi
 
     pygame.display.flip()
     pygame.display.update()
-def escolha_posicao_trevo(ButtonGrups,screen, imagem2_fundo,imagem3_fundo,imagem4_fundo,imagem5_fundo,imagem6_fundo,imagem7_fundo,imagem8_fundo,imagem9_fundo,imagem10_fundo,imagem11_fundo,imagem12_fundo,imagem13_fundo,imagem14_fundo,imagem15_fundo,imagem16_fundo,imagem17_fundo,Botao1,Botao2,Botao3,Botao4,Botao5,Botao6,Botao7,Botao8,Botao9,Botao10,Botao11,Botao12,Botao13,Botao14,Botao15,Botao16,Botao17,imagem1_fundo, posx1, posx2, posx3, posx4, posx5, posx6, posx7,posx8,posx9,posx10,posx11,posx12,posx13,posx14,posx15,posx16,posy1, posy2, posy3, posy4, posy5, posy6, posy7,posy8,posy9,posy10,posy11,posy12,posy13,posy14,posy15,posy16, posy17, posx17):
+def escolha_posicao_trevo(ButtonGrups,screen, imagem2_fundo,imagem3_fundo,imagem4_fundo,imagem5_fundo,imagem6_fundo,imagem7_fundo,imagem8_fundo,imagem9_fundo,imagem10_fundo,imagem11_fundo,imagem12_fundo,imagem13_fundo,imagem14_fundo,imagem15_fundo,imagem16_fundo,imagem17_fundo,Botao1,Botao2,Botao3,Botao4,Botao5,Botao6,Botao7,Botao8,Botao9,Botao10,Botao11,Botao12,Botao13,Botao14,Botao15,Botao16,Botao17,Botao18, imagem1_fundo, posx1, posx2, posx3, posx4, posx5, posx6, posx7,posx8,posx9,posx10,posx11,posx12,posx13,posx14,posx15,posx16,posy1, posy2, posy3, posy4, posy5, posy6, posy7,posy8,posy9,posy10,posy11,posy12,posy13,posy14,posy15,posy16, posy17, posx17):
     while True:
         for event in pygame.event.get():
 
@@ -994,6 +995,11 @@ def escolha_posicao_trevo(ButtonGrups,screen, imagem2_fundo,imagem3_fundo,imagem
             print("IMAGEM16")
             Botao16.touche = False
             return [3,3]
+        if Botao18.touche == True:
+
+            print("TABLE")
+            Botao18.touche = False
+            return [-9, -9]
 
         pygame.display.flip()
         pygame.display.update()

@@ -11,6 +11,16 @@ from Tela2 import tela2
 from Tela3 import tela3
 from Tela4 import tela4
 
+def joaninha(joana, screen, jog="jog1"):
+    joana = pygame.transform.scale(joana, (37, 37))
+    if jog=="jog1":
+        screen.blit(joana, (442, 178))
+    else:
+        screen.blit(joana, (880, 178))
+
+    # é uma função do Pygame que atualiza a tela.
+    pygame.display.flip()
+    pygame.display.update()
 def mem():
     # define o caminho para a pasta com as imagens
     path = "trevos"
@@ -230,7 +240,12 @@ def primeira_rodada(taboleiro, excluidos, totaltrevos): #funcao destinada a gera
         taboleiro[i][i] = lista_ordenada[i]
 
     return False
-def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_inicial, table, jogador, imagem17_fundo, ButtonGrups, imagem2_fundo, imagem3_fundo, imagem4_fundo, imagem5_fundo, imagem6_fundo,imagem7_fundo, imagem8_fundo, imagem9_fundo, imagem10_fundo, imagem11_fundo,imagem12_fundo, imagem13_fundo, imagem14_fundo, imagem15_fundo, imagem16_fundo, Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18, imagem1_fundo, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,posy14, posy15, posy16, posy17=88, posx17=110):#funcao destinada ao turno do jogador
+def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_inicial, table, jogador, ButtonGrups, Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,posy14, posy15, posy16, posy17=88, posx17=110):#funcao destinada ao turno do jogador
+
+    joana = pygame.image.load("imagens_jogo/joaninha.png").convert_alpha()
+    joana = pygame.transform.scale(joana, (37, 37))
+    screen.blit(joana, (442, 178))
+
     print("JOGADOR")
     if key_inicial[1]: #se for a primeira jogada
         key_inicial[1] = primeira_rodada(taboleiroj, excluidos, totaltrevos)
@@ -254,6 +269,7 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
 
             guardar_na_mem(nome, taboleiroj, excluidos, table,jogador)  # vai alterar na memoria os valores do taboleiro pelos atuais
         else:   #se ja existirem trevos na table, pode usar um do baralho ou usar um da table
+            print(table)
             key1 = True
             while key1:
                 for event in pygame.event.get():
@@ -278,7 +294,7 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                                          posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                          posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12,
                                          posy13,
-                                         posy14, posy15, posy16)
+                                         posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
                         pygame.display.flip()
                         pygame.display.update()
                         break
@@ -363,12 +379,10 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
 
                 print("Posicao: ")
 
-                resultado = escolha_posicao_trevo(ButtonGrups, screen, imagem2_fundo, imagem3_fundo, imagem4_fundo, imagem5_fundo, imagem6_fundo,
-                                          imagem7_fundo, imagem8_fundo, imagem9_fundo, imagem10_fundo, imagem11_fundo,
-                                          imagem12_fundo, imagem13_fundo, imagem14_fundo, imagem15_fundo, imagem16_fundo,
-                                          imagem17_fundo, Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
-                                          Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,
-                                          imagem1_fundo, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+                resultado = escolha_posicao_trevo(ButtonGrups, screen,
+                                          Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
+                                          Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18,
+                                          posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                           posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                           posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                                           posy14, posy15, posy16, posy17=88, posx17=110)
@@ -376,8 +390,14 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                 coluna = resultado[1]
                 #print(linha,coluna)
                 if linha == -9 and coluna == -9:
-
-                if taboleiroj[linha][coluna] == 0:
+                    print("O %s mandou o trevo para a table" % nome)
+                    table.append(trevo)
+                    key = False
+                    taboleiroj[4][0] = 0
+                    screen.blit(imagem_fundo, (0, 0))
+                    pygame.display.flip()
+                    pygame.display.update()
+                elif taboleiroj[linha][coluna] == 0:
                     #print("verificar")
                     if verificar_taboleiro(taboleiroj, linha, coluna, trevo):
                         #print("feito")
@@ -402,7 +422,7 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                         screen.blit(imagem_fundo, (0, 0))
                         pygame.display.flip()
                         pygame.display.update()
-                break
+            break
 
     guardar_na_mem(nome, taboleiroj, excluidos, table, jogador) #vai alterar na memoria os valores do taboleiro pelos atuais
 def turnob(screen, taboleirob, excluidos,totaltrevos, key_inicial, table, jogador):#funcao destinada ao turno do bot
@@ -759,24 +779,8 @@ def tela6(nome):
                     image2="imagens_gerais/red_button02.png", posx=495, posy=87, dim=44)
     Botao18.rect.center = (495, 87)
 
-    # dá load da imagem
-    imagem1_fundo = pygame.image.load("verdes/1.png").convert_alpha()
-    imagem2_fundo = pygame.image.load("verdes/1.png").convert_alpha()
-    imagem3_fundo = pygame.image.load("verdes/1.png").convert_alpha()
-    imagem4_fundo = pygame.image.load("verdes/1.png").convert_alpha()
-    imagem5_fundo = pygame.image.load("verdes/1.png").convert_alpha()
-    imagem6_fundo = pygame.image.load("verdes/1.png").convert_alpha()
-    imagem7_fundo = pygame.image.load("verdes/1.png").convert_alpha()
-    imagem8_fundo = pygame.image.load("verdes/1.png").convert_alpha()
-    imagem9_fundo = pygame.image.load("verdes/1.png").convert_alpha()
-    imagem10_fundo = pygame.image.load("verdes/1.png").convert_alpha()
-    imagem11_fundo = pygame.image.load("verdes/1.png").convert_alpha()
-    imagem12_fundo = pygame.image.load("verdes/1.png").convert_alpha()
-    imagem13_fundo = pygame.image.load("verdes/1.png").convert_alpha()
-    imagem14_fundo = pygame.image.load("verdes/1.png").convert_alpha()
-    imagem15_fundo = pygame.image.load("verdes/1.png").convert_alpha()
-    imagem16_fundo = pygame.image.load("verdes/1.png").convert_alpha()
-    imagem17_fundo = pygame.image.load("verdes/1.png").convert_alpha()
+    #joana = pygame.image.load("imagens_jogo/joaninha.png").convert_alpha()
+
 
 
     #jogo abaixo
@@ -796,17 +800,16 @@ def tela6(nome):
         print("Bot começa!")
         while (not B_preenhido and not J_prenchido) and not (len(trevos) == 40):  # as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
             #aaa(imagem1_verde_exibida, imagem1_fundo, imagem17_fundo, imagem17_verde_exibida, Botao1, Botao17, screen, posx1, posy1, cor_de_fundo, imagem_fundo, ButtonGrups)
+            #joaninha(joana,screen,"jog2")
             turnob(screen, taboleiroB, trevos, 20, Comeco, table, nome)
             exibir_taboleiro(taboleiroB, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                              posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                              posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                              posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1, Bot=1)
-            turnoj(imagem_fundo,screen, nome, taboleiroJ, trevos, 20, Comeco, table, "BOT", imagem17_fundo,ButtonGrups, imagem2_fundo, imagem3_fundo, imagem4_fundo, imagem5_fundo, imagem6_fundo,
-                                      imagem7_fundo, imagem8_fundo, imagem9_fundo, imagem10_fundo, imagem11_fundo,
-                                      imagem12_fundo, imagem13_fundo, imagem14_fundo, imagem15_fundo, imagem16_fundo,
+            #joaninha(joana, screen)
+            turnoj(imagem_fundo,screen, nome, taboleiroJ, trevos, 20, Comeco, table, "BOT", ButtonGrups,
                                       Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
-                                      Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18,
-                                      imagem1_fundo, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+                                      Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18,posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                                       posy14, posy15, posy16, posy17=88, posx17=110)
@@ -825,12 +828,10 @@ def tela6(nome):
         print("O %s começa!" % nome)
         while (not B_preenhido or not J_prenchido) and not (len(trevos) == 40):
             #aaa(imagem1_verde_exibida, imagem1_fundo, imagem17_fundo, imagem17_verde_exibida, Botao1, Botao17, screen, posx1, posy1, cor_de_fundo, imagem_fundo, ButtonGrups)
-            turnoj(imagem_fundo,screen, nome, taboleiroJ, trevos, 40, Comeco, table, "BOT", imagem17_fundo, ButtonGrups, imagem2_fundo, imagem3_fundo, imagem4_fundo, imagem5_fundo, imagem6_fundo,
-                                      imagem7_fundo, imagem8_fundo, imagem9_fundo, imagem10_fundo, imagem11_fundo,
-                                      imagem12_fundo, imagem13_fundo, imagem14_fundo, imagem15_fundo, imagem16_fundo,
+            #joaninha(joana, screen)
+            turnoj(imagem_fundo,screen, nome, taboleiroJ, trevos, 40, Comeco, table, "BOT", ButtonGrups,
                                       Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
-                                      Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18,
-                                      imagem1_fundo, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+                                      Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                                       posy14, posy15, posy16, posy17=88, posx17=110)
@@ -838,6 +839,7 @@ def tela6(nome):
                                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                                       posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
+            #joaninha(joana, screen, "jog2")
             turnob(screen, taboleiroB, trevos, 40, Comeco, table, nome)
             exibir_taboleiro(taboleiroB, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                              posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
@@ -890,7 +892,7 @@ def aaa(imagem1_verde_exibida, imagem1_fundo, imagem17_fundo, imagem17_verde_exi
 
     pygame.display.flip()
     pygame.display.update()
-def escolha_posicao_trevo(ButtonGrups,screen, imagem2_fundo,imagem3_fundo,imagem4_fundo,imagem5_fundo,imagem6_fundo,imagem7_fundo,imagem8_fundo,imagem9_fundo,imagem10_fundo,imagem11_fundo,imagem12_fundo,imagem13_fundo,imagem14_fundo,imagem15_fundo,imagem16_fundo,imagem17_fundo,Botao1,Botao2,Botao3,Botao4,Botao5,Botao6,Botao7,Botao8,Botao9,Botao10,Botao11,Botao12,Botao13,Botao14,Botao15,Botao16,Botao17,Botao18, imagem1_fundo, posx1, posx2, posx3, posx4, posx5, posx6, posx7,posx8,posx9,posx10,posx11,posx12,posx13,posx14,posx15,posx16,posy1, posy2, posy3, posy4, posy5, posy6, posy7,posy8,posy9,posy10,posy11,posy12,posy13,posy14,posy15,posy16, posy17, posx17):
+def escolha_posicao_trevo(ButtonGrups,screen, Botao1,Botao2,Botao3,Botao4,Botao5,Botao6,Botao7,Botao8,Botao9,Botao10,Botao11,Botao12,Botao13,Botao14,Botao15,Botao16,Botao17,Botao18, posx1, posx2, posx3, posx4, posx5, posx6, posx7,posx8,posx9,posx10,posx11,posx12,posx13,posx14,posx15,posx16,posy1, posy2, posy3, posy4, posy5, posy6, posy7,posy8,posy9,posy10,posy11,posy12,posy13,posy14,posy15,posy16, posy17, posx17):
     while True:
         for event in pygame.event.get():
 

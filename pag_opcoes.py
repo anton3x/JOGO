@@ -2,10 +2,6 @@ import pygame
 import pygame_gui
 import sys
 
-from Tela2 import tela2
-from Tela3 import tela3
-from Tela4 import tela4
-
 def main_menu():
     #pygame.init()
     fps = pygame.time.Clock()
@@ -76,8 +72,8 @@ def main_menu():
 
             if Botao1.touche == True:
                 tela.fill(ColorBack["vermelho"])
-                #tela1()
-                tela5()
+                tela1()
+                #tela5()
 
             if Botao2.touche == True:
                 tela.fill(ColorBack["azul"])
@@ -103,17 +99,49 @@ def main_menu():
     pygame.quit()
 def tela1():
     pygame.init()
-    #fps = pygame.time.Clock()
-    largura = 1024
-    altura = 600
 
-    JogoLoop = True
-
-    tela = pygame.display.set_mode([largura, altura])
-    tela.fill([255, 117, 24])
-   # ColorBack = {"azul": [0, 132, 252], "vermelho": [137, 28, 36], "laranja": [255, 117, 24]}
+    # Configurações da janela
+    tamanho_janela = (920, 760)
+    janela = pygame.display.set_mode(tamanho_janela)
     pygame.display.set_caption("Lucky Numbers")
 
+    # Inicializa o gerenciador da interface do usuário
+    gerenciador = pygame_gui.UIManager(tamanho_janela)
+
+    # Carrega a imagem
+    imagem = pygame.image.load("imagens_jogo/Lucky-logo.png")
+
+    # Cria os elementos da interface do usuário com font_size maior
+    label_jogador1 = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((50, 100), (100, 50)), text="Jogador 1:",
+                                                 manager=gerenciador)
+    entry_jogador1 = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((150, 100), (200, 50)),
+                                                         manager=gerenciador)
+
+    label_jogador2 = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((50, 200), (100, 50)), text="Jogador 2:",
+                                                 manager=gerenciador)
+    entry_jogador2 = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((150, 200), (200, 50)),
+                                                         manager=gerenciador)
+    entry_jogador2.hide()
+    label_jogador2.hide()
+
+    label_variante = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((50, 175), (100, 50)),
+                                                 text="Variante:",
+                                                 manager=gerenciador)
+    dropdown_variante = pygame_gui.elements.UISelectionList(
+        relative_rect=pygame.Rect((150, 175), (200, 100)),
+        item_list=["Normal", "MICHAEL’S SETUP", "TOURNAMENT MODE"],
+        manager=gerenciador)
+
+    label_oponente = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((50, 300), (100, 50)),
+                                                 text="Oponente:",
+                                                 manager=gerenciador)
+    dropdown_oponente = pygame_gui.elements.UISelectionList(
+        relative_rect=pygame.Rect((150, 300), (200, 100)),
+        item_list=["Bot", "Outro jogador"], manager=gerenciador)
+
+    botao_iniciar = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((110, 440), (300, 120)),
+                                                 text="Começar Jogo",
+                                                 manager=gerenciador)
     class Botao11(pygame.sprite.Sprite):
         def __init__(self, *groups, image, image1, image2):
             super().__init__(*groups)
@@ -152,22 +180,76 @@ def tela1():
                    image2="imagens_gerais/voltaratras.png")
     Botao1.rect.center = (50, 50)#localizaçao botão voltar atrás
 
-    while JogoLoop:
-        #fps.tick(60)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                JogoLoop = False
-            if Botao1.touche == True:
+    # Loop principal
+    rodando = True
+    while rodando:
+        tempo = pygame.time.Clock().tick(144)
+
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                rodando = False
+
+            if evento.type == pygame.USEREVENT:
+                if evento.user_type == pygame_gui.UI_SELECTION_LIST_NEW_SELECTION:
+                    if evento.ui_element == dropdown_oponente:
+                        if evento.text == "Outro jogador":
+                            entry_jogador2.show()
+                            label_jogador2.show()
+                            label_variante.set_position((50, 300))
+                            label_oponente.set_position((50, 400))
+                            dropdown_variante.set_position((150, 300))
+                            dropdown_oponente.set_position((150, 400))
+                            botao_iniciar.set_position((110, 540))
+
+                            pygame.display.flip()
+                            pygame.display.update()
+
+                        else:
+                            entry_jogador2.hide()
+                            label_jogador2.hide()
+                            label_variante.set_position((50, 175))
+                            label_oponente.set_position((50, 300))
+                            dropdown_variante.set_position((150, 175))
+                            dropdown_oponente.set_position((150, 300))
+                            botao_iniciar.set_position((110, 440))
+
+                            pygame.display.flip()
+                            pygame.display.update()
+
+                if evento.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    if evento.ui_element == botao_iniciar:
+                        jogador1 = entry_jogador1.get_text()
+                        jogador2 = entry_jogador2.get_text()
+                        variante = dropdown_variante.get_single_selection()
+                        oponente = dropdown_oponente.get_single_selection()
+                        tela6(jogador1, jogador2, oponente)
+                        print("Jogador 1:", jogador1)
+                        print("Jogador 2:", jogador2)
+                        print("Variante escolhida:", variante)
+                        print("Oponente:", oponente)
+
+            """if Botao1.touche == True:
+                rodando = False
                 pygame.quit()
-                main_menu()
+                main_menu()"""
 
-            ButtonGrups.update()
-            ButtonGrups.draw(tela)
+            #ButtonGrups.update()
+            #ButtonGrups.draw(janela)
 
-            pygame.display.update()
-        #pygame.display.update()
+            pygame.display.flip()
+            gerenciador.process_events(evento)
 
-    pygame.quit()
+        gerenciador.update(tempo)
+        janela.fill((0, 132, 251))
+        gerenciador.draw_ui(janela)
+        imagem = pygame.transform.scale(imagem, (420, 245))
+        # Desenha a imagem no lado direito
+        janela.blit(imagem, (445, 200))
+        pygame.display.update()
+
+pygame.quit()
+
+
 def tela2():
     pygame.init()
     #fps = pygame.time.Clock()
@@ -422,7 +504,7 @@ def tela5():
 
     # Encerra o Pygame
     pygame.quit()
-def tela6():
+def tela6(jogador1,jogador2,oponente):
     pygame.init()
 
     largura = 1200
@@ -774,5 +856,3 @@ def tela6():
 
 
 main_menu()
-
-

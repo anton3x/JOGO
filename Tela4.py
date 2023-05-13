@@ -1,67 +1,34 @@
-import pygame
-#from pag_opcoes import main_menu
-def tela4():
-    pygame.init()
-    #fps = pygame.time.Clock()
-    largura = 1024
-    altura = 600
+import tkinter as tk
+from tkinter import ttk
 
-    JogoLoop = True
+def iniciar_jogo():
+    jogador1 = entry_jogador1.get()
+    jogador2 = entry_jogador2.get()
+    variante = dropdown_variante.get()
+    print("Jogador 1:", jogador1)
+    print("Jogador 2:", jogador2)
+    print("Variante escolhida:", variante)
 
-    tela = pygame.display.set_mode([largura, altura])
-    tela.fill([255, 117, 24])
-   # ColorBack = {"azul": [0, 132, 252], "vermelho": [137, 28, 36], "laranja": [255, 117, 24]}
-    pygame.display.set_caption("Lucky Numbers")
+janela = tk.Tk()
+janela.title("Jogo")
 
-    class Botao11(pygame.sprite.Sprite):
-        def __init__(self, *groups, image, image1, image2):
-            super().__init__(*groups)
+label_jogador1 = tk.Label(janela, text="Jogador 1:")
+label_jogador1.grid(column=0, row=0)
+entry_jogador1 = tk.Entry(janela)
+entry_jogador1.grid(column=1, row=0)
 
-            self.image = pygame.image.load(image).convert_alpha()
-            self.image = pygame.transform.scale(self.image, [190, 49])
-            self.rect = pygame.Rect(190, 49, 190, 49)
-            self.rect = self.image.get_rect()
+label_jogador2 = tk.Label(janela, text="Jogador 2:")
+label_jogador2.grid(column=0, row=1)
+entry_jogador2 = tk.Entry(janela)
+entry_jogador2.grid(column=1, row=1)
 
-            self.image1 = pygame.image.load(image1).convert_alpha()
-            self.image2 = pygame.image.load(image2).convert_alpha()
+label_variante = tk.Label(janela, text="Variante:")
+label_variante.grid(column=0, row=2)
+dropdown_variante = ttk.Combobox(janela, values=["Normal", "Do Bruno"])
+dropdown_variante.grid(column=1, row=2)
+dropdown_variante.current(0)
 
-            self.touche = False
+botao_iniciar = tk.Button(janela, text="Começar Jogo", command=iniciar_jogo)
+botao_iniciar.grid(column=1, row=3)
 
-        def update(self):
-            self.mouse = pygame.mouse.get_pressed()
-            self.MousePos = pygame.mouse.get_pos()
-
-            if self.rect.collidepoint(self.MousePos):
-
-                if self.mouse[0]:
-                    self.touche = True
-                    pygame.mouse.get_rel()
-                    self.image = self.image2
-
-                else:
-                    self.touche = False
-                    self.image = self.image1
-
-            pass
-
-    ButtonGrups = pygame.sprite.Group()
-
-    Botao4 = Botao11(ButtonGrups, image="imagens_gerais/red_button01_A.png", image1="imagens_gerais/red_button01_A.png",
-                   image2="imagens_gerais/red_button02_A.png")
-    Botao4.rect.center = (250, 300)
-
-    while JogoLoop:
-        #fps.tick(60)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                JogoLoop = False
-            if Botao4.touche == True:
-                pygame.quit()
-                #main_menu()
-
-            ButtonGrups.update()
-            ButtonGrups.draw(tela)
-
-            pygame.display.update()
-        #pygame.display.update()
-    pygame.quit()
+janela.mainloop()

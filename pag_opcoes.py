@@ -113,8 +113,9 @@ def tela1():
     imagem_jogador1 = pygame.image.load("imagens_gerais/jogador_1.png")
 
     # Cria os elementos da interface do usuário com font_size maior
-    label_jogador1 = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((100, 100), (100, 50)), text="Jogador 1:",
-                                                 manager=gerenciador)
+
+    #label_jogador1 = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((100, 100), (100, 50)), text="Jogador 1:",
+                                                 #manager=gerenciador)
     entry_jogador1 = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((200, 100), (200, 50)),
                                                          manager=gerenciador)
 
@@ -248,10 +249,10 @@ def tela1():
         janela.fill((0, 132, 251))
         gerenciador.draw_ui(janela)
         imagem = pygame.transform.scale(imagem, (420, 245))
-        imagem_jogador1 = pygame.transform.scale(imagem_jogador1,(200,150))
+        imagem_jogador1 = pygame.transform.scale(imagem_jogador1,(80,20))
         # Desenha a imagem no lado direito
         janela.blit(imagem, (495, 180))
-        janela.blit(imagem_jogador1, (100,100))
+        janela.blit(imagem_jogador1, (110,115))
 
 pygame.quit()
 

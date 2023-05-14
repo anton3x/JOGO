@@ -142,18 +142,19 @@ def tela1():
     botao_iniciar = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((110, 440), (300, 120)),
                                                  text="Começar Jogo",
                                                  manager=gerenciador)
+
     class Botao11(pygame.sprite.Sprite):
         def __init__(self, *groups, image, image1, image2):
             super().__init__(*groups)
 
             self.image = pygame.image.load(image).convert_alpha()
-            self.image = pygame.transform.scale(self.image, [50, 50])#dimensoes botao voltar atras
+            self.image = pygame.transform.scale(self.image, [250, 250])  # dimensoes botao voltar atras
             self.rect = pygame.Rect(190, 49, 190, 49)
             self.rect = self.image.get_rect()
 
-            #no botao de voltar para tras ainda nao existe a imagem de profundidade
-            #self.image1 = pygame.image.load(image1).convert_alpha()
-            #self.image2 = pygame.image.load(image2).convert_alpha() #profundidade
+            # no botao de voltar para tras ainda nao existe a imagem de profundidade
+            # self.image1 = pygame.image.load(image1).convert_alpha()
+            # self.image2 = pygame.image.load(image2).convert_alpha() #profundidade
 
             self.touche = False
 
@@ -166,24 +167,24 @@ def tela1():
                 if self.mouse[0]:
                     self.touche = True
                     pygame.mouse.get_rel()
-                    #self.image = self.image2 #no botao de voltar para tras ainda nao existe a imagem de profundidade
+                    # self.image = self.image2 #no botao de voltar para tras ainda nao existe a imagem de profundidade
 
                 else:
                     self.touche = False
-                    #self.image = self.image1 #no botao de voltar para tras ainda nao existe a imagem de profundidade
+                    # self.image = self.image1 #no botao de voltar para tras ainda nao existe a imagem de profundidade
 
             pass
 
     ButtonGrups = pygame.sprite.Group()
 
-    Botao1 = Botao11(ButtonGrups, image="imagens_gerais/voltaratras.png", image1="imagens_gerais/voltaratras.png",
-                   image2="imagens_gerais/voltaratras.png")
-    Botao1.rect.center = (50, 50)#localizaçao botão voltar atrás
+    Botao1 = Botao11(ButtonGrups, image="imagens_gerais/x.png", image1="imagens_gerais/x.png",
+                     image2="imagens_gerais/x.png")
+    Botao1.rect.center = (50, 50)  # localizaçao botão voltar atrás
 
     # Loop principal
     rodando = True
     while rodando:
-        tempo = pygame.time.Clock().tick(144)
+        tempo = pygame.time.Clock().tick(60)
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -228,13 +229,13 @@ def tela1():
                         print("Variante escolhida:", variante)
                         print("Oponente:", oponente)
 
-            """if Botao1.touche == True:
+            if Botao1.touche == True:
                 rodando = False
                 pygame.quit()
-                main_menu()"""
+                main_menu()
 
-            #ButtonGrups.update()
-            #ButtonGrups.draw(janela)
+            ButtonGrups.update()
+            ButtonGrups.draw(janela)
 
             pygame.display.flip()
             gerenciador.process_events(evento)
@@ -245,7 +246,6 @@ def tela1():
         imagem = pygame.transform.scale(imagem, (420, 245))
         # Desenha a imagem no lado direito
         janela.blit(imagem, (445, 200))
-        pygame.display.update()
 
 pygame.quit()
 

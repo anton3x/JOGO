@@ -1,74 +1,45 @@
+
 import pygame
-import sys
 
-# Inicializa o Pygame
 pygame.init()
-fps = pygame.time.Clock()
 
-# Define as cores
-AZUL = (0, 0, 255)
+# Definir as dimensões da janela
+largura = 400
+altura = 300
 
-# Define a largura e altura da tela
-largura = 1024
-altura = 600
+# Criar a janela
+janela = pygame.display.set_mode((largura, altura))
 
-# Cria a tela
-tela = pygame.display.set_mode((largura, altura))
-pygame.display.set_caption("Lucky Numbers")
-font = pygame.font.Font(None, 32)
-text = ''
+# Carregar a imagem do botão
+botao_imagem = pygame.image.load("imagens_gerais/x.png")
 
-input_rect = pygame.Rect(200,200,140,32)
-cor_ativa = pygame.Color('lightskyblue3')
-cor_passiva = pygame.Color('gray15')
-cor = cor_passiva
-ative = False
+# Definir as dimensões e a posição do botão
+botao_largura = 100
+botao_altura = 50
+botao_pos_x = largura // 2 - botao_largura // 2
+botao_pos_y = altura // 2 - botao_altura // 2
 
-# Função para exibir texto na tela
-def exibir_texto(texto, posicao):
-    fonte = pygame.font.Font(None, 25)
-    superficie_texto = fonte.render(texto, True, (255, 255, 255))
-    tela.blit(superficie_texto, posicao)
-
-
+# Criar o objeto de superfície do botão
+botao = pygame.Surface((botao_largura, botao_altura))
+botao.blit(botao_imagem, (0, 0))
 
 # Loop principal do jogo
 while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+    for evento in pygame.event.get():
+        if evento.type == pygame.QUIT:
             pygame.quit()
-            sys.exit()
+            quit()
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if input_rect.collidepoint(event.pos):
-                ative = True
-            else:
-                ative = False
+        if evento.type == pygame.MOUSEBUTTONDOWN:
+            # Verificar se o botão foi clicado
+            if botao.get_rect().move(botao_pos_x, botao_pos_y).collidepoint(evento.pos):
+                print("Botão clicado!")
 
-        if event.type == pygame.KEYDOWN:
-            if ative == True:
-                if event.key == pygame.K_BACKSPACE:
-                    text = text[:-1]
-                else:
-                    text += event.unicode
+    # Preencher a janela com a cor de fundo
+    janela.fill((255, 255, 255))
 
+    # Desenhar o botão na janela
+    janela.blit(botao, (botao_pos_x, botao_pos_y))
 
-    # Preenche a tela com a cor azul
-    tela.fill((0,0,0))
-
-    if ative:
-        cor = cor_ativa
-    else:
-        cor = cor_passiva
-    pygame.draw.rect(tela, cor_ativa, input_rect,2)
-    # Exibe o texto na tela
-    exibir_texto("Nome de jogador:", (50, 50))
-
-    text_surface = font.render(text, True, (255,255,255))
-    tela.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
-
-    input_rect.w = max(100,text_surface.get_width() + 10)
-
-    # Atualiza a tela
-    pygame.display.flip()
-    fps.tick(60)
+    # Atualizar a tela
+    pygame.display.update()

@@ -101,7 +101,7 @@ def tela1():
     pygame.init()
 
     # Configurações da janela
-    tamanho_janela = (920, 760)
+    tamanho_janela = (920, 660)
     janela = pygame.display.set_mode(tamanho_janela)
     pygame.display.set_caption("Lucky Numbers")
 

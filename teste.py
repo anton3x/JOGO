@@ -7,10 +7,6 @@ import sys
 import random
 import os
 
-from Tela2 import tela2
-from Tela3 import tela3
-from Tela4 import tela4
-
 def joaninha(joana, screen, jog="jog1"):
     joana = pygame.transform.scale(joana, (37, 37))
     if jog=="jog1":
@@ -541,7 +537,9 @@ def main_menu():
                 tela.fill(ColorBack["vermelho"])
                 #tela1()
                 tela5()
-
+            else:
+                tela.fill(ColorBack["azul"])
+            """
             if Botao2.touche == True:
                 tela.fill(ColorBack["azul"])
                 tela2()
@@ -555,9 +553,8 @@ def main_menu():
             if Botao4.touche == True:
                 tela.fill(ColorBack["azul"])
                 tela4()
+            """
 
-            else:
-                tela.fill(ColorBack["azul"])
 
             ButtonGrups.update()
             ButtonGrups.draw(tela)

@@ -148,7 +148,7 @@ def tela1():
             super().__init__(*groups)
 
             self.image = pygame.image.load(image).convert_alpha()
-            self.image = pygame.transform.scale(self.image, [250, 250])  # dimensoes botao voltar atras
+            self.image = pygame.transform.scale(self.image, [300, 250])  # dimensoes botao voltar atras
             self.rect = pygame.Rect(190, 49, 190, 49)
             self.rect = self.image.get_rect()
 
@@ -179,7 +179,7 @@ def tela1():
 
     Botao1 = Botao11(ButtonGrups, image="imagens_gerais/x.png", image1="imagens_gerais/x.png",
                      image2="imagens_gerais/x.png")
-    Botao1.rect.center = (50, 50)  # localizaçao botão voltar atrás
+    Botao1.rect.center = (70, 50)  # localizaçao botão voltar atrás
 
     # Loop principal
     rodando = True

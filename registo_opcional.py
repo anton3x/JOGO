@@ -1,8 +1,14 @@
 import pygame
 import pygame_gui
 
-pygame.init()
 
+def message_to_screen(message, textfont, size, color):
+    my_font = pygame.font.Font(textfont, size)
+    my_message = my_font.render(message, True, color)
+    return my_message
+
+pygame.init()
+ColorBack = {"azul": [0, 132, 252], "vermelho": [137, 28, 36]}
 # Definir o tamanho da janela
 window_surface = pygame.display.set_mode((800, 600))
 
@@ -28,8 +34,11 @@ botao = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((325, 325), (150,
                                      manager=manager
 )
 
+
+warning_message = message_to_screen("Jogador 1:", None, 25, [255, 255, 255])
 # Loop principal
 rodando = True
+pressionado = False
 while rodando:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -45,13 +54,16 @@ while rodando:
                     # Recupera o texto da caixa de texto e imprime na tela
                     nome = caixa_texto.get_text()
                     print("Nome inserido:", nome)
+                    pressionado = True
 
         # Atualiza o gerenciador de eventos com o tempo
         manager.update(pygame.time.get_ticks() / 1000.0)
 
     # Desenha o fundo e os elementos do Pygame GUI na tela
-    window_surface.fill((255, 255, 255))
+    window_surface.fill((0, 132, 252))
     manager.draw_ui(window_surface)
+    if not pressionado:
+        window_surface.blit(warning_message, (250 - warning_message.get_width() // 2, 275 - warning_message.get_height() // 2))
 
     # Atualiza a janela do Pygame
     pygame.display.update()

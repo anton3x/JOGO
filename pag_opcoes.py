@@ -2,6 +2,11 @@ import pygame
 import pygame_gui
 import sys
 
+def message_to_screen(message, textfont, size, color):
+    my_font = pygame.font.Font(textfont, size)
+    my_message = my_font.render(message, True, color)
+    return my_message
+
 def main_menu():
     #pygame.init()
     fps = pygame.time.Clock()
@@ -46,8 +51,6 @@ def main_menu():
                     self.image = self.image1
 
             pass
-
-
 
     ButtonGrups = pygame.sprite.Group()
 
@@ -110,33 +113,33 @@ def tela1():
 
     # Carrega a imagem
     imagem = pygame.image.load("imagens_jogo/Lucky-logo.png")
-    imagem_jogador1 = pygame.image.load("imagens_gerais/jogador_1.png")
+    #imagem_jogador1 = pygame.image.load("imagens_gerais/jogador_1.png")
 
     # Cria os elementos da interface do usuário com font_size maior
 
     #label_jogador1 = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((100, 100), (100, 50)), text="Jogador 1:",
                                                  #manager=gerenciador)
+    label_jogador1 = message_to_screen("Jogador 1:", None, 25, [255, 255, 255])
     entry_jogador1 = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((200, 100), (200, 50)),
                                                          manager=gerenciador)
 
-    label_jogador2 = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((100, 200), (100, 50)), text="Jogador 2:",
-                                                 manager=gerenciador)
+    #label_jogador2 = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((100, 200), (100, 50)), text="Jogador 2:",
+                                                # manager=gerenciador)
+    label_jogador2 = message_to_screen("Jogador 2:", None, 25, [255, 255, 255])
     entry_jogador2 = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((200, 200), (200, 50)),
                                                          manager=gerenciador)
     entry_jogador2.hide()
-    label_jogador2.hide()
+    #label_jogador2.hide()
 
-    label_variante = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((100, 175), (100, 50)),
-                                                 text="Variante:",
-                                                 manager=gerenciador)
+    #label_variante = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((100, 175), (100, 50)),text="Variante:",manager=gerenciador)
+    label_variante = message_to_screen("Variante:", None, 25, [255, 255, 255])
     dropdown_variante = pygame_gui.elements.UISelectionList(
         relative_rect=pygame.Rect((200, 175), (200, 100)),
         item_list=["Normal", "MICHAEL’S SETUP", "TOURNAMENT MODE"],
         manager=gerenciador)
 
-    label_oponente = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((100, 300), (100, 50)),
-                                                 text="Oponente:",
-                                                 manager=gerenciador)
+    #label_oponente = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((100, 300), (100, 50)),text="Oponente:",manager=gerenciador)
+    label_oponente = message_to_screen("Oponente:", None, 25, [255, 255, 255])
     dropdown_oponente = pygame_gui.elements.UISelectionList(
         relative_rect=pygame.Rect((200, 300), (200, 100)),
         item_list=["Bot", "Outro jogador"], manager=gerenciador)
@@ -184,6 +187,7 @@ def tela1():
     Botao1.rect.center = (65, 53)  # localizaçao botão voltar atrás
 
     # Loop principal
+    label2_mostrar = False
     rodando = True
     while rodando:
         tempo = pygame.time.Clock().tick(60)
@@ -191,34 +195,35 @@ def tela1():
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 rodando = False
-                pygame.QUIT()
+                pygame.quit()
 
             if evento.type == pygame.USEREVENT:
                 if evento.user_type == pygame_gui.UI_SELECTION_LIST_NEW_SELECTION:
                     if evento.ui_element == dropdown_oponente:
                         if evento.text == "Outro jogador":
                             entry_jogador2.show()
-                            label_jogador2.show()
+                            #label_jogador2.show()
                             label_variante.set_position((100, 300))
                             label_oponente.set_position((100, 400))
                             dropdown_variante.set_position((200, 300))
                             dropdown_oponente.set_position((200, 400))
                             botao_iniciar.set_position((160, 540))
+                            label2_mostrar = True
 
-
-
+                            ButtonGrups.update()
                             pygame.display.flip()
                             pygame.display.update()
 
                         else:
+                            label2_mostrar = False
                             entry_jogador2.hide()
-                            label_jogador2.hide()
+                            #label_jogador2.hide()
                             label_variante.set_position((100, 175))
                             label_oponente.set_position((100, 300))
                             dropdown_variante.set_position((200, 175))
                             dropdown_oponente.set_position((200, 300))
                             botao_iniciar.set_position((160, 440))
-
+                            ButtonGrups.update()
                             pygame.display.flip()
                             pygame.display.update()
 
@@ -248,11 +253,16 @@ def tela1():
         gerenciador.update(tempo)
         janela.fill((0, 132, 251))
         gerenciador.draw_ui(janela)
+
+        janela.blit(label_jogador1, (150 - label_jogador1.get_width() // 2, 125 - label_jogador1.get_height() // 2))
+        if label2_mostrar:
+            janela.blit(label_jogador2, (150 - label_jogador2.get_width() // 2, 220 - label_jogador2.get_height() // 2))
+
         imagem = pygame.transform.scale(imagem, (420, 245))
-        imagem_jogador1 = pygame.transform.scale(imagem_jogador1,(80,20))
+        #imagem_jogador1 = pygame.transform.scale(imagem_jogador1,(80,20))
         # Desenha a imagem no lado direito
         janela.blit(imagem, (495, 180))
-        janela.blit(imagem_jogador1, (110,115))
+        #janela.blit(imagem_jogador1, (110,115))
 
 pygame.quit()
 

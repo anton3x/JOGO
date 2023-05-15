@@ -203,8 +203,8 @@ def tela1():
                         if evento.text == "Outro jogador":
                             entry_jogador2.show()
                             #label_jogador2.show()
-                            label_variante.set_position((100, 300))
-                            label_oponente.set_position((100, 400))
+                            #label_variante.set_position((100, 300))
+                            #label_oponente.set_position((100, 400))
                             dropdown_variante.set_position((200, 300))
                             dropdown_oponente.set_position((200, 400))
                             botao_iniciar.set_position((160, 540))
@@ -218,8 +218,8 @@ def tela1():
                             label2_mostrar = False
                             entry_jogador2.hide()
                             #label_jogador2.hide()
-                            label_variante.set_position((100, 175))
-                            label_oponente.set_position((100, 300))
+                            #label_variante.set_position((100, 175))
+                            #label_oponente.set_position((100, 300))
                             dropdown_variante.set_position((200, 175))
                             dropdown_oponente.set_position((200, 300))
                             botao_iniciar.set_position((160, 440))

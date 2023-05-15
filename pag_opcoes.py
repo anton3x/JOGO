@@ -13,6 +13,7 @@ def main_menu():
     tela = pygame.display.set_mode([largura, altura])
     pygame.display.set_caption("Lucky Numbers")
 
+    imagem = pygame.image.load("imagens_jogo\Lucky-logo.png")
     ColorBack = {"azul": [0, 132, 252], "vermelho": [137, 28, 36]}
 
     class Botao(pygame.sprite.Sprite):
@@ -86,16 +87,15 @@ def main_menu():
 
 
             if Botao4.touche == True:
-                tela.fill(ColorBack["azul"])
-                tela4()
+                pygame.quit()
 
             else:
                 tela.fill(ColorBack["azul"])
 
             ButtonGrups.update()
             ButtonGrups.draw(tela)
-
             pygame.display.update()
+        # Desenha a imagem no lado direito
     pygame.quit()
 def tela1():
     pygame.init()
@@ -401,71 +401,7 @@ def tela3():
             pygame.display.update()
         #pygame.display.update()
     pygame.quit()
-def tela4():
-    pygame.init()
-    #fps = pygame.time.Clock()
-    largura = 1024
-    altura = 600
 
-    JogoLoop = True
-
-    tela = pygame.display.set_mode([largura, altura])
-    tela.fill([0, 132, 251])
-   # ColorBack = {"azul": [0, 132, 252], "vermelho": [137, 28, 36], "laranja": [255, 117, 24]}
-    pygame.display.set_caption("Lucky Numbers")
-
-    class Botao11(pygame.sprite.Sprite):
-        def __init__(self, *groups, image, image1, image2):
-            super().__init__(*groups)
-
-            self.image = pygame.image.load(image).convert_alpha()
-            self.image = pygame.transform.scale(self.image, [70, 70])#dimensoes botao voltar atras
-            self.rect = pygame.Rect(190, 49, 190, 49)
-            self.rect = self.image.get_rect()
-
-            self.image1 = pygame.image.load(image1).convert_alpha()
-            self.image2 = pygame.image.load(image2).convert_alpha()
-
-            self.touche = False
-
-        def update(self):
-            self.mouse = pygame.mouse.get_pressed()
-            self.MousePos = pygame.mouse.get_pos()
-
-            if self.rect.collidepoint(self.MousePos):
-
-                if self.mouse[0]:
-                    self.touche = True
-                    pygame.mouse.get_rel()
-                    #self.image = self.image2
-
-                else:
-                    self.touche = False
-                    #self.image = self.image1
-
-            pass
-
-    ButtonGrups = pygame.sprite.Group()
-
-    Botao4 = Botao11(ButtonGrups, image="imagens_gerais/x.png", image1="imagens_gerais/x.png",
-                   image2="imagens_gerais/x.png")
-    Botao4.rect.center = (50, 50) #localizaçao botão voltar atrás
-
-    while JogoLoop:
-        #fps.tick(60)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                JogoLoop = False
-            if Botao4.touche == True:
-                pygame.quit()
-                main_menu()
-
-            ButtonGrups.update()
-            ButtonGrups.draw(tela)
-
-            pygame.display.update()
-        #pygame.display.update()
-    pygame.quit()
 def tela5():
     pygame.init()
 

@@ -13,10 +13,6 @@ def joaninha(joana, screen, jog="jog1"):
         screen.blit(joana, (442, 178))
     else:
         screen.blit(joana, (880, 178))
-
-    # é uma função do Pygame que atualiza a tela.
-    pygame.display.flip()
-    pygame.display.update()
 def mem():
     # define o caminho para a pasta com as imagens
     path = "trevos"
@@ -75,17 +71,20 @@ def guardar_na_mem(name, tabuleiro_player, excluidos, table, jogador):
     f.close()
 
     #print(dicionario)
-def exibir_taboleiro(taboleiro,screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1, Bot=0):
+def exibir_taboleiro(cond_final, taboleiro,screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1, Bot=0):
     for i in range(4):
         print(str(taboleiro[i][0]), " | ", str(taboleiro[i][1]), " | ", str(taboleiro[i][2]), " | ", str(taboleiro[i][3]))
     print("\n")
+
     n_botao = 0
+    contador = 0
 
     if Bot != 1:
         for i in range(4):#linhas
             for j in range(4):#colunas
                 n_botao += 1
                 if taboleiro[i][j] !=0:
+                    contador += 1
                     imagem_fundo = pygame.image.load("trevos/" + str(taboleiro[i][j]) + ".png").convert_alpha()
                     imagem_fundo = pygame.transform.scale(imagem_fundo, (73, 73))
                     x = eval("posx" + str(n_botao))
@@ -98,6 +97,9 @@ def exibir_taboleiro(taboleiro,screen, posx1, posx2, posx3, posx4, posx5, posx6,
             x = 281
             y = 615
             screen.blit(imagem_fundo, (x - 36, y - 36))
+
+        if contador == 16:
+            cond_final[1] = True
     else:
         for i in range(4):  # linhas
             for j in range(4):  # colunas
@@ -115,7 +117,8 @@ def exibir_taboleiro(taboleiro,screen, posx1, posx2, posx3, posx4, posx5, posx6,
             x = 726
             y = 615
             screen.blit(imagem_fundo, (x - 36, y - 36))
-
+        if contador == 16:
+            cond_final[0] = True
 
 
     pygame.display.flip()
@@ -236,7 +239,7 @@ def primeira_rodada(taboleiro, excluidos, totaltrevos): #funcao destinada a gera
         taboleiro[i][i] = lista_ordenada[i]
 
     return False
-def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_inicial, table, jogador, ButtonGrups, Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,posy14, posy15, posy16, posy17=88, posx17=110):#funcao destinada ao turno do jogador
+def turnoj(cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_inicial, table, jogador, ButtonGrups, Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,posy14, posy15, posy16, posy17=88, posx17=110):#funcao destinada ao turno do jogador
 
     joana = pygame.image.load("imagens_jogo/joaninha.png").convert_alpha()
     joana = pygame.transform.scale(joana, (37, 37))
@@ -256,7 +259,7 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                     key = False
                     excluidos.append(trevo)
             taboleiroj[4][0] = trevo #trevo escolhido para a parte debaixo do taboleiro
-            exibir_taboleiro(taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+            exibir_taboleiro(cond_final, taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                              posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                              posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                              posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
@@ -279,13 +282,13 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                     print("TABLE TOCADA")
 
                     if len(table) != 1: #se existirem mais que um elementos na table, tem que escolher qual quer
-
+                        Botao18.touche = False
                         print("Table - ", table)
                         linha = int(input("Qual trevo queres da table(0-n): "))
                         trevo = table[linha]
                         table.remove(trevo)
                         taboleiroj[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-                        exibir_taboleiro(taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8,
+                        exibir_taboleiro(cond_final, taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8,
                                          posx9,
                                          posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                          posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12,
@@ -295,10 +298,11 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                         pygame.display.update()
                         break
                     else:   #se só existir 1, tem que ser o que está lá
+                        Botao18.touche = False
                         trevo = table[0]
                         table.remove(trevo)
                         taboleiroj[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-                        exibir_taboleiro(taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8,
+                        exibir_taboleiro(cond_final, taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8,
                                          posx9,
                                          posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                          posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12,
@@ -310,7 +314,6 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                     # exibe a imagem 1 verde
                     # imagem1_fundo = pygame.transform.scale(imagem1_fundo, (73, 73))
                     # screen.blit(imagem1_fundo, (posx1 - 36, posy1 - 36))
-                    Botao18.touche = False
                     break
                 if Botao17.touche == True:  #se ele pressionou o baralho
                     key = True
@@ -320,7 +323,7 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                             key = False
                             excluidos.append(trevo)
                     taboleiroj[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-                    exibir_taboleiro(taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+                    exibir_taboleiro(cond_final, taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                      posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                      posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                                      posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
@@ -356,7 +359,7 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                 print("\nO trevo %d foi colocado na table\n" % trevo)
                 taboleiroj[4][0] = 0
                 screen.blit(imagem_fundo, (0, 0))
-                exibir_taboleiro(taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+                exibir_taboleiro(cond_final, taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                  posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                  posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                                  posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
@@ -366,7 +369,7 @@ def turnoj(imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_in
                 break
             else:
                 #taboleiroj[4][0] = trevo #trevo escolhido para a parte debaixo do taboleiro
-                exibir_taboleiro(taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+                exibir_taboleiro(cond_final, taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                  posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                  posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                                  posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
@@ -791,26 +794,28 @@ def tela6(nome):
     initial_write_to_mem(nome, taboleiroJ, trevos,table)  # guarda os taboleiros na mem com os nomes do bot e do jogador
 
     numero = 1#random.randint(0, 1)  # quem comeca
-
     Comeco = [True, True]
+
+    Cond_final = [J_prenchido, B_preenhido]
+
     if numero == 0:
         print("Bot começa!")
-        while (not B_preenhido and not J_prenchido) and not (len(trevos) == 40):  # as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
+        while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):  # as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
             #aaa(imagem1_verde_exibida, imagem1_fundo, imagem17_fundo, imagem17_verde_exibida, Botao1, Botao17, screen, posx1, posy1, cor_de_fundo, imagem_fundo, ButtonGrups)
             #joaninha(joana,screen,"jog2")
             turnob(screen, taboleiroB, trevos, 20, Comeco, table, nome)
-            exibir_taboleiro(taboleiroB, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+            exibir_taboleiro(Cond_final, taboleiroB, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                              posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                              posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                              posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1, Bot=1)
             #joaninha(joana, screen)
-            turnoj(imagem_fundo,screen, nome, taboleiroJ, trevos, 20, Comeco, table, "BOT", ButtonGrups,
+            turnoj(Cond_final, imagem_fundo,screen, nome, taboleiroJ, trevos, 20, Comeco, table, "BOT", ButtonGrups,
                                       Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
                                       Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18,posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                                       posy14, posy15, posy16, posy17=88, posx17=110)
-            exibir_taboleiro(taboleiroJ, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+            exibir_taboleiro(Cond_final, taboleiroJ, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                                       posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
@@ -823,22 +828,22 @@ def tela6(nome):
         # print(trevos)
     else:
         print("O %s começa!" % nome)
-        while (not B_preenhido or not J_prenchido) and not (len(trevos) == 40):
+        while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):
             #aaa(imagem1_verde_exibida, imagem1_fundo, imagem17_fundo, imagem17_verde_exibida, Botao1, Botao17, screen, posx1, posy1, cor_de_fundo, imagem_fundo, ButtonGrups)
             #joaninha(joana, screen)
-            turnoj(imagem_fundo,screen, nome, taboleiroJ, trevos, 40, Comeco, table, "BOT", ButtonGrups,
+            turnoj(Cond_final, imagem_fundo,screen, nome, taboleiroJ, trevos, 40, Comeco, table, "BOT", ButtonGrups,
                                       Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
                                       Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                                       posy14, posy15, posy16, posy17=88, posx17=110)
-            exibir_taboleiro(taboleiroJ, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+            exibir_taboleiro(Cond_final, taboleiroJ, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                                       posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
             #joaninha(joana, screen, "jog2")
             turnob(screen, taboleiroB, trevos, 40, Comeco, table, nome)
-            exibir_taboleiro(taboleiroB, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+            exibir_taboleiro(Cond_final, taboleiroB, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                              posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                              posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                              posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1, Bot=1)

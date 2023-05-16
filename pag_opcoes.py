@@ -184,12 +184,11 @@ def tela1():
     Botao1 = Botao11(ButtonGrups, image="imagens_gerais/x.png", image1="imagens_gerais/x.png",
                      image2="imagens_gerais/x.png")
     Botao1.rect.center = (65, 53)  # localizaçao botão voltar atrás
-
+    tempo = pygame.time.Clock().tick(60)
     # Loop principal
     label2_mostrar = False
     rodando = True
     while rodando:
-        tempo = pygame.time.Clock().tick(60)
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -223,8 +222,10 @@ def tela1():
                             dropdown_oponente.set_position((200, 300))
                             botao_iniciar.set_position((160, 440))
                             ButtonGrups.update()
+                            ButtonGrups.draw(janela)
+
                             pygame.display.flip()
-                            pygame.display.update()
+                            gerenciador.process_events(evento)
 
                 if evento.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if evento.ui_element == botao_iniciar:
@@ -249,6 +250,9 @@ def tela1():
             pygame.display.flip()
             gerenciador.process_events(evento)
 
+        ButtonGrups.update()
+        ButtonGrups.draw(janela)
+        pygame.display.flip()
         gerenciador.update(tempo)
         janela.fill((0, 132, 251))
         gerenciador.draw_ui(janela)

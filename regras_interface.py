@@ -22,10 +22,16 @@ text_box_rect = pygame.Rect(posição_x_textbox, posição_y_textbox, largura_te
 
 
 
+
 # Cria a caixa de texto
 text_box = pygame_gui.elements.UITextBox(
-    html_text="<body><font color>O jogo é composto por dois tabuleiros de 4x4 espaços (casas) para cada jogador. Para jogar usam-se os trevos numerados de 1 a 20; um conjunto por cada jogador. Os trevos de ambos os jogadores são misturados num só saco. À vez, cada jogador retira um trevo do saco colocando-o no seu tabuleiro. Deve primeiro preencher os 4 espaços da diagonal principal e de seguida os restantes espaços. Como regra de base, quer na vertical quer na horizontal os números devem ser colocados em ordem estritamente crescente. As restantes regras podem ser lidas no ficheiro em "
-              "f k.</font></body>",
+    html_text="<body><font face='imapact' color='#00FF00'>     Ideia de Jogo:</font> Cada jogador tenta ser o primeiro a preencher completamente o seu jardim com trevos. Mas eles devem verificar se, a qualquer momento, os números são organizados em ordem crescente em cada linha e coluna."
+              "\n     Configuração do Jogo: Use um conjunto completo de blocos de trevo (= 1 cor numerada de 1 a 20) por jogador. Com menos de 4 jogadores, devolva as peças não utilizadas à caixa do jogo. \n Embaralhe os trevos e coloque-os virados para baixo no meio da mesa. \n Cada jogador leva um jogo bordo e orienta-o para que a joaninha esteja no canto inferior direito."
+              "\n     "
+              "\n     Marcação dos pontos: Os jogadores que escolheram a carta mais próxima ao número alvo ganham pontos. O primeiro colocado ganha 2 pontos; o segundo colocado ganha 1 ponto; nenhum outro participante pontua nessa etapa."
+              "\n     Descarte e compra das cartas: Os participantes descartam as selecionados anteriormente e pegam outras novas no lugar delas. Se todas acabarem durante essa troca, reembaralhe os itens deixados pelos outros competidores antes naquele espaço disponível novamente." 
+              "\n     Fim do jogo: Quando algum participante chegar aos 10 pontos, a disputa termina, e quem tiver obtido mais alcances é o vencedor!"
+              "</font></body>",
     relative_rect=text_box_rect,
     manager=ui_manager)
 

@@ -1,6 +1,7 @@
 import copy
 import time
 
+
 from config_jog1 import *
 from config_jog2 import *
 import pygame
@@ -9,7 +10,16 @@ import sys
 import random
 import os
 
+def player_nome(nome_player1,nome_player2, screen):
+    player1 = message_to_screen(nome_player1, None, 25, [0, 255, 127])
+    screen.blit(player1, (1075 - player1.get_width() // 2, 116 - player1.get_height() // 2))
 
+    if nome_player2 == "BOT":
+        player2 = message_to_screen("BOT", None, 25, [255, 0, 0])
+        screen.blit(player2, (1050 - player2.get_width() // 2, 205 - player2.get_height() // 2))
+    else:
+        player2 = message_to_screen(nome_player2, None, 25, [255, 0, 0])
+        screen.blit(player2, (1075 - player2.get_width() // 2, 205 - player2.get_height() // 2))
 def remover_message_to_screen(retangulo1, screen):
     retangulo = pygame.transform.scale(retangulo1, (818, 29))
     screen.blit(retangulo, (91, 136))
@@ -372,24 +382,24 @@ def turnob(screen, taboleirob, excluidos,totaltrevos, key_inicial, table, jogado
                 key = False
                 excluidos.append(trevo)
 
-        key = True
+        key1 = True
         print("Bot retirou do baralho o trevo n: %d " % (trevo))
 
-        while key:
+        while key1:
             linha = random.randint(0, 3)
             coluna = random.randint(0, 3)
             if taboleirob[linha][coluna] == 0:
                 if verificar_taboleiro(taboleirob, linha, coluna, trevo):
                     print("O bot colocou o trevo na linha %d e coluna %d\n" % (linha, coluna))
                     taboleirob[linha][coluna] = trevo
-                    key = False
+                    key1 = False
             else:
                 if verificar_taboleiro(taboleirob, linha, coluna, trevo):
                     print("O bot colocou o trevo na linha %d e coluna %d\n" % (linha, coluna))
                     print("\nO trevo %d foi colocado na table pois foi substituido pelo trevo %d\n" % (taboleirob[linha][coluna], trevo))
                     table.append(taboleirob[linha][coluna])
                     taboleirob[linha][coluna] = trevo
-                    key = False
+                    key1 = False
         for i in range(4):
             print(str(taboleirob[i][0]), " | ", str(taboleirob[i][1]), " | ", str(taboleirob[i][2]), " | ",
                   str(taboleirob[i][3]))
@@ -443,7 +453,6 @@ def main_menu():
                     self.image = self.image1
 
             pass
-
 
 
     ButtonGrups = pygame.sprite.Group()
@@ -680,26 +689,27 @@ def load_jogo_normal():
     Comeco = [False, False]
     print(dicionario)
     #jogo abaixo
-    B_preenhido = False  # o bot ja preencheu o taboleiro?
-    J_prenchido = False  # o jogador ja preencheu o taboleiro?
-    taboleiroB = dicionario[nome_jogador2]  # taboleiro do bot com base na memoria
-    taboleiroJ = dicionario[nome_jogador1]  # taboleiro do jogador com base na memoria
+    J2_preenhido = False  # o bot ja preencheu o taboleiro?
+    J1_prenchido = False  # o jogador ja preencheu o taboleiro?
+    taboleiroJ1 = dicionario[nome_jogador2]  # taboleiro do bot com base na memoria
+    taboleiroJ2 = dicionario[nome_jogador1]  # taboleiro do jogador com base na memoria
     prox_jogador = dicionario["jogador"]  # proximo jogador a jogar com base na memoria
     trevos = dicionario["excluidos"]  # obter os trevos "excluidos" que ja foram usados
     table = dicionario["table"]  # obter os trevos que estavam na table
     joana = pygame.image.load("imagens_jogo/joaninha.png").convert_alpha()
     p = True
     numero = 0#random.randint(0, 1)  # quem comeca
+    proxima_acao = dicionario["ultima"]
 
-    Cond_final = [J_prenchido, B_preenhido]
-    exibir_taboleiro(Cond_final, taboleiroB, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+    Cond_final = [J1_prenchido, J2_preenhido]
+    exibir_taboleiro(Cond_final, taboleiroJ2, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                      posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                      posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                      posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1,
                      posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,
                      posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1,
                      posy13_1, posy14_1, posy15_1, posy16_1, Bot=1 )
-    exibir_taboleiro(Cond_final, taboleiroJ, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+    exibir_taboleiro(Cond_final, taboleiroJ1, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                      posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                      posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                      posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1,
@@ -707,54 +717,96 @@ def load_jogo_normal():
                      posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1,
                      posy13_1, posy14_1, posy15_1, posy16_1,Bot=0)
     #time.sleep(100)
-    if p:#prox_jogador == "BOT":
-        print("Bot começa!")
+    if nome_jogador2 == "BOT":
+        if prox_jogador == "BOT":
+            print("Bot começa!")
 
-        while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):  # as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
-            player_nome(nome_jogador1,nome_jogador2,screen)
-            joaninha(joana,screen,"jog2")
-            turnob(screen, taboleiroB, trevos, 40, Comeco, table, nome_jogador1, nome_jogador2)
-            exibir_taboleiro(Cond_final, taboleiroB, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                             posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                             posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                             posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1, Bot=1, )
-            retangulo_joaninha_remove(retangulo, screen, "jog2")
-            joaninha(joana, screen)
-            player_nome(nome_jogador1,nome_jogador2,screen)
-            turnoj(Cond_final, imagem_fundo,screen, nome_jogador1, taboleiroJ, trevos, 40, Comeco, table, nome_jogador2, ButtonGrups,
-                                      Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
-                                      Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18,posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                                      posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                      posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                      posy14, posy15, posy16, posy17=88, posx17=110)
+            while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):  # as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
+                player_nome(nome_jogador1,nome_jogador2,screen)
+                joaninha(joana,screen,"jog2")
+                turnob(screen, taboleiroJ2, trevos, 40, Comeco, table, nome_jogador1, nome_jogador2)
+                exibir_taboleiro(Cond_final, taboleiroJ2, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+                                 posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
+                                 posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
+                                 posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1, Bot=1, )
+                retangulo_joaninha_remove(retangulo, screen, "jog2")
+                joaninha(joana, screen)
+                player_nome(nome_jogador1,nome_jogador2,screen)
+                turnoj(Cond_final, imagem_fundo,screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco, table, nome_jogador2, ButtonGrups,
+                                          Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
+                                          Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18,posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+                                          posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
+                                          posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
+                                          posy14, posy15, posy16, posy17=88, posx17=110)
 
-            exibir_taboleiro(Cond_final, taboleiroJ, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                                      posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                      posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                      posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
-            retangulo_joaninha_remove(retangulo, screen)
+                exibir_taboleiro(Cond_final, taboleiroJ1, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+                                          posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
+                                          posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
+                                          posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
+                retangulo_joaninha_remove(retangulo, screen)
+        else:
+            print("Player começa!")
+            while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):  # as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
+                player_nome(nome_jogador1, nome_jogador2, screen)
+                joaninha(joana, screen, "jog2")
+                turnob(screen, taboleiroJ2, trevos, 40, Comeco, table, nome_jogador1, nome_jogador2)
+                exibir_taboleiro(Cond_final, taboleiroJ2, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8,
+                                 posx9,
+                                 posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
+                                 posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
+                                 posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1,
+                                 posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1,
+                                 posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1,
+                                 posy10_1, posy11_1, posy12_1, posy13_1, posy14_1, posy15_1, posy16_1, Bot=1, )
+                retangulo_joaninha_remove(retangulo, screen, "jog2")
+                joaninha(joana, screen)
+                player_nome(nome_jogador1, nome_jogador2, screen)
+                turnoj(Cond_final, imagem_fundo, screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco, table,
+                       nome_jogador2, ButtonGrups,
+                       Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
+                       Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17, Botao18, posx1,
+                       posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
+                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
+                       posy14, posy15, posy16, posy17=88, posx17=110)
 
+                exibir_taboleiro(Cond_final, taboleiroJ1, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8,
+                                 posx9,
+                                 posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
+                                 posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
+                                 posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1,
+                                 posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1,
+                                 posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1,
+                                 posy10_1, posy11_1, posy12_1, posy13_1, posy14_1, posy15_1, posy16_1)
+                retangulo_joaninha_remove(retangulo, screen)
 
     else:
+
         print("O %s começa!" % nome)
         while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):
             #aaa(imagem1_verde_exibida, imagem1_fundo, imagem17_fundo, imagem17_verde_exibida, Botao1, Botao17, screen, posx1, posy1, cor_de_fundo, imagem_fundo, ButtonGrups)
             joaninha(joana, screen)
-            turnoj(Cond_final, imagem_fundo,screen, nome, taboleiroJ, trevos, 40, Comeco, table, "BOT", ButtonGrups,
+            turnoj(Cond_final, imagem_fundo,screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco, table,nome_jogador2, ButtonGrups,
                                       Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
                                       Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                                       posy14, posy15, posy16, posy17=88, posx17=110)
-            exibir_taboleiro(Cond_final, taboleiroJ, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+            exibir_taboleiro(Cond_final, taboleiroJ1, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                                       posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
             retangulo_joaninha_remove(retangulo, screen)
             #time.sleep(5)
             joaninha(joana, screen, "jog2")
-            turnob(screen, taboleiroB, trevos, 40, Comeco, table, nome)
-            exibir_taboleiro(Cond_final, taboleiroB, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+            turnoj(Cond_final, imagem_fundo, screen, nome_jogador2, taboleiroJ2, trevos, 40, Comeco, table, nome_jogador1, ButtonGrups,
+                   Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
+                   Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17, Botao18, posx1,
+                   posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+                   posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
+                   posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
+                   posy14, posy15, posy16, posy17=88, posx17=110)
+            exibir_taboleiro(Cond_final, taboleiroJ2, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                              posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                              posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                              posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1, Bot=1)

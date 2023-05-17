@@ -1,6 +1,7 @@
 import pygame
 import pygame_gui
 import sys
+from jogo_tm import jogo_tm
 
 def message_to_screen(message, textfont, size, color):
     my_font = pygame.font.Font(textfont, size)
@@ -233,7 +234,14 @@ def tela1():
                         jogador2 = entry_jogador2.get_text()
                         variante = dropdown_variante.get_single_selection()
                         oponente = dropdown_oponente.get_single_selection()
-                        tela6(jogador1, jogador2, oponente)
+
+                        if variante == "Normal":
+                            jogo_normal(jogador1, jogador2, oponente)
+                        elif variante == "MICHAEL’S SETUP":
+                            jogo_ms(jogador1, jogador2, oponente)
+                        else:
+                            jogo_tm(jogador1, jogador2, oponente)
+
                         print("Jogador 1:", jogador1)
                         print("Jogador 2:", jogador2)
                         print("Variante escolhida:", variante)
@@ -266,9 +274,7 @@ def tela1():
         # Desenha a imagem no lado direito
         janela.blit(imagem, (495, 180))
         #janela.blit(imagem_jogador1, (110,115))
-
 pygame.quit()
-
 def tela2():
     pygame.init()
     #fps = pygame.time.Clock()
@@ -374,7 +380,6 @@ def tela3():
             pygame.display.update()
         #pygame.display.update()
     pygame.quit()
-
 def tela5():
     pygame.init()
 
@@ -419,7 +424,7 @@ def tela5():
                     if event.ui_element == botao:
                         # Recupera o texto da caixa de texto e imprime na tela
                         nome = caixa_texto.get_text()
-                        tela6()
+                        #tela6()
                         print("Nome inserido:", nome)
 
             # Atualiza o gerenciador de eventos com o tempo
@@ -434,7 +439,7 @@ def tela5():
 
     # Encerra o Pygame
     pygame.quit()
-def tela6(jogador1,jogador2,oponente):
+def jogo_normal(jogador1,jogador2,oponente):
     pygame.init()
 
     largura = 1200
@@ -783,8 +788,6 @@ def tela6(jogador1,jogador2,oponente):
 
         pygame.display.flip()
         pygame.display.update()
-
-
 def regras_jogo():
     pygame.init()
 
@@ -912,6 +915,6 @@ def regras_jogo():
 
         pygame.display.flip()
         pygame.display.update()
-
-
+def jogo_ms(jogador1,jogador2,oponente):
+    print("Variante MICHAEL’S SETUP")
 main_menu()

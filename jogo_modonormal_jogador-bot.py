@@ -39,24 +39,30 @@ def joaninha(joana, screen, jog="jog1"):
         screen.blit(joana, (433, 168))
     else:
         screen.blit(joana, (870, 168))
-def initial_write_to_mem(name_player, player_board, excluidos, table):
+def initial_write_to_mem(name_player, player_board, excluidos, table, name_player2 = "BOT"):
     with open("save.txt", "w") as f:
         f.write(name_player +"/"+ str(player_board))
         f.write("\n")
-        f.write("BOT/" + str(player_board))
+        f.write(name_player2 + "/" + str(player_board))
         f.write("\n")
         f.write("excluidos/" + str(excluidos))
         f.write("\n")
         f.write("table/" + str(table))
     f.close()
-def guardar_na_mem(name, tabuleiro_player, excluidos, table, jogador):
+def guardar_na_mem(name, tabuleiro_player, excluidos, table, jogador, proxima=-1):
     dicionario = {}
-
     with open("save.txt", "r") as f:
         linhas = f.readlines()
-
+    i = 0
     for linha in linhas:
         nome, tabuleiro_str = linha.strip().split("/")
+        if i == 0:
+            dicionario["jogador1"] = nome
+            i += 1
+        elif i == 1:
+            dicionario["jogador2"] = nome
+            i += 1
+
         tabuleiro = eval(tabuleiro_str)
         dicionario[nome] = tabuleiro
 
@@ -71,12 +77,17 @@ def guardar_na_mem(name, tabuleiro_player, excluidos, table, jogador):
     dicionario["table"] = table
 
     dicionario["jogador"] = [jogador]
+    dicionario["proxima"] = [proxima]
 
+    dicionario.pop("jogador1")
+    dicionario.pop("jogador2")
     with open("save.txt", "w") as f:
         for y in dicionario.keys():
             f.write(y + "/" + str(dicionario[y]) + "\n")
 
     f.close()
+
+    # print(dicionario)
 
     #print(dicionario)
 def exibir_taboleiro(cond_final, taboleiro,screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1, Bot=0):

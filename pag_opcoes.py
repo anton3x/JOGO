@@ -83,7 +83,6 @@ def main_menu():
                 tela.fill(ColorBack["azul"])
                 tela2()
 
-
             if Botao3.touche == True:
                 tela.fill(ColorBack["azul"])
                 tela3()
@@ -363,54 +362,14 @@ def tela3():
    # ColorBack = {"azul": [0, 132, 252], "vermelho": [137, 28, 36], "laranja": [255, 117, 24]}
     pygame.display.set_caption("Lucky Numbers")
 
-    class Botao11(pygame.sprite.Sprite):
-        def __init__(self, *groups, image, image1, image2):
-            super().__init__(*groups)
-
-            self.image = pygame.image.load(image).convert_alpha()
-            self.image = pygame.transform.scale(self.image, [70, 70])#dimensoes botao voltar atras
-            self.rect = pygame.Rect(190, 49, 190, 49)
-            self.rect = self.image.get_rect()
-
-            self.image1 = pygame.image.load(image1).convert_alpha()
-            self.image2 = pygame.image.load(image2).convert_alpha()
-
-            self.touche = False
-
-        def update(self):
-            self.mouse = pygame.mouse.get_pressed()
-            self.MousePos = pygame.mouse.get_pos()
-
-            if self.rect.collidepoint(self.MousePos):
-
-                if self.mouse[0]:
-                    self.touche = True
-                    pygame.mouse.get_rel()
-                    #self.image = self.image2
-
-                else:
-                    self.touche = False
-                    #self.image = self.image1
-
-            pass
-
-    ButtonGrups = pygame.sprite.Group()
-
-    Botao3 = Botao11(ButtonGrups, image="imagens_gerais/x.png", image1="imagens_gerais/x.png",
-                   image2="imagens_gerais/x.png")
-    Botao3.rect.center = (50, 50) #localizaçao botão voltar atrás
+    regras_jogo()
 
     while JogoLoop:
         #fps.tick(60)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 JogoLoop = False
-            if Botao3.touche == True:
-                pygame.quit()
-                main_menu()
 
-            ButtonGrups.update()
-            ButtonGrups.draw(tela)
 
             pygame.display.update()
         #pygame.display.update()
@@ -821,6 +780,135 @@ def tela6(jogador1,jogador2,oponente):
             screen.blit(imagem16_fundo, (posx16 - 36, posy16 - 36))
         if imagem17_verde_exibida:  # evitar que seja possivel clicar varias vezes
             screen.blit(imagem17_fundo, (281 - 36, 615 - 36))
+
+        pygame.display.flip()
+        pygame.display.update()
+
+
+def regras_jogo():
+    pygame.init()
+
+    # Define as dimensões da tela e cria a superfície
+    largura = 1024
+    altura = 600
+    screen = pygame.display.set_mode((largura, altura))
+
+    # Cria um gerenciador de interface de usuário e define o tema
+    ui_manager = pygame_gui.UIManager((largura, altura), 'data/themes/theme_1.json')
+
+    # Define as dimensões e a posição da caixa de texto
+    largura_textbox = 800
+    altura_textbox = 400
+    posição_x_textbox = 100
+    posição_y_textbox = 150
+    text_box_rect = pygame.Rect(posição_x_textbox, posição_y_textbox, largura_textbox, altura_textbox)
+
+    # Cria a caixa de texto
+    text_box = pygame_gui.elements.UITextBox(
+        html_text="<body><font color>O jogo é composto por dois tabuleiros de 4x4 espaços (casas) para cada jogador. Para jogar usam-se os trevos numerados de 1 a 20; um conjunto por cada jogador. Os trevos de ambos os jogadores são misturados num só saco. À vez, cada jogador retira um trevo do saco colocando-o no seu tabuleiro. Deve primeiro preencher os 4 espaços da diagonal principal e de seguida os restantes espaços. Como regra de base, quer na vertical quer na horizontal os números devem ser colocados em ordem estritamente crescente. As restantes regras podem ser lidas no ficheiro em "
+                  "f k.</font></body>",
+        relative_rect=text_box_rect,
+        manager=ui_manager)
+
+    # Define a cor de fundo da tela
+    BACKGROUND_COLOR = ([0, 132, 252])
+
+    imagem_regras = pygame.image.load("imagens_gerais/REGRAS.png")
+
+    class Botao11(pygame.sprite.Sprite):
+        def __init__(self, *groups, image, image1, image2):
+            super().__init__(*groups)
+
+            self.image = pygame.image.load(image).convert_alpha()
+            self.image = pygame.transform.scale(self.image, [70, 70])#dimensoes botao voltar atras
+            self.rect = pygame.Rect(190, 49, 190, 49)
+            self.rect = self.image.get_rect()
+
+            self.image1 = pygame.image.load(image1).convert_alpha()
+            self.image2 = pygame.image.load(image2).convert_alpha()
+
+            self.touche = False
+
+        def update(self):
+            self.mouse = pygame.mouse.get_pressed()
+            self.MousePos = pygame.mouse.get_pos()
+
+            if self.rect.collidepoint(self.MousePos):
+
+                if self.mouse[0]:
+                    self.touche = True
+                    pygame.mouse.get_rel()
+                    #self.image = self.image2
+
+                else:
+                    self.touche = False
+                    #self.image = self.image1
+
+            pass
+
+    ButtonGrups = pygame.sprite.Group()
+
+    Botao3 = Botao11(ButtonGrups, image="imagens_gerais/x.png", image1="imagens_gerais/x.png",
+                   image2="imagens_gerais/x.png")
+    Botao3.rect.center = (50, 50) #localizaçao botão voltar atrás
+
+    # Loop principal do jogo
+    clock = pygame.time.Clock()
+    while True:
+        # Processa os eventos
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            if Botao3.touche == True:
+                pygame.quit()
+                main_menu()
+            ui_manager.process_events(event)
+
+        ui_manager.update(clock.tick(60) / 1000.0)
+
+        screen.fill(BACKGROUND_COLOR)
+        imagem_regras = pygame.transform.scale(imagem_regras, (420, 245))
+
+        screen.blit(imagem_regras, (280, -40))
+
+        ui_manager.draw_ui(screen)
+        pygame.display.flip()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ButtonGrups.update()
+        ButtonGrups.draw(screen)
 
         pygame.display.flip()
         pygame.display.update()

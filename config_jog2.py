@@ -1,8 +1,8 @@
 #arquivo com variaveis do programa principal
 from config_jog1 import *
 
-posx1_1 = 594
-posy1_1 = 259
+posx1_1 = 594 +0.5
+posy1_1 = 259 + 0.5
 posx2_1 = 680
 posy2_1 = posy1_1
 posx3_1 = 766
@@ -25,7 +25,7 @@ posx10_1 = posx2_1
 posy10_1 = posy9_1
 posx11_1 = posx3_1
 posy11_1 = posy9_1
-posx12_1 = posx4_1
+posx12_1 = posx4_1 + 1
 posy12_1 = posy9_1
 
 posx13_1 = posx1_1
@@ -35,7 +35,7 @@ posy14_1 = posy13_1
 posx15_1 = posx3_1
 posy15_1 = posy13_1
 posx16_1 = posx4_1
-posy16_1 = posy13_1
+posy16_1 = posy13_1 - 1
 
 
 imagem1_verde_exibida = False

@@ -1,26 +1,26 @@
 #arquivo com variaveis do programa principal
 
-posx1 = 153
+posx1 = 155
 posy1 = 259
 posx2 = 239
 posy2 = posy1
-posx3 = 325
+posx3 = 325 + 1.5
 posy3 = posy1
 posx4 = 411
 posy4 = posy1
 
 posx5 = posx1
 posy5 = 344
-posx6 = posx2
-posy6 = posy5
-posx7 = posx3
+posx6 = posx2 + 1
+posy6 = posy5 - 1
+posx7 = posx3 + 0.5
 posy7 = posy5
 posx8 = posx4
 posy8 = posy5
 
 posx9 = posx1
 posy9 = 429
-posx10 = posx2
+posx10 = posx2 + 1
 posy10 = posy9
 posx11 = posx3
 posy11 = posy9

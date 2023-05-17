@@ -1,4 +1,6 @@
 import copy
+import time
+
 from config_jog1 import *
 from config_jog2 import *
 import pygame
@@ -7,13 +9,36 @@ import sys
 import random
 import os
 
-def joaninha(joana, screen, jog="jog1"):
-    joana = pygame.transform.scale(joana, (37, 37))
-    if jog=="jog1":
-        screen.blit(joana, (442, 178))
+def player_nome(nome_player1,nome_player2, screen):
+    player1 = message_to_screen(nome_player1, None, 25, [0, 0, 0])
+    screen.blit(player1, (1075 - player1.get_width() // 2, 116 - player1.get_height() // 2))
+
+    if nome_player2 == "BOT":
+        player2 = message_to_screen("BOT", None, 25, [0, 0, 0])
+        screen.blit(player2, (1050 - player2.get_width() // 2, 205 - player2.get_height() // 2))
     else:
-        screen.blit(joana, (880, 178))
-def mem():
+        player2 = message_to_screen(nome_player2, None, 25, [0, 0, 0])
+        screen.blit(player2, (1075 - player2.get_width() // 2, 205 - player2.get_height() // 2))
+def remover_message_to_screen(retangulo1, screen):
+    retangulo = pygame.transform.scale(retangulo1, (818, 29))
+    screen.blit(retangulo, (91, 136))
+def message_to_screen(message, textfont, size, color):
+    my_font = pygame.font.Font(textfont, size)
+    my_message = my_font.render(message, True, color)
+    return my_message
+def retangulo_joaninha_remove(retangulo, screen, jog="jog1"):
+    retangulo = pygame.transform.scale(retangulo, (35, 33))
+    if jog == "jog1":
+        screen.blit(retangulo, (433, 169))
+    else:
+        screen.blit(retangulo, (870, 169))
+def joaninha(joana, screen, jog="jog1"):
+    joana = pygame.transform.scale(joana, (35, 35))
+    if jog=="jog1":
+        screen.blit(joana, (433, 168))
+    else:
+        screen.blit(joana, (870, 168))
+"""def mem():
     # define o caminho para a pasta com as imagens
     path = "trevos"
 
@@ -30,7 +55,7 @@ def mem():
     random_image = str(random_number) + ".png"
 
     # exibe o nome da imagem aleatória escolhida
-    print("A imagem aleatória escolhida é: " + random_image)
+    print("A imagem aleatória escolhida é: " + random_image)"""
 def initial_write_to_mem(name_player, player_board, excluidos, table):
     with open("save.txt", "w") as f:
         f.write(name_player +"/"+ str(player_board))
@@ -185,66 +210,47 @@ def verificar_taboleiro(taboleiro, linha, coluna, trevo):
 
     return True
 def primeira_rodada(taboleiro, excluidos, totaltrevos): #funcao destinada a gerar os trevos e colocar no taboleiro na primeira ronda do jogo
-    key = True
     #aVnE = False  # algum valor nos excluidos
+    trevo = []
 
-    while key: #enquanto a key for verdade
-        trevo = [] #cria-se uma lista de trevos vazia
-        for i in range(4):  # gerar 4 valores de 1 até totaltrevos
-            if len(trevo) == 0: # se a lista estiver vazia, qualquer trevo que sair poderá ser usado pois ainda nao existe nenhum
-                b = random.randint(1, totaltrevos)  #gera-se um trevo
-                trevo.append(b) #adiciona-se á lista dos trevos
-                excluidos.append(b) # e adiciona-se á lista dos trevos ja usados
-            else:   #se existirem trevos na lista de trevos
-                key1 = True #key1 é verdade que vai ser usada para a geracao de um trevo
-                while key1: #enquanto for verdade
-                    t = random.randint(1, totaltrevos) #gera-se um trevo
-                    if (t not in trevo) and (t not in excluidos):  #se ele nao estiver na lista, ou seja, se ele ainda nao foi usado desta vez e se nao foi usado no programa (lista excluidos)
-                        key1 = False    #o loop while vai parar
-                        trevo.append(t) #adiciona-se o trevo á lista
-                        excluidos.append(t) #e adiciona-se o trevo á lista dos excluidos
 
-        if len(trevo) == 4: #para parar o loop principal, se ja existirem os 4 elementos na lista dos trevos, a key vai ser falsa
-            key = False
+    for i in range(4):  # gerar 4 valores de 1 até totaltrevos
+        key1 = True  # key1 é verdade que vai ser usada para a geracao de um trevo
+        while key1:  # enquanto for verdade
+            t = random.randint(1, totaltrevos)  # gera-se um trevo
+            if t not in excluidos:  # se ele nao estiver na lista, ou seja, se ele ainda nao foi usado desta vez e se nao foi usado no programa (lista excluidos)
+                key1 = False  # o loop while vai parar
+                trevo.append(t)  # adiciona-se o trevo á lista
+                excluidos.append(t)  # e adiciona-se o trevo á lista dos excluidos
 
-        """
-        for i in range(4):
-            if i == 3:  # se estiver no 4 elemento
-                if trevo[i] not in excluidos and not aVnE:  # e o quarto elemento nao estiver na lista dos excluidos e a key ainda for True
-                    key = False  # acaba o loop
-                    for j in range(4):  # adiciona todos á lista dos excluidos, pois vao ser usados agora
-                        excluidos.append(trevo[j])
-                if trevo[i] in excluidos:
-                    aVnE = True
-        """
+    trevo_final = [] #trevo usado para resultado do "tratamento de dados" dos trevos
+    n_vezes = {} #dicionario com o x numero a 1 ou 0, inicialmente tudo a 1
 
-    elementos_vetor = [0, 0, 0, 0]  # usado para verificar se o elemento foi convertido no for em baixo, pois se lhe tirar 20 é dificil verificar se foi feita a operacao
-    posicoes_originais = {}  # dicionário para armazenar as posições originais de cada elemento
+    for i in range(len(excluidos)):
+        n_vezes[excluidos[i]] = 1 #inicia com todos os trevos no dicionario a 1, pois quer dizer que ainda nao foram usados
 
-    # remove 20 de todos os elementos > 20 e armazena as posições originais
-    for i in range(4):
-        if trevo[i] > 20:
-            elementos_vetor[i] = 1
-            trevo[i] -= 20
-        posicoes_originais[trevo[i]] = i
 
-    # ordena a lista
-    lista_ordenada = sorted(trevo)
+    for i in range(len(trevo)):
+        if trevo[i] > 20:       #se for superior a 20, trata o valor e reduz 20 a esse numero adicionando-o no trevo_final
+            trevo_final.append(trevo[i] - 20)
+        else:
+            trevo_final.append(trevo[i])    #se for <= 20, adiciona-o a trevo_final sem tratar o numero
 
-    # adiciona 20 aos elementos correspondentes
-    for i in range(4):
-        if elementos_vetor[posicoes_originais[lista_ordenada[i]]] == 1:
-            lista_ordenada[i] += 20
+    trevo_final.sort() #organiza os numeros por ordem crescente
 
-        taboleiro[i][i] = lista_ordenada[i]
+    for i in range(len(trevo_final)):   #para todos os elementos de trevo_final (so com valores <= 20)
+        if (trevo_final[i] in n_vezes) and (n_vezes[trevo_final[i]] == 0):  #se o elemento do vetor existir no dicionario e o seu valor == 0, quer dizer que ja foi percorrido um elemento antes dele com o mesmo valor, isto acontece pois existem 2 numeros de cada pois existem 2 cores
+            trevo_final[i] += 20    #entao retornamos um deles ao seu valor original, nao vai afetar o taboleiro, pois o valor real vai continuar a ser (x - 20)
+            taboleiro[i][i] = trevo_final[i]  # altera os valores no taboleiro consoante os que foram gerados, organizados
+        else:
+            n_vezes[trevo_final[i]] = 0 #se ainda estiver a 1, quer dizer que +e o primeiro que aparece, ou seja, poem a 0
+            taboleiro[i][i] = trevo_final[i]  # altera os valores no taboleiro consoante os que foram gerados, organizados
 
-    return False
+
+
+    #print(trevo)
+    return False    #retorna falso para dizer que ja fez a primeira jogada
 def turnoj(cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_inicial, table, jogador, ButtonGrups, Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,posy14, posy15, posy16, posy17=88, posx17=110):#funcao destinada ao turno do jogador
-
-    joana = pygame.image.load("imagens_jogo/joaninha.png").convert_alpha()
-    joana = pygame.transform.scale(joana, (37, 37))
-    screen.blit(joana, (442, 178))
-
     print("JOGADOR")
     if key_inicial[1]: #se for a primeira jogada
         key_inicial[1] = primeira_rodada(taboleiroj, excluidos, totaltrevos)
@@ -253,6 +259,10 @@ def turnoj(cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos, totaltr
     else:
         key = True
         if len(table) == 0: #quando nao existem trevos na table, tem que gerar um novo
+            baralho = message_to_screen(nome + ", escolhe uma posiçao para colocar o trevo", None, 25,
+                                              [0, 0, 0])
+            screen.blit(baralho, (500 - baralho.get_width() // 2, 150 - baralho.get_height() // 2))
+
             while key:
                 trevo = random.randint(1, totaltrevos)
                 if trevo not in excluidos:
@@ -270,6 +280,11 @@ def turnoj(cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos, totaltr
         else:   #se ja existirem trevos na table, pode usar um do baralho ou usar um da table
             print(table)
             key1 = True
+            table_baralho = message_to_screen(nome + ", escolhe um trevo da table ou usa o baralho", None, 25, [0, 0, 0])
+            screen.blit(table_baralho,(500 - table_baralho.get_width() // 2, 148 - table_baralho.get_height() // 2))
+            pygame.display.flip()
+            pygame.display.update()
+
             while key1:
                 for event in pygame.event.get():
 
@@ -316,6 +331,11 @@ def turnoj(cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos, totaltr
                     # screen.blit(imagem1_fundo, (posx1 - 36, posy1 - 36))
                     break
                 if Botao17.touche == True:  #se ele pressionou o baralho
+                    retangulo1 = pygame.image.load("imagens_jogo/retangulo1.png").convert_alpha()
+                    remover_message_to_screen(retangulo1, screen)
+                    baralho = message_to_screen(nome + ", escolhe uma posiçao para colocar o trevo", None, 25,
+                                                [0, 0, 0])
+                    screen.blit(baralho, (500 - baralho.get_width() // 2, 148 - baralho.get_height() // 2))
                     key = True
                     while key:
                         trevo = random.randint(1, totaltrevos)
@@ -332,7 +352,6 @@ def turnoj(cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos, totaltr
 
                     Botao17.touche = False
                     break
-
 
 
         guardar_na_mem(nome, taboleiroj, excluidos, table,jogador)  # vai alterar na memoria os valores do taboleiro pelos atuais
@@ -405,7 +424,7 @@ def turnoj(cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos, totaltr
                         key = False
                         taboleiroj[4][0] = 0
                         screen.blit(imagem_fundo, (0, 0))
-                        pygame.display.flip()
+                        pygame.display.flip() # aparece o trevo na parte de baixo do taboleiro
                         pygame.display.update()
 
                 else:
@@ -421,6 +440,9 @@ def turnoj(cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos, totaltr
                         screen.blit(imagem_fundo, (0, 0))
                         pygame.display.flip()
                         pygame.display.update()
+            retangulo1 = pygame.image.load("imagens_jogo/retangulo1.png").convert_alpha()
+            remover_message_to_screen(retangulo1, screen)
+
             break
 
     guardar_na_mem(nome, taboleiroj, excluidos, table, jogador) #vai alterar na memoria os valores do taboleiro pelos atuais
@@ -432,6 +454,8 @@ def turnob(screen, taboleirob, excluidos,totaltrevos, key_inicial, table, jogado
         for i in range(4):
             print(str(taboleirob[i][0]), " | ", str(taboleirob[i][1]), " | ", str(taboleirob[i][2]), " | ", str(taboleirob[i][3]))
         print("\n")
+        pygame.display.flip()
+        pygame.display.update()
 
 
     else:
@@ -466,6 +490,10 @@ def turnob(screen, taboleirob, excluidos,totaltrevos, key_inicial, table, jogado
             print(str(taboleirob[i][0]), " | ", str(taboleirob[i][1]), " | ", str(taboleirob[i][2]), " | ",
                   str(taboleirob[i][3]))
         print("\n")
+
+        pygame.display.flip()
+        pygame.display.update()
+        #time.sleep(1)
 
     guardar_na_mem("BOT", taboleirob, excluidos, table, jogador)
 def main_menu():
@@ -664,6 +692,7 @@ def tela6(nome):
     imagem_fundo = pygame.image.load("imagens_jogo/template_jogo_final.png").convert_alpha()
     imagem_fundo = pygame.transform.scale(imagem_fundo, (1200, 700))
 
+
     # faz o blit + posicao da imagem
     screen.blit(imagem_fundo, (0, 0))
 
@@ -782,7 +811,7 @@ def tela6(nome):
     #joana = pygame.image.load("imagens_jogo/joaninha.png").convert_alpha()
 
 
-
+    retangulo = pygame.image.load("imagens_jogo/retangulo.png").convert_alpha()
     #jogo abaixo
     B_preenhido = False  # o bot ja preencheu o taboleiro?
     J_prenchido = False  # o jogador ja preencheu o taboleiro?
@@ -790,35 +819,41 @@ def tela6(nome):
     taboleiroJ = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0]]  # taboleiro do jogador
     taboleiroB = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0]]  # taboleiro do bot
     table = []
-
+    joana = pygame.image.load("imagens_jogo/joaninha.png").convert_alpha()
     initial_write_to_mem(nome, taboleiroJ, trevos,table)  # guarda os taboleiros na mem com os nomes do bot e do jogador
 
-    numero = 1#random.randint(0, 1)  # quem comeca
+    numero = 0#random.randint(0, 1)  # quem comeca
     Comeco = [True, True]
 
     Cond_final = [J_prenchido, B_preenhido]
 
     if numero == 0:
         print("Bot começa!")
+
         while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):  # as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
             #aaa(imagem1_verde_exibida, imagem1_fundo, imagem17_fundo, imagem17_verde_exibida, Botao1, Botao17, screen, posx1, posy1, cor_de_fundo, imagem_fundo, ButtonGrups)
-            #joaninha(joana,screen,"jog2")
+            player_nome(nome,"Antonio",screen)
+            joaninha(joana,screen,"jog2")
             turnob(screen, taboleiroB, trevos, 20, Comeco, table, nome)
             exibir_taboleiro(Cond_final, taboleiroB, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                              posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                              posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                              posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1, Bot=1)
-            #joaninha(joana, screen)
+            retangulo_joaninha_remove(retangulo, screen, "jog2")
+            joaninha(joana, screen)
+            player_nome(nome,"Antonio",screen)
             turnoj(Cond_final, imagem_fundo,screen, nome, taboleiroJ, trevos, 20, Comeco, table, "BOT", ButtonGrups,
                                       Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
                                       Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18,posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                                       posy14, posy15, posy16, posy17=88, posx17=110)
+
             exibir_taboleiro(Cond_final, taboleiroJ, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                                       posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
+            retangulo_joaninha_remove(retangulo, screen)
             # print(table)
             """a = int(input("cheat: "))
             if a == 0:
@@ -830,7 +865,7 @@ def tela6(nome):
         print("O %s começa!" % nome)
         while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):
             #aaa(imagem1_verde_exibida, imagem1_fundo, imagem17_fundo, imagem17_verde_exibida, Botao1, Botao17, screen, posx1, posy1, cor_de_fundo, imagem_fundo, ButtonGrups)
-            #joaninha(joana, screen)
+            joaninha(joana, screen)
             turnoj(Cond_final, imagem_fundo,screen, nome, taboleiroJ, trevos, 40, Comeco, table, "BOT", ButtonGrups,
                                       Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
                                       Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
@@ -841,13 +876,16 @@ def tela6(nome):
                                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                                       posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
-            #joaninha(joana, screen, "jog2")
+            retangulo_joaninha_remove(retangulo, screen)
+            #time.sleep(5)
+            joaninha(joana, screen, "jog2")
             turnob(screen, taboleiroB, trevos, 40, Comeco, table, nome)
             exibir_taboleiro(Cond_final, taboleiroB, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
                              posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
                              posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
                              posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1, Bot=1)
-
+            retangulo_joaninha_remove(retangulo, screen, "jog2")
+            time.sleep(2)
             # print(table)
             """a = int(input("cheat: "))
             if a == 0:
@@ -1008,4 +1046,104 @@ def escolha_posicao_trevo(ButtonGrups,screen, Botao1,Botao2,Botao3,Botao4,Botao5
         pygame.display.flip()
         pygame.display.update()
 
-main_menu()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+tela6("Filipe Pinto")

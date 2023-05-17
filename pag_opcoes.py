@@ -808,8 +808,14 @@ def regras_jogo():
 
     # Cria a caixa de texto
     text_box = pygame_gui.elements.UITextBox(
-        html_text="<body><font color>O jogo é composto por dois tabuleiros de 4x4 espaços (casas) para cada jogador. Para jogar usam-se os trevos numerados de 1 a 20; um conjunto por cada jogador. Os trevos de ambos os jogadores são misturados num só saco. À vez, cada jogador retira um trevo do saco colocando-o no seu tabuleiro. Deve primeiro preencher os 4 espaços da diagonal principal e de seguida os restantes espaços. Como regra de base, quer na vertical quer na horizontal os números devem ser colocados em ordem estritamente crescente. As restantes regras podem ser lidas no ficheiro em "
-                  "f k.</font></body>",
+        html_text="<body><font color='#FFA500' face='Times New Roman'><b>Ideia de Jogo:</b></font> Cada jogador tenta ser o primeiro a preencher completamente o seu jardim com trevos. Mas eles devem verificar se os números estão organizados em ordem crescente em cada linha e coluna.</body>"
+                  "\n<font color='#FFA500' face='Arial'><b>Configuração do Jogo:</b></font> Usa um conjunto completo de trevos (= 1 cor numerada de 1 a 20) por jogador. Com menos de 4 jogadores, devolve as peças não utilizadas à caixa do jogo. \n Embaralha os trevos e coloca-os virados para baixo no meio da mesa. \n Cada jogador leva um jogo bordo e orienta-o para que a joaninha esteja no canto inferior direito.</body>"
+                  "\n<font color='#FFA500' face='Verdana'><b>GamePlay:</b></font> O jogador mais velho começa e, em seguida, o jogo prossegue no sentido horário. Na tua vez, deves escolher uma das duas opções a seguir:"
+                  "\n<font color='#FFA500' face='Comic Sans MS'><b>A) Take a face-down clover:</b></font> Pega um trevo virado para baixo do meio da mesa e coloca-o, virado para cima, no tabuleiro de jogo (vê Regras de Colocação à direita). Se não podes ou não queres colocá-lo, deixa-lo, virado para cima no meio da mesa."
+                  "\n<font color='#FFA500' face='Comic Sans MS'><b>B) Take a face-up clover:</b></font> Não reveles outro trevo. Em vez disso, pega um dos trevos virados para cima e adicioná-lo ao tabuleiro de jogo em de acordo com as Regras de Colocação</b></font>."
+                  "\n<font color='#FFA500' face='Comic Sans MS'><b>Regras de Colocação:</b></font> Podes adicionar um novo trevo a um espaço vazio no tabuleiro de jogo ou trocá-lo por um trevo colocado anteriormente (e devolver o trevo trocado no meio da mesa, com a face para cima)."
+                  "\nO número do trevo que colocas no tabuleiro deve caber, em ordem crescente, com todos os outros números na sua linha e na sua coluna (mas os números em uma linha ou coluna não precisam seguir uns aos outros como 7,8,9...). "
+                  "</body>",
         relative_rect=text_box_rect,
         manager=ui_manager)
 
@@ -822,14 +828,10 @@ def regras_jogo():
         def __init__(self, *groups, image, image1, image2):
             super().__init__(*groups)
 
-            self.image = pygame.image.load(image).convert_alpha()
-            self.image = pygame.transform.scale(self.image, [70, 70])#dimensoes botao voltar atras
-            self.rect = pygame.Rect(190, 49, 190, 49)
+            self.image = pygame.image.load(image1).convert_alpha()
             self.rect = self.image.get_rect()
-
             self.image1 = pygame.image.load(image1).convert_alpha()
             self.image2 = pygame.image.load(image2).convert_alpha()
-
             self.touche = False
 
         def update(self):
@@ -837,15 +839,15 @@ def regras_jogo():
             self.MousePos = pygame.mouse.get_pos()
 
             if self.rect.collidepoint(self.MousePos):
+                if not self.touche:
+                    self.image = self.image2
+            else:
+                self.image = self.image1
 
-                if self.mouse[0]:
-                    self.touche = True
-                    pygame.mouse.get_rel()
-                    #self.image = self.image2
-
-                else:
-                    self.touche = False
-                    #self.image = self.image1
+            if self.mouse[0]:
+                self.touche = True
+            else:
+                self.touche = False
 
             pass
 
@@ -877,38 +879,6 @@ def regras_jogo():
 
         ui_manager.draw_ui(screen)
         pygame.display.flip()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         ButtonGrups.update()
         ButtonGrups.draw(screen)

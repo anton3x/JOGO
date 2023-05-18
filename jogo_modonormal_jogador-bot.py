@@ -181,13 +181,13 @@ def verificar_taboleiro(taboleiro, linha, coluna, trevo):
 
     for i in range(len(lista_coluna)):
         if not (i == (len(lista_coluna) - 1)):
-            if lista_coluna[i] > lista_coluna[i + 1]:
+            if lista_coluna[i] >= lista_coluna[i + 1]:
                 return False
         else:
             continue
     for i in range(len(lista_linha)):
         if not (i == (len(lista_linha) - 1)):
-            if lista_linha[i] > lista_linha[i + 1]:
+            if lista_linha[i] >= lista_linha[i + 1]:
                 return False
         else:
             continue
@@ -379,56 +379,60 @@ def turnoj(cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos, totaltr
                                  posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
                 pygame.display.flip()
                 pygame.display.update()
+                key1 = True
+                while key1:
+                    print("Posicao: ")
 
-                print("Posicao: ")
-
-                resultado = escolha_posicao_trevo(ButtonGrups, screen,
-                                          Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
-                                          Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18,
-                                          posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                                          posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                          posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                          posy14, posy15, posy16, posy17=88, posx17=110)
-                linha = resultado[0]
-                coluna = resultado[1]
-                #print(linha,coluna)
-                if linha == -9 and coluna == -9:
-                    print("O %s mandou o trevo para a table" % nome)
-                    table.append(trevo)
-                    key = False
-                    taboleiroj[4][0] = 0
-                    screen.blit(imagem_fundo, (0, 0))
-                    pygame.display.flip()
-                    pygame.display.update()
-                elif taboleiroj[linha][coluna] == 0:
-                    #print("verificar")
-                    if verificar_taboleiro(taboleiroj, linha, coluna, trevo):
-                        #print("feito")
-                        print("\nO trevo %d foi colocado na linha %d, coluna %d\n" % (trevo, linha, coluna))
-                        taboleiroj[linha][coluna] = trevo
+                    resultado = escolha_posicao_trevo(ButtonGrups, screen,
+                                              Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
+                                              Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18,
+                                              posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
+                                              posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
+                                              posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
+                                              posy14, posy15, posy16, posy17=88, posx17=110)
+                    linha = resultado[0]
+                    coluna = resultado[1]
+                    #print(linha,coluna)
+                    if linha == -9 and coluna == -9:
+                        print("O %s mandou o trevo para a table" % nome)
+                        table.append(trevo)
                         key = False
-                        taboleiroj[4][0] = 0
-                        screen.blit(imagem_fundo, (0, 0))
-                        pygame.display.flip() # aparece o trevo na parte de baixo do taboleiro
-                        pygame.display.update()
-
-                else:
-                    #print("verificar")
-                    if verificar_taboleiro(taboleiroj, linha, coluna, trevo):
-                        #print("feito")
-                        print("\nO trevo %d foi colocado na linha %d, coluna %d\n" % (trevo, linha, coluna))
-                        print("\nO trevo %d foi colocado na table pois foi substituido pelo trevo %d\n" % (taboleiroj[linha][coluna], trevo))
-                        table.append(taboleiroj[linha][coluna])
-                        taboleiroj[linha][coluna] = trevo
-                        key = False
+                        key1 = False
                         taboleiroj[4][0] = 0
                         screen.blit(imagem_fundo, (0, 0))
                         pygame.display.flip()
                         pygame.display.update()
-            retangulo1 = pygame.image.load("imagens_jogo/retangulo1.png").convert_alpha()
-            remover_message_to_screen(retangulo1, screen)
+                    elif taboleiroj[linha][coluna] == 0:
+                        #print("verificar")
+                        if verificar_taboleiro(taboleiroj, linha, coluna, trevo):
+                            #print("feito")
+                            print("\nO trevo %d foi colocado na linha %d, coluna %d\n" % (trevo, linha, coluna))
+                            taboleiroj[linha][coluna] = trevo
+                            key = False
+                            key1 = False
+                            taboleiroj[4][0] = 0
+                            screen.blit(imagem_fundo, (0, 0))
+                            pygame.display.flip() # aparece o trevo na parte de baixo do taboleiro
+                            pygame.display.update()
 
-            break
+                    else:
+                        #print("verificar")
+                        if verificar_taboleiro(taboleiroj, linha, coluna, trevo):
+                            #print("feito")
+                            print("\nO trevo %d foi colocado na linha %d, coluna %d\n" % (trevo, linha, coluna))
+                            print("\nO trevo %d foi colocado na table pois foi substituido pelo trevo %d\n" % (taboleiroj[linha][coluna], trevo))
+                            table.append(taboleiroj[linha][coluna])
+                            taboleiroj[linha][coluna] = trevo
+                            key = False
+                            key1 = False
+                            taboleiroj[4][0] = 0
+                            screen.blit(imagem_fundo, (0, 0))
+                            pygame.display.flip()
+                            pygame.display.update()
+                retangulo1 = pygame.image.load("imagens_jogo/retangulo1.png").convert_alpha()
+                remover_message_to_screen(retangulo1, screen)
+
+                break
 
     guardar_na_mem(nome, taboleiroj, excluidos, table, jogador) #vai alterar na memoria os valores do taboleiro pelos atuais
 def turnob(screen, taboleirob, excluidos,totaltrevos, key_inicial, table, jogador):#funcao destinada ao turno do bot

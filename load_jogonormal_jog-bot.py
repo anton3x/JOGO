@@ -609,7 +609,7 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos
                             break
 
         guardar_na_mem(nome, taboleiroj, excluidos, table, jogador, proxima=-1) #vai alterar na memoria os valores do taboleiro pelos atuais
-def turnob(screen, taboleirob, excluidos,totaltrevos, key_inicial, table, jogador1, jogador2="BOT"):#funcao destinada ao turno do bot
+def turnob(Cond_final, screen, taboleirob, excluidos,totaltrevos, key_inicial, table, jogador1, jogador2="BOT"):#funcao destinada ao turno do bot
         print(jogador2, ", é a tua vez.")
         key = True
 
@@ -618,10 +618,18 @@ def turnob(screen, taboleirob, excluidos,totaltrevos, key_inicial, table, jogado
             if trevo not in excluidos:
                 key = False
                 excluidos.append(trevo)
-
+        taboleirob[4][0] = trevo
         key1 = True
+        exibir_taboleiro(Cond_final, taboleirob, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8,
+                         posx9,
+                         posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
+                         posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
+                         posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1,
+                         posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1,
+                         posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1,
+                         posy10_1, posy11_1, posy12_1, posy13_1, posy14_1, posy15_1, posy16_1, Bot=1)
         print("Bot retirou do baralho o trevo n: %d " % (trevo))
-
+        time.sleep(1.5)
         while key1:
             linha = random.randint(0, 3)
             coluna = random.randint(0, 3)
@@ -637,6 +645,7 @@ def turnob(screen, taboleirob, excluidos,totaltrevos, key_inicial, table, jogado
                     table.append(taboleirob[linha][coluna])
                     taboleirob[linha][coluna] = trevo
                     key1 = False
+
         for i in range(4):
             print(str(taboleirob[i][0]), " | ", str(taboleirob[i][1]), " | ", str(taboleirob[i][2]), " | ",
                   str(taboleirob[i][3]))
@@ -645,7 +654,7 @@ def turnob(screen, taboleirob, excluidos,totaltrevos, key_inicial, table, jogado
         pygame.display.flip()
         pygame.display.update()
         #time.sleep(1)
-
+        taboleirob[4][0] = 0
         guardar_na_mem(jogador2, taboleirob, excluidos, table, jogador1)
 def main_menu():
     #pygame.init()
@@ -1008,7 +1017,7 @@ def load_jogo_normal():
                 player_nome(nome_jogador1, nome_jogador2, screen)
                 proxima_acao = -1
                 joaninha(joana, screen, "jog2")
-                turnob(screen, taboleiroJ2, trevos, 40, Comeco, table, nome_jogador1, nome_jogador2)
+                turnob(Cond_final, screen, taboleiroJ2, trevos, 40, Comeco, table, nome_jogador1, nome_jogador2)
                 exibir_taboleiro(Cond_final, taboleiroJ2, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8,
                                  posx9,
                                  posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
@@ -1016,7 +1025,7 @@ def load_jogo_normal():
                                  posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1,
                                  posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1,
                                  posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1,
-                                 posy10_1, posy11_1, posy12_1, posy13_1, posy14_1, posy15_1, posy16_1, Bot=1, )
+                                 posy10_1, posy11_1, posy12_1, posy13_1, posy14_1, posy15_1, posy16_1, Bot=1 )
                 retangulo_joaninha_remove(retangulo, screen, "jog2")
 
     else:

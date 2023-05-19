@@ -1,7 +1,5 @@
 import copy
 import time
-
-
 from config_jog1 import *
 from config_jog2 import *
 import pygame
@@ -232,10 +230,10 @@ def primeira_rodada(taboleiro, excluidos, totaltrevos): #funcao destinada a gera
     print(trevo_final)
     return False    #retorna falso para dizer que ja fez a primeira jogada
 def turnoj(cond_final, imagem_fundo, screen,nome_jogador1, taboleiroj, excluidos, totaltrevos, key_inicial, table, nome_jogador2, ButtonGrups, posy17=88, posx17=110):#funcao destinada ao turno do jogador    print("JOGADOR")
+    key = True
     if key_inicial[1]: #se for a primeira jogada
         key_inicial[1] = primeira_rodada(taboleiroj, excluidos, totaltrevos)
         #exibir_taboleiro(taboleiroj)
-
     else:
         if len(table) == 0:  # quando nao existem trevos na table, tem que gerar um novo
             baralho = message_to_screen(nome_jogador1 + ", escolhe uma posiçao para colocar o trevo", None, 25,

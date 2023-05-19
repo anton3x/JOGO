@@ -1,7 +1,7 @@
 import copy
 import time
 
-from jogo_
+
 from config_jog1 import *
 from config_jog2 import *
 import pygame

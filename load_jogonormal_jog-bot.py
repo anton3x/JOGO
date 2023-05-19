@@ -78,7 +78,7 @@ def guardar_na_mem(name, tabuleiro_player, excluidos, table, jogador, proxima=-1
     f.close()
 
     #print(dicionario)
-def exibir_taboleiro(cond_final, taboleiro,screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1, Jog2=0):
+def exibir_taboleiro(cond_final, taboleiro,screen, Jog2=0):
     for i in range(4):
         print(str(taboleiro[i][0]), " | ", str(taboleiro[i][1]), " | ", str(taboleiro[i][2]), " | ", str(taboleiro[i][3]))
     print("\n")
@@ -181,13 +181,13 @@ def verificar_taboleiro(taboleiro, linha, coluna, trevo):
             continue
 
     return True
-def turnoj(proxima, cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos, totaltrevos, key_inicial, table, jogador, ButtonGrups, Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,posy14, posy15, posy16, posy17=88, posx17=110):#funcao destinada ao turno do jogador
+def turnoj(proxima, cond_final, imagem_fundo, screen,nome_jogador1, taboleiroj, excluidos, totaltrevos, key_inicial, table, nome_jogador2, ButtonGrups, posy17=88, posx17=110):#funcao destinada ao turno do jogador
         print("JOGADOR")
 
         key = True
         if proxima == -1:
             if len(table) == 0: #quando nao existem trevos na table, tem que gerar um novo
-                baralho = message_to_screen(nome + ", escolhe uma posiçao para colocar o trevo", None, 25,[0, 0, 0])
+                baralho = message_to_screen(nome_jogador1 + ", escolhe uma posiçao para colocar o trevo", None, 25,[0, 0, 0])
                 screen.blit(baralho, (500 - baralho.get_width() // 2, 150 - baralho.get_height() // 2))
 
                 while key:
@@ -196,19 +196,15 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos
                         key = False
                         excluidos.append(trevo)
                 taboleiroj[4][0] = trevo #trevo escolhido para a parte debaixo do taboleiro
-                exibir_taboleiro(cond_final, taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                                 posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                 posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                 posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
-
+                exibir_taboleiro(cond_final, taboleiroj, screen,Jog2=0)
                 pygame.display.flip()
                 pygame.display.update()
 
-                guardar_na_mem(nome, taboleiroj, excluidos, table,nome, proxima=1)  # vai alterar na memoria os valores do taboleiro pelos atuais
+                guardar_na_mem(nome_jogador1, taboleiroj, excluidos, table,nome_jogador1, proxima=1)  # vai alterar na memoria os valores do taboleiro pelos atuais
             else:   #se ja existirem trevos na table, pode usar um do baralho ou usar um da table
                 print(table)
                 key1 = True
-                table_baralho = message_to_screen(nome + ", escolhe um trevo da table ou usa o baralho", None, 25, [0, 0, 0])
+                table_baralho = message_to_screen(nome_jogador1 + ", escolhe um trevo da table ou usa o baralho", None, 25, [0, 0, 0])
                 screen.blit(table_baralho,(500 - table_baralho.get_width() // 2, 148 - table_baralho.get_height() // 2))
                 pygame.display.flip()
                 pygame.display.update()
@@ -231,12 +227,7 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos
                             trevo = table[linha]
                             table.remove(trevo)
                             taboleiroj[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-                            exibir_taboleiro(cond_final, taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8,
-                                             posx9,
-                                             posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                             posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12,
-                                             posy13,
-                                             posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
+                            exibir_taboleiro(cond_final, taboleiroj, screen, Jog2=0)
                             pygame.display.flip()
                             pygame.display.update()
                             break
@@ -245,12 +236,7 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos
                             trevo = table[0]
                             table.remove(trevo)
                             taboleiroj[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-                            exibir_taboleiro(cond_final, taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8,
-                                             posx9,
-                                             posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                             posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12,
-                                             posy13,
-                                             posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
+                            exibir_taboleiro(cond_final, taboleiroj, screen, Jog2=0)
                             pygame.display.flip()
                             pygame.display.update()
 
@@ -261,7 +247,7 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos
                     if Botao17.touche == True:  #se ele pressionou o baralho
                         retangulo1 = pygame.image.load("imagens_jogo/retangulo1.png").convert_alpha()
                         remover_message_to_screen(retangulo1, screen)
-                        baralho = message_to_screen(nome + ", escolhe uma posiçao para colocar o trevo", None, 25,
+                        baralho = message_to_screen(nome_jogador1 + ", escolhe uma posiçao para colocar o trevo", None, 25,
                                                     [0, 0, 0])
                         screen.blit(baralho, (500 - baralho.get_width() // 2, 148 - baralho.get_height() // 2))
                         key = True
@@ -271,10 +257,7 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos
                                 key = False
                                 excluidos.append(trevo)
                         taboleiroj[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-                        exibir_taboleiro(cond_final, taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                                         posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                         posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                         posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
+                        exibir_taboleiro(cond_final, taboleiroj, screen, Jog2=0)
                         pygame.display.flip()
                         pygame.display.update()
 
@@ -282,7 +265,7 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos
                         break
 
 
-                guardar_na_mem(nome, taboleiroj, excluidos, table,nome, proxima=1)  # vai alterar na memoria os valores do taboleiro pelos atuais
+                guardar_na_mem(nome_jogador1, taboleiroj, excluidos, table,nome_jogador1, proxima=1)  # vai alterar na memoria os valores do taboleiro pelos atuais
 
             print("Trevo - ", trevo)
             key = True
@@ -306,38 +289,26 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos
                         print("\nO trevo %d foi colocado na table\n" % trevo)
                         taboleiroj[4][0] = 0
                         screen.blit(imagem_fundo, (0, 0))
-                        exibir_taboleiro(cond_final, taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                                         posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                         posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                         posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
+                        exibir_taboleiro(cond_final, taboleiroj, screen,Jog2=0)
                         Botao18.touche = False
                         pygame.display.flip()
                         pygame.display.update()
                         break
                     else:
                         #taboleiroj[4][0] = trevo #trevo escolhido para a parte debaixo do taboleiro
-                        exibir_taboleiro(cond_final, taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                                         posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                         posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                         posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
+                        exibir_taboleiro(cond_final, taboleiroj, screen,Jog2=0)
                         pygame.display.flip()
                         pygame.display.update()
                         key1 = True
                         while key1:
                             print("Posicao: ")
 
-                            resultado = escolha_posicao_trevo(ButtonGrups, screen,
-                                                      Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
-                                                      Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18,
-                                                      posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                                                      posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                                      posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                                      posy14, posy15, posy16, posy17=88, posx17=110)
+                            resultado = escolha_posicao_trevo(ButtonGrups, "Jogador1")
                             linha = resultado[0]
                             coluna = resultado[1]
                             #print(linha,coluna)
                             if linha == -9 and coluna == -9:
-                                print("O %s mandou o trevo para a table" % nome)
+                                print("O %s mandou o trevo para a table" % nome_jogador2)
                                 table.append(trevo)
                                 key = False
                                 key1 = False
@@ -378,7 +349,7 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos
                         break
         else:
             if len(table) == 0 and proxima != 1:  # quando nao existem trevos na table, tem que gerar um novo
-                baralho = message_to_screen(nome + ", escolhe uma posiçao para colocar o trevo", None, 25, [0, 0, 0])
+                baralho = message_to_screen(nome_jogador1 + ", escolhe uma posiçao para colocar o trevo", None, 25, [0, 0, 0])
                 screen.blit(baralho, (500 - baralho.get_width() // 2, 150 - baralho.get_height() // 2))
 
                 while key:
@@ -387,24 +358,16 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos
                         key = False
                         excluidos.append(trevo)
                 taboleiroj[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-                exibir_taboleiro(cond_final, taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8,
-                                 posx9,
-                                 posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                 posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                 posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1,
-                                 posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1,
-                                 posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1,
-                                 posy10_1, posy11_1, posy12_1, posy13_1, posy14_1, posy15_1, posy16_1)
-
+                exibir_taboleiro(cond_final, taboleiroj, screen,Jog2=0)
                 pygame.display.flip()
                 pygame.display.update()
 
-                guardar_na_mem(nome, taboleiroj, excluidos, table,nome, proxima=-1)  # vai alterar na memoria os valores do taboleiro pelos atuais
+                guardar_na_mem(nome_jogador1, taboleiroj, excluidos, table,nome_jogador1, proxima=1)  # vai alterar na memoria os valores do taboleiro pelos atuais
             else:  # se ja existirem trevos na table, pode usar um do baralho ou usar um da table
                 if proxima != 1:
                     print(table)
                     key1 = True
-                    table_baralho = message_to_screen(nome + ", escolhe um trevo da table ou usa o baralho", None, 25,
+                    table_baralho = message_to_screen(nome_jogador1 + ", escolhe um trevo da table ou usa o baralho", None, 25,
                                                       [0, 0, 0])
                     screen.blit(table_baralho,
                                 (500 - table_baralho.get_width() // 2, 148 - table_baralho.get_height() // 2))
@@ -429,17 +392,7 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos
                                 trevo = table[linha]
                                 table.remove(trevo)
                                 taboleiroj[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-                                exibir_taboleiro(cond_final, taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6,
-                                                 posx7, posx8,
-                                                 posx9,
-                                                 posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                                 posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12,
-                                                 posy13,
-                                                 posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1,
-                                                 posx6_1, posx7_1, posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1,
-                                                 posx14_1, posx15_1, posx16_1, posy1_1, posy2_1, posy3_1, posy4_1, posy5_1,
-                                                 posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,
-                                                 posy14_1, posy15_1, posy16_1)
+                                exibir_taboleiro(cond_final, taboleiroj, screen,Jog2=0)
                                 pygame.display.flip()
                                 pygame.display.update()
                                 break
@@ -448,17 +401,7 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos
                                 trevo = table[0]
                                 table.remove(trevo)
                                 taboleiroj[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-                                exibir_taboleiro(cond_final, taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6,
-                                                 posx7, posx8,
-                                                 posx9,
-                                                 posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                                 posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12,
-                                                 posy13,
-                                                 posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1,
-                                                 posx6_1, posx7_1, posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1,
-                                                 posx14_1, posx15_1, posx16_1, posy1_1, posy2_1, posy3_1, posy4_1, posy5_1,
-                                                 posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,
-                                                 posy14_1, posy15_1, posy16_1)
+                                exibir_taboleiro(cond_final, taboleiroj, screen,Jog2=0)
                                 pygame.display.flip()
                                 pygame.display.update()
 
@@ -469,7 +412,7 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos
                         if Botao17.touche == True:  # se ele pressionou o baralho
                             retangulo1 = pygame.image.load("imagens_jogo/retangulo1.png").convert_alpha()
                             remover_message_to_screen(retangulo1, screen)
-                            baralho = message_to_screen(nome + ", escolhe uma posiçao para colocar o trevo", None, 25,
+                            baralho = message_to_screen(nome_jogador1 + ", escolhe uma posiçao para colocar o trevo", None, 25,
                                                         [0, 0, 0])
                             screen.blit(baralho, (500 - baralho.get_width() // 2, 148 - baralho.get_height() // 2))
                             key = True
@@ -479,23 +422,14 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos
                                     key = False
                                     excluidos.append(trevo)
                             taboleiroj[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-                            exibir_taboleiro(cond_final, taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6,
-                                             posx7, posx8, posx9,
-                                             posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                             posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12,
-                                             posy13,
-                                             posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1,
-                                             posx7_1, posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1,
-                                             posx15_1, posx16_1, posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1,
-                                             posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1, posy14_1,
-                                             posy15_1, posy16_1)
+                            exibir_taboleiro(cond_final, taboleiroj, screen,Jog2=0)
                             pygame.display.flip()
                             pygame.display.update()
 
                             Botao17.touche = False
                             break
 
-                    guardar_na_mem(nome, taboleiroj, excluidos, table,nome, proxima=1)  # vai alterar na memoria os valores do taboleiro pelos atuais
+                    guardar_na_mem(nome_jogador1, taboleiroj, excluidos, table,nome_jogador1, proxima=1)  # vai alterar na memoria os valores do taboleiro pelos atuais
 
             print("Trevo - ", taboleiroj[4][0])
             key = True
@@ -520,32 +454,14 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos
                             print("\nO trevo %d foi colocado na table\n" % trevo)
                             taboleiroj[4][0] = 0
                             screen.blit(imagem_fundo, (0, 0))
-                            exibir_taboleiro(cond_final, taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6,
-                                             posx7, posx8, posx9,
-                                             posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                             posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12,
-                                             posy13,
-                                             posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1,
-                                             posx7_1, posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1,
-                                             posx15_1, posx16_1, posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1,
-                                             posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1, posy14_1,
-                                             posy15_1, posy16_1)
+                            exibir_taboleiro(cond_final, taboleiroj, screen,Jog2=0)
                             Botao18.touche = False
                             pygame.display.flip()
                             pygame.display.update()
                             break
                         else:
                             # taboleiroj[4][0] = trevo #trevo escolhido para a parte debaixo do taboleiro
-                            exibir_taboleiro(cond_final, taboleiroj, screen, posx1, posx2, posx3, posx4, posx5, posx6,
-                                             posx7, posx8, posx9,
-                                             posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                             posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12,
-                                             posy13,
-                                             posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1,
-                                             posx7_1, posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1,
-                                             posx15_1, posx16_1, posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1,
-                                             posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1, posy14_1,
-                                             posy15_1, posy16_1)
+                            exibir_taboleiro(cond_final, taboleiroj, screen,Jog2=0)
                             pygame.display.flip()
                             pygame.display.update()
                             key1 = True
@@ -553,23 +469,13 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos
 
                                 print("Posicao: ")
 
-                                resultado = escolha_posicao_trevo(ButtonGrups, screen,
-                                                                  Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7,
-                                                                  Botao8,
-                                                                  Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15,
-                                                                  Botao16, Botao17, Botao18,
-                                                                  posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                                                                  posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1,
-                                                                  posy2,
-                                                                  posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10,
-                                                                  posy11, posy12, posy13,
-                                                                  posy14, posy15, posy16, posy17=88, posx17=110)
+                                resultado = escolha_posicao_trevo(ButtonGrups, "Jogador1")
                                 linha = resultado[0]
                                 coluna = resultado[1]
                                 # print(linha,coluna)
                                 if linha == -9 and coluna == -9:
-                                    print("O %s mandou o trevo para a table" % nome)
-                                    table.append(trevo)
+                                    print("O %s mandou o trevo para a table" % nome_jogador1)
+                                    table.append(taboleiroj[4][0])
                                     key = False
                                     key1 = False
                                     taboleiroj[4][0] = 0
@@ -608,14 +514,14 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos
 
                             break
 
-        guardar_na_mem(nome, taboleiroj, excluidos, table, jogador, proxima=-1) #vai alterar na memoria os valores do taboleiro pelos atuais
-def turnoj2(proxima, cond_final, imagem_fundo, screen, nome, taboleiroj2, excluidos, totaltrevos, key_inicial, table,jogador, ButtonGrups, Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8, Botao9, Botao10,Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17, Botao18, posx1, posx2, posx3, posx4, posx5,posx6, posx7, posx8, posx9, posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2, posy3,posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13, posy14, posy15, posy16, posy17=88,posx17=110):  # funcao destinada ao turno do jogador
+        guardar_na_mem(nome_jogador1, taboleiroj, excluidos, table, nome_jogador2, proxima=-1) #vai alterar na memoria os valores do taboleiro pelos atuais
+def turnoj2(proxima, cond_final, imagem_fundo, screen, nome_jogador2, taboleiroj2, excluidos, totaltrevos, key_inicial, table,nome_jogador1, ButtonGrups, posy17=88,posx17=110):  # funcao destinada ao turno do jogador
     print("JOGADOR2")
 
     key = True
     if proxima == -1:
         if len(table) == 0:  # quando nao existem trevos na table, tem que gerar um novo
-            baralho = message_to_screen(nome + ", escolhe uma posiçao para colocar o trevo", None, 25, [0, 0, 0])
+            baralho = message_to_screen(nome_jogador2 + ", escolhe uma posiçao para colocar o trevo", None, 25, [0, 0, 0])
             screen.blit(baralho, (500 - baralho.get_width() // 2, 150 - baralho.get_height() // 2))
 
             while key:
@@ -624,24 +530,16 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome, taboleiroj2, exclui
                     key = False
                     excluidos.append(trevo)
             taboleiroj2[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-            exibir_taboleiro(cond_final, taboleiroj2, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8,
-                             posx9,
-                             posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                             posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                             posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1,
-                             posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1,
-                             posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1,
-                             posy11_1, posy12_1, posy13_1, posy14_1, posy15_1, posy16_1)
+            exibir_taboleiro(cond_final, taboleiroj2, screen, Jog2=1)
 
             pygame.display.flip()
             pygame.display.update()
 
-            guardar_na_mem(nome, taboleiroj2, excluidos, table, nome,
-                           proxima=1)  # vai alterar na memoria os valores do taboleiro pelos atuais
+            guardar_na_mem(nome_jogador2, taboleiroj2, excluidos, table, nome_jogador2,proxima=1)  # vai alterar na memoria os valores do taboleiro pelos atuais
         else:  # se ja existirem trevos na table, pode usar um do baralho ou usar um da table
             print(table)
             key1 = True
-            table_baralho = message_to_screen(nome + ", escolhe um trevo da table ou usa o baralho", None, 25,
+            table_baralho = message_to_screen(nome_jogador2 + ", escolhe um trevo da table ou usa o baralho", None, 25,
                                               [0, 0, 0])
             screen.blit(table_baralho, (500 - table_baralho.get_width() // 2, 148 - table_baralho.get_height() // 2))
             pygame.display.flip()
@@ -665,17 +563,7 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome, taboleiroj2, exclui
                         trevo = table[linha]
                         table.remove(trevo)
                         taboleiroj2[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-                        exibir_taboleiro(cond_final, taboleiroj2, screen, posx1, posx2, posx3, posx4, posx5, posx6,
-                                         posx7, posx8,
-                                         posx9,
-                                         posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                         posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12,
-                                         posy13,
-                                         posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1,
-                                         posx7_1, posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1,
-                                         posx15_1, posx16_1, posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1,
-                                         posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1, posy14_1,
-                                         posy15_1, posy16_1)
+                        exibir_taboleiro(cond_final, taboleiroj2, screen,Jog2=1)
                         pygame.display.flip()
                         pygame.display.update()
                         break
@@ -684,17 +572,7 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome, taboleiroj2, exclui
                         trevo = table[0]
                         table.remove(trevo)
                         taboleiroj2[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-                        exibir_taboleiro(cond_final, taboleiroj2, screen, posx1, posx2, posx3, posx4, posx5, posx6,
-                                         posx7, posx8,
-                                         posx9,
-                                         posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                         posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12,
-                                         posy13,
-                                         posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1,
-                                         posx7_1, posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1,
-                                         posx15_1, posx16_1, posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1,
-                                         posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1, posy14_1,
-                                         posy15_1, posy16_1)
+                        exibir_taboleiro(cond_final, taboleiroj2, screen,Jog2=1)
                         pygame.display.flip()
                         pygame.display.update()
 
@@ -705,7 +583,7 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome, taboleiroj2, exclui
                 if Botao17.touche == True:  # se ele pressionou o baralho
                     retangulo1 = pygame.image.load("imagens_jogo/retangulo1.png").convert_alpha()
                     remover_message_to_screen(retangulo1, screen)
-                    baralho = message_to_screen(nome + ", escolhe uma posiçao para colocar o trevo", None, 25,
+                    baralho = message_to_screen(nome_jogador2 + ", escolhe uma posiçao para colocar o trevo", None, 25,
                                                 [0, 0, 0])
                     screen.blit(baralho, (500 - baralho.get_width() // 2, 148 - baralho.get_height() // 2))
                     key = True
@@ -715,22 +593,14 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome, taboleiroj2, exclui
                             key = False
                             excluidos.append(trevo)
                     taboleiroj2[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-                    exibir_taboleiro(cond_final, taboleiroj2, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7,
-                                     posx8, posx9,
-                                     posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                     posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                     posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1,
-                                     posx7_1, posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1,
-                                     posx15_1, posx16_1, posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1, posy7_1,
-                                     posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1, posy14_1, posy15_1,
-                                     posy16_1)
+                    exibir_taboleiro(cond_final, taboleiroj2, screen,Jog2=1)
                     pygame.display.flip()
                     pygame.display.update()
 
                     Botao17.touche = False
                     break
 
-            guardar_na_mem(nome, taboleiroj2, excluidos, table, nome,
+            guardar_na_mem(nome_jogador2, taboleiroj2, excluidos, table, nome_jogador2,
                            proxima=1)  # vai alterar na memoria os valores do taboleiro pelos atuais
 
         print("Trevo - ", trevo)
@@ -755,49 +625,26 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome, taboleiroj2, exclui
                 print("\nO trevo %d foi colocado na table\n" % trevo)
                 taboleiroj2[4][0] = 0
                 screen.blit(imagem_fundo, (0, 0))
-                exibir_taboleiro(cond_final, taboleiroj2, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8,
-                                 posx9,
-                                 posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                 posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                 posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1,
-                                 posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1,
-                                 posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1,
-                                 posy10_1, posy11_1, posy12_1, posy13_1, posy14_1, posy15_1, posy16_1)
+                exibir_taboleiro(cond_final, taboleiroj2, screen,Jog2=1)
                 Botao18.touche = False
                 pygame.display.flip()
                 pygame.display.update()
                 break
             else:
                 # taboleiroj[4][0] = trevo #trevo escolhido para a parte debaixo do taboleiro
-                exibir_taboleiro(cond_final, taboleiroj2, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8,
-                                 posx9,
-                                 posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                 posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                 posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1,
-                                 posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1,
-                                 posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1,
-                                 posy10_1, posy11_1, posy12_1, posy13_1, posy14_1, posy15_1, posy16_1)
+                exibir_taboleiro(cond_final, taboleiroj2, screen,Jog2=1)
                 pygame.display.flip()
                 pygame.display.update()
                 key1 = True
                 while key1:
                     print("Posicao: ")
 
-                    resultado = escolha_posicao_trevo(ButtonGrups, screen,
-                                                      Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
-                                                      Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15,
-                                                      Botao16, Botao17, Botao18,
-                                                      posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                                                      posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1,
-                                                      posy2,
-                                                      posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11,
-                                                      posy12, posy13,
-                                                      posy14, posy15, posy16, posy17=88, posx17=110)
+                    resultado = escolha_posicao_trevo(ButtonGrups,"Jogador2")
                     linha = resultado[0]
                     coluna = resultado[1]
                     # print(linha,coluna)
                     if linha == -9 and coluna == -9:
-                        print("O %s mandou o trevo para a table" % nome)
+                        print("O %s mandou o trevo para a table" % nome_jogador2)
                         table.append(trevo)
                         key = False
                         key1 = False
@@ -839,7 +686,7 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome, taboleiroj2, exclui
                 break
     else:
         if len(table) == 0 and proxima != 1:  # quando nao existem trevos na table, tem que gerar um novo
-            baralho = message_to_screen(nome + ", escolhe uma posiçao para colocar o trevo", None, 25, [0, 0, 0])
+            baralho = message_to_screen(nome_jogador2 + ", escolhe uma posiçao para colocar o trevo", None, 25, [0, 0, 0])
             screen.blit(baralho, (500 - baralho.get_width() // 2, 150 - baralho.get_height() // 2))
 
             while key:
@@ -848,25 +695,18 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome, taboleiroj2, exclui
                     key = False
                     excluidos.append(trevo)
             taboleiroj2[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-            exibir_taboleiro(cond_final, taboleiroj2, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8,
-                             posx9,
-                             posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                             posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                             posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1,
-                             posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1,
-                             posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1,
-                             posy10_1, posy11_1, posy12_1, posy13_1, posy14_1, posy15_1, posy16_1)
+            exibir_taboleiro(cond_final, taboleiroj2, screen,Jog2=1)
 
             pygame.display.flip()
             pygame.display.update()
 
-            guardar_na_mem(nome, taboleiroj2, excluidos, table, nome,
-                           proxima=-1)  # vai alterar na memoria os valores do taboleiro pelos atuais
+            guardar_na_mem(nome_jogador2, taboleiroj2, excluidos, table, nome_jogador2,
+                           proxima=1)  # vai alterar na memoria os valores do taboleiro pelos atuais
         else:  # se ja existirem trevos na table, pode usar um do baralho ou usar um da table
             if proxima != 1:
                 print(table)
                 key1 = True
-                table_baralho = message_to_screen(nome + ", escolhe um trevo da table ou usa o baralho", None, 25,
+                table_baralho = message_to_screen(nome_jogador2 + ", escolhe um trevo da table ou usa o baralho", None, 25,
                                                   [0, 0, 0])
                 screen.blit(table_baralho,
                             (500 - table_baralho.get_width() // 2, 148 - table_baralho.get_height() // 2))
@@ -891,17 +731,7 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome, taboleiroj2, exclui
                             trevo = table[linha]
                             table.remove(trevo)
                             taboleiroj2[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-                            exibir_taboleiro(cond_final, taboleiroj2, screen, posx1, posx2, posx3, posx4, posx5, posx6,
-                                             posx7, posx8,
-                                             posx9,
-                                             posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                             posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12,
-                                             posy13,
-                                             posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1,
-                                             posx6_1, posx7_1, posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1,
-                                             posx14_1, posx15_1, posx16_1, posy1_1, posy2_1, posy3_1, posy4_1, posy5_1,
-                                             posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,
-                                             posy14_1, posy15_1, posy16_1)
+                            exibir_taboleiro(cond_final, taboleiroj2, screen,Jog2=1)
                             pygame.display.flip()
                             pygame.display.update()
                             break
@@ -910,17 +740,7 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome, taboleiroj2, exclui
                             trevo = table[0]
                             table.remove(trevo)
                             taboleiroj2[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-                            exibir_taboleiro(cond_final, taboleiroj2, screen, posx1, posx2, posx3, posx4, posx5, posx6,
-                                             posx7, posx8,
-                                             posx9,
-                                             posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                             posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12,
-                                             posy13,
-                                             posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1,
-                                             posx6_1, posx7_1, posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1,
-                                             posx14_1, posx15_1, posx16_1, posy1_1, posy2_1, posy3_1, posy4_1, posy5_1,
-                                             posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,
-                                             posy14_1, posy15_1, posy16_1)
+                            exibir_taboleiro(cond_final, taboleiroj2, screen,Jog2=1)
                             pygame.display.flip()
                             pygame.display.update()
 
@@ -931,7 +751,7 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome, taboleiroj2, exclui
                     if Botao17.touche == True:  # se ele pressionou o baralho
                         retangulo1 = pygame.image.load("imagens_jogo/retangulo1.png").convert_alpha()
                         remover_message_to_screen(retangulo1, screen)
-                        baralho = message_to_screen(nome + ", escolhe uma posiçao para colocar o trevo", None, 25,
+                        baralho = message_to_screen(nome_jogador2 + ", escolhe uma posiçao para colocar o trevo", None, 25,
                                                     [0, 0, 0])
                         screen.blit(baralho, (500 - baralho.get_width() // 2, 148 - baralho.get_height() // 2))
                         key = True
@@ -941,23 +761,14 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome, taboleiroj2, exclui
                                 key = False
                                 excluidos.append(trevo)
                         taboleiroj2[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-                        exibir_taboleiro(cond_final, taboleiroj2, screen, posx1, posx2, posx3, posx4, posx5, posx6,
-                                         posx7, posx8, posx9,
-                                         posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                         posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12,
-                                         posy13,
-                                         posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1,
-                                         posx7_1, posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1,
-                                         posx15_1, posx16_1, posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1,
-                                         posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1, posy14_1,
-                                         posy15_1, posy16_1)
+                        exibir_taboleiro(cond_final, taboleiroj2, screen,Jog2=1)
                         pygame.display.flip()
                         pygame.display.update()
 
                         Botao17.touche = False
                         break
 
-                guardar_na_mem(nome, taboleiroj2, excluidos, table, nome,
+                guardar_na_mem(nome_jogador2, taboleiroj2, excluidos, table, nome_jogador2,
                                proxima=1)  # vai alterar na memoria os valores do taboleiro pelos atuais
 
         print("Trevo - ", taboleiroj2[4][0])
@@ -983,32 +794,14 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome, taboleiroj2, exclui
                     print("\nO trevo %d foi colocado na table\n" % trevo)
                     taboleiroj2[4][0] = 0
                     screen.blit(imagem_fundo, (0, 0))
-                    exibir_taboleiro(cond_final, taboleiroj2, screen, posx1, posx2, posx3, posx4, posx5, posx6,
-                                     posx7, posx8, posx9,
-                                     posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                     posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12,
-                                     posy13,
-                                     posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1,
-                                     posx7_1, posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1,
-                                     posx15_1, posx16_1, posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1,
-                                     posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1, posy14_1,
-                                     posy15_1, posy16_1)
+                    exibir_taboleiro(cond_final, taboleiroj2, screen,Jog2=1)
                     Botao18.touche = False
                     pygame.display.flip()
                     pygame.display.update()
                     break
                 else:
                     # taboleiroj[4][0] = trevo #trevo escolhido para a parte debaixo do taboleiro
-                    exibir_taboleiro(cond_final, taboleiroj2, screen, posx1, posx2, posx3, posx4, posx5, posx6,
-                                     posx7, posx8, posx9,
-                                     posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                     posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12,
-                                     posy13,
-                                     posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1,
-                                     posx7_1, posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1,
-                                     posx15_1, posx16_1, posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1,
-                                     posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1, posy14_1,
-                                     posy15_1, posy16_1)
+                    exibir_taboleiro(cond_final, taboleiroj2, screen,Jog2=1)
                     pygame.display.flip()
                     pygame.display.update()
                     key1 = True
@@ -1016,23 +809,13 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome, taboleiroj2, exclui
 
                         print("Posicao: ")
 
-                        resultado = escolha_posicao_trevo(ButtonGrups, screen,
-                                                          Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7,
-                                                          Botao8,
-                                                          Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15,
-                                                          Botao16, Botao17, Botao18,
-                                                          posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                                                          posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1,
-                                                          posy2,
-                                                          posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10,
-                                                          posy11, posy12, posy13,
-                                                          posy14, posy15, posy16, posy17=88, posx17=110)
+                        resultado = escolha_posicao_trevo(ButtonGrups, "Jogador2")
                         linha = resultado[0]
                         coluna = resultado[1]
                         # print(linha,coluna)
                         if linha == -9 and coluna == -9:
-                            print("O %s mandou o trevo para a table" % nome)
-                            table.append(trevo)
+                            print("O %s mandou o trevo para a table" % nome_jogador2)
+                            table.append(taboleiroj2[4][0])
                             key = False
                             key1 = False
                             taboleiroj2[4][0] = 0
@@ -1074,8 +857,7 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome, taboleiroj2, exclui
 
                     break
 
-    guardar_na_mem(nome, taboleiroj2, excluidos, table, jogador,proxima=-1)  # vai alterar na memoria os valores do taboleiro pelos atuais
-
+    guardar_na_mem(nome_jogador2, taboleiroj2, excluidos, table, nome_jogador1,proxima=-1)  # vai alterar na memoria os valores do taboleiro pelos atuais
 
 def turnob(Cond_final, screen, taboleirob, excluidos,totaltrevos, key_inicial, table, jogador1, jogador2="BOT"):#funcao destinada ao turno do bot
         print(jogador2, ", é a tua vez.")
@@ -1088,14 +870,7 @@ def turnob(Cond_final, screen, taboleirob, excluidos,totaltrevos, key_inicial, t
                 excluidos.append(trevo)
         taboleirob[4][0] = trevo
         key1 = True
-        exibir_taboleiro(Cond_final, taboleirob, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8,
-                         posx9,
-                         posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                         posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                         posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1,
-                         posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1,
-                         posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1,
-                         posy10_1, posy11_1, posy12_1, posy13_1, posy14_1, posy15_1, posy16_1, Jog2=1)
+        exibir_taboleiro(Cond_final, taboleirob, screen,Jog2=1)
         print("Bot retirou do baralho o trevo n: %d " % (trevo))
         time.sleep(1.5)
         while key1:
@@ -1269,6 +1044,9 @@ def load_jogo_normal():
     # ButtonGrups é uma variável que contém um objeto do tipo Group.
     ButtonGrups = pygame.sprite.Group()
 
+    global Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8, Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17, Botao18, Botao19, Botao20, Botao21, Botao22, Botao23, Botao24, Botao25, Botao26, Botao27, Botao28, Botao29, Botao30, Botao31, Botao32, Botao33, Botao34
+    global posx1, posy1, posx1_1, posy1_1, posx2, posy2, posx2_1, posy2_1, posx3, posy3, posx3_1, posy3_1, posx4, posy4, posx4_1, posy4_1, posx5, posy5, posx5_1, posy5_1, posx6, posy6, posx6_1, posy6_1, posx7, posy7, posx7_1, posy7_1, posx8, posy8, posx8_1, posy8_1, posx9, posy9, posx9_1, posy9_1, posx10, posy10, posx10_1, posy10_1, posx11, posy11, posx11_1, posy11_1, posx12, posy12, posx12_1, posy12_1, posx13, posy13, posx13_1, posy13_1, posx14, posy14, posx14_1, posy14_1, posx15, posy15, posx15_1, posy15_1, posx16, posy16, posx16_1, posy16_1
+
     # cria o botão
     Botao1 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
                    image2="imagens_gerais/red_button02.png", posx=posx1, posy=posy1)
@@ -1399,7 +1177,9 @@ def load_jogo_normal():
 
 
     nome_jogador1 = dicionario["jogador1"]
+    #print(nome_jogador1)
     nome_jogador2 = dicionario["jogador2"]
+    #print(nome_jogador2)
     Comeco = [False, False]
     print(dicionario)
     #jogo abaixo
@@ -1407,7 +1187,7 @@ def load_jogo_normal():
     J1_prenchido = False  # o jogador ja preencheu o taboleiro?
     taboleiroJ1 = dicionario[nome_jogador1]  # taboleiro do bot com base na memoria
     taboleiroJ2 = dicionario[nome_jogador2]  # taboleiro do jogador com base na memoria
-    prox_jogador = dicionario["jogador"]  # proximo jogador a jogar com base na memoria
+    prox_jogador = dicionario["jogador"][0]  # proximo jogador a jogar com base na memoria
     trevos = dicionario["excluidos"]  # obter os trevos "excluidos" que ja foram usados
     table = dicionario["table"]  # obter os trevos que estavam na table
     joana = pygame.image.load("imagens_jogo/joaninha.png").convert_alpha()
@@ -1416,20 +1196,8 @@ def load_jogo_normal():
     proxima_acao = dicionario["proxima"][0]
 
     Cond_final = [J1_prenchido, J2_preenhido]
-    exibir_taboleiro(Cond_final, taboleiroJ2, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                     posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                     posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                     posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1,
-                     posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,
-                     posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1,
-                     posy13_1, posy14_1, posy15_1, posy16_1, Jog2=1 )
-    exibir_taboleiro(Cond_final, taboleiroJ1, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                     posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                     posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                     posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1,
-                     posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,
-                     posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1,
-                     posy13_1, posy14_1, posy15_1, posy16_1,Jog2=0)
+    exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1 )
+    exibir_taboleiro(Cond_final, taboleiroJ1, screen,Jog2=0)
     #time.sleep(100)
     if nome_jogador2 == "BOT":
         if prox_jogador == "BOT":
@@ -1439,142 +1207,223 @@ def load_jogo_normal():
                 player_nome(nome_jogador1,nome_jogador2,screen)
                 joaninha(joana,screen,"jog2")
                 turnob(screen, taboleiroJ2, trevos, 40, Comeco, table, nome_jogador1, nome_jogador2)
-                exibir_taboleiro(proxima_acao, Cond_final, taboleiroJ2, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                                 posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                 posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                 posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1, Jog2=1, )
+                exibir_taboleiro(Cond_final, taboleiroJ2, screen,Jog2=1)
                 retangulo_joaninha_remove(retangulo, screen, "jog2")
                 joaninha(joana, screen)
                 player_nome(nome_jogador1,nome_jogador2,screen)
-                turnoj(Cond_final, imagem_fundo,screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco, table, nome_jogador2, ButtonGrups,
-                                          Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
-                                          Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18,posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                                          posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                          posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                          posy14, posy15, posy16, posy17=88, posx17=110)
+                turnoj(proxima_acao, Cond_final, imagem_fundo,screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco, table, nome_jogador2, ButtonGrups)
 
-                exibir_taboleiro(Cond_final, taboleiroJ1, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                                          posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                          posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                          posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
+                exibir_taboleiro(Cond_final, taboleiroJ1, screen)
                 retangulo_joaninha_remove(retangulo, screen)
         else:
             print("Player começa!")
             while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):  # as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
                 joaninha(joana, screen)
                 player_nome(nome_jogador1, nome_jogador2, screen)
-                turnoj(proxima_acao, Cond_final, imagem_fundo, screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco,
-                       table,
-                       nome_jogador2, ButtonGrups,
-                       Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
-                       Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17, Botao18, posx1,
-                       posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                       posy14, posy15, posy16, posy17=88, posx17=110)
-                exibir_taboleiro(Cond_final, taboleiroJ1, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7,
-                                 posx8,
-                                 posx9,
-                                 posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                 posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                 posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1,
-                                 posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1,
-                                 posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1,
-                                 posy10_1, posy11_1, posy12_1, posy13_1, posy14_1, posy15_1, posy16_1)
+                turnoj(proxima_acao, Cond_final, imagem_fundo, screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco,table,nome_jogador2, ButtonGrups, posy17=88, posx17=110)
+                exibir_taboleiro(Cond_final, taboleiroJ1, screen)
                 retangulo_joaninha_remove(retangulo, screen)
                 player_nome(nome_jogador1, nome_jogador2, screen)
                 proxima_acao = -1
                 joaninha(joana, screen, "jog2")
                 turnob(Cond_final, screen, taboleiroJ2, trevos, 40, Comeco, table, nome_jogador1, nome_jogador2)
-                exibir_taboleiro(Cond_final, taboleiroJ2, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8,
-                                 posx9,
-                                 posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                 posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                 posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1,
-                                 posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1,
-                                 posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1,
-                                 posy10_1, posy11_1, posy12_1, posy13_1, posy14_1, posy15_1, posy16_1, Jog2=1 )
+                exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
                 retangulo_joaninha_remove(retangulo, screen, "jog2")
 
     else:
         if prox_jogador == nome_jogador1:
-            print("O %s começa!" % nome)
+            print("O %s começa!" % nome_jogador1)
             while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):
-                #aaa(imagem1_verde_exibida, imagem1_fundo, imagem17_fundo, imagem17_verde_exibida, Botao1, Botao17, screen, posx1, posy1, cor_de_fundo, imagem_fundo, ButtonGrups)
                 joaninha(joana, screen)
-                turnoj(proxima_acao, Cond_final, imagem_fundo,screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco, table,nome_jogador2, ButtonGrups,
-                                          Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
-                                          Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                                          posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                          posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                          posy14, posy15, posy16, posy17=88, posx17=110)
-                exibir_taboleiro(Cond_final, taboleiroJ1, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                                          posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                          posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                          posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1)
+                exibir_taboleiro(Cond_final, taboleiroJ1, screen, Jog2=0)
+                turnoj(proxima_acao, Cond_final, imagem_fundo,screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco, table,nome_jogador2, ButtonGrups, posy17=88, posx17=110)
+                exibir_taboleiro(Cond_final, taboleiroJ1, screen, Jog2=0)
                 retangulo_joaninha_remove(retangulo, screen)
-                #time.sleep(5)
-                joaninha(joana, screen, "jog2")
-                turnoj(proxima_acao, Cond_final, imagem_fundo, screen, nome_jogador2, taboleiroJ2, trevos, 40, Comeco, table, nome_jogador1, ButtonGrups,
-                       Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
-                       Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17, Botao18, posx1,
-                       posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                       posy14, posy15, posy16, posy17=88, posx17=110)
-                exibir_taboleiro(Cond_final, taboleiroJ2, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                                 posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                 posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                 posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1, posx8_1, posx9_1,posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1, posy1_1, posy2_1,posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1, posy10_1, posy11_1, posy12_1, posy13_1,posy14_1, posy15_1, posy16_1, Jog2=1)
-                retangulo_joaninha_remove(retangulo, screen, "jog2")
-                time.sleep(2)
-            # print(table)
-            """a = int(input("cheat: "))
-            if a == 0:
-                B_preenhido = True
-                J_prenchido = True"""
-        else:
-            print("O %s começa!" % nome)
-            while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):
-                # aaa(imagem1_verde_exibida, imagem1_fundo, imagem17_fundo, imagem17_verde_exibida, Botao1, Botao17, screen, posx1, posy1, cor_de_fundo, imagem_fundo, ButtonGrups)
-                joaninha(joana, screen, "jog2")
-                turnoj(proxima_acao, Cond_final, imagem_fundo, screen, nome_jogador2, taboleiroJ2, trevos, 40, Comeco,
-                       table, nome_jogador2, ButtonGrups,
-                       Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
-                       Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17, Botao18, posx1,
-                       posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                       posy14, posy15, posy16, posy17=88, posx17=110)
-                exibir_taboleiro(Cond_final, taboleiroJ2, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7,
-                                 posx8, posx9,
-                                 posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                 posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                 posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1,
-                                 posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1,
-                                 posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1,
-                                 posy10_1, posy11_1, posy12_1, posy13_1, posy14_1, posy15_1, posy16_1, Jog2=1)
-                retangulo_joaninha_remove(retangulo, screen)
-                # time.sleep(5)
-                joaninha(joana, screen, "jog1")
-                turnoj(proxima_acao, Cond_final, imagem_fundo, screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco,
-                       table, nome_jogador1, ButtonGrups,
-                       Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
-                       Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17, Botao18, posx1,
-                       posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                       posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                       posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                       posy14, posy15, posy16, posy17=88, posx17=110)
-                exibir_taboleiro(Cond_final, taboleiroJ1, screen, posx1, posx2, posx3, posx4, posx5, posx6, posx7,
-                                 posx8, posx9,
-                                 posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                 posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                 posy14, posy15, posy16, posx1_1, posx2_1, posx3_1, posx4_1, posx5_1, posx6_1, posx7_1,
-                                 posx8_1, posx9_1, posx10_1, posx11_1, posx12_1, posx13_1, posx14_1, posx15_1, posx16_1,
-                                 posy1_1, posy2_1, posy3_1, posy4_1, posy5_1, posy6_1, posy7_1, posy8_1, posy9_1,
-                                 posy10_1, posy11_1, posy12_1, posy13_1, posy14_1, posy15_1, posy16_1, Jog2=1)
-                retangulo_joaninha_remove(retangulo, screen, "jog2")
-                time.sleep(2)
 
+                joaninha(joana, screen, "jog2")
+                exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
+                turnoj2(proxima_acao, Cond_final, imagem_fundo, screen, nome_jogador2, taboleiroJ2, trevos, 40, Comeco, table, nome_jogador1, ButtonGrups, posy17=88, posx17=110)
+                exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
+                retangulo_joaninha_remove(retangulo, screen, "jog2")
+
+        else:
+            print("O %s começa!" % nome_jogador2)
+            while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):
+                exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
+                joaninha(joana, screen, "jog2")
+                turnoj2(proxima_acao, Cond_final, imagem_fundo, screen, nome_jogador2, taboleiroJ2, trevos, 40, Comeco,
+                       table, nome_jogador1, ButtonGrups, posy17=88, posx17=110)
+                exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
+                retangulo_joaninha_remove(retangulo, screen)
+
+                joaninha(joana, screen, "jog1")
+                exibir_taboleiro(Cond_final, taboleiroJ1, screen, Jog2=0)
+                turnoj(proxima_acao, Cond_final, imagem_fundo, screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco,
+                       table, nome_jogador2, ButtonGrups, posy17=88, posx17=110)
+                exibir_taboleiro(Cond_final, taboleiroJ1, screen, Jog2=0)
+                retangulo_joaninha_remove(retangulo, screen, "jog2")
+
+
+def escolha_posicao_trevo(ButtonGrups, vez="Jogador1"):
+    while True:
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            ButtonGrups.update()
+
+        if Botao1.touche == True and vez == "Jogador1":
+                print("IMAGEM1")
+                Botao1.touche = False
+                return [0, 0]
+
+        if Botao2.touche == True and vez == "Jogador1":
+                print("IMAGEM2")
+                Botao2.touche = False
+                return [0, 1]
+
+        if Botao3.touche == True and vez == "Jogador1":
+                print("IMAGEM3")
+                Botao3.touche = False
+                return [0, 2]
+
+        if Botao4.touche == True and vez == "Jogador1":
+                print("IMAGEM4")
+                Botao4.touche = False
+                return [0, 3]
+
+        if Botao5.touche == True and vez == "Jogador1":
+                print("IMAGEM5")
+                Botao5.touche = False
+                return [1, 0]
+
+        if Botao6.touche == True and vez == "Jogador1":
+                print("IMAGEM6")
+                Botao6.touche = False
+                return [1, 1]
+
+        if Botao7.touche == True and vez == "Jogador1":
+                print("IMAGEM7")
+                Botao7.touche = False
+                return [1, 2]
+
+        if Botao8.touche == True and vez == "Jogador1":
+                print("IMAGEM8")
+                Botao8.touche = False
+                return [1, 3]
+
+        if Botao9.touche == True and vez == "Jogador1":
+                print("IMAGEM9")
+                Botao9.touche = False
+                return [2, 0]
+
+        if Botao10.touche == True and vez == "Jogador1":
+                print("IMAGEM10")
+                Botao10.touche = False
+                return [2, 1]
+
+        if Botao11.touche == True and vez == "Jogador1":
+                print("IMAGEM11")
+                Botao11.touche = False
+                return [2, 2]
+
+        if Botao12.touche == True and vez == "Jogador1":
+                print("IMAGEM12")
+                Botao12.touche = False
+                return [2, 3]
+
+        if Botao13.touche == True and vez == "Jogador1":
+                print("IMAGEM13")
+                Botao13.touche = False
+                return [3, 0]
+
+        if Botao14.touche == True and vez == "Jogador1":
+                print("IMAGEM14")
+                Botao14.touche = False
+                return [3, 1]
+
+        if Botao15.touche == True and vez == "Jogador1":
+                print("IMAGEM15")
+                Botao15.touche = False
+                return [3, 2]
+
+        if Botao16.touche == True and vez == "Jogador1":
+                print("IMAGEM16")
+                Botao16.touche = False
+                return [3, 3]
+        if Botao18.touche == True:
+            print("TABLE")
+            Botao18.touche = False
+            return [-9, -9]
+
+        if Botao19.touche == True and vez == "Jogador2":
+                print("IMAGEM19")
+                Botao19.touche = False
+                return [0, 0]
+        if Botao20.touche == True and vez == "Jogador2":
+                print("IMAGEM20")
+                Botao20.touche = False
+                return [0, 1]
+        if Botao21.touche == True and vez == "Jogador2":
+                print("IMAGEM21")
+                Botao21.touche = False
+                return [0, 2]
+        if Botao22.touche == True and vez == "Jogador2":
+                print("IMAGEM22")
+                Botao22.touche = False
+                return [0, 3]
+        if Botao23.touche == True and vez == "Jogador2":
+                print("IMAGEM23")
+                Botao23.touche = False
+                return [1, 0]
+        if Botao24.touche == True and vez == "Jogador2":
+                print("IMAGEM24")
+                Botao24.touche = False
+                return [1, 1]
+        if Botao25.touche == True and vez == "Jogador2":
+                print("IMAGEM25")
+                Botao25.touche = False
+                return [1, 2]
+        if Botao26.touche == True and vez == "Jogador2":
+                print("IMAGEM26")
+                Botao26.touche = False
+                return [1, 3]
+        if Botao27.touche == True and vez == "Jogador2":
+                print("IMAGEM27")
+                Botao27.touche = False
+                return [2, 0]
+        if Botao28.touche == True and vez == "Jogador2":
+                print("IMAGEM28")
+                Botao28.touche = False
+                return [2, 1]
+        if Botao29.touche == True and vez == "Jogador2":
+                print("IMAGEM29")
+                Botao29.touche = False
+                return [2, 2]
+        if Botao30.touche == True and vez == "Jogador2":
+                print("IMAGEM30")
+                Botao30.touche = False
+                return [2, 3]
+        if Botao31.touche == True and vez == "Jogador2":
+                print("IMAGEM31")
+                Botao31.touche = False
+                return [3, 0]
+        if Botao32.touche == True and vez == "Jogador2":
+                print("IMAGEM32")
+                Botao32.touche = False
+                return [3, 1]
+        if Botao33.touche == True and vez == "Jogador2":
+                print("IMAGEM33")
+                Botao33.touche = False
+                return [3, 2]
+        if Botao34.touche == True and vez == "Jogador2":
+                print("IMAGEM34")
+                Botao34.touche = False
+                return [3, 3]
+
+        pygame.display.flip()
+        pygame.display.update()
 
 load_jogo_normal()

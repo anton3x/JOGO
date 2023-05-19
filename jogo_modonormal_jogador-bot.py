@@ -383,13 +383,7 @@ def turnoj(cond_final, imagem_fundo, screen,nome, taboleiroj, excluidos, totaltr
                 while key1:
                     print("Posicao: ")
 
-                    resultado = escolha_posicao_trevo(ButtonGrups, screen,
-                                              Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8,
-                                              Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17,Botao18,
-                                              posx1, posx2, posx3, posx4, posx5, posx6, posx7, posx8, posx9,
-                                              posx10, posx11, posx12, posx13, posx14, posx15, posx16, posy1, posy2,
-                                              posy3, posy4, posy5, posy6, posy7, posy8, posy9, posy10, posy11, posy12, posy13,
-                                              posy14, posy15, posy16, posy17=88, posx17=110)
+                    resultado = escolha_posicao_trevo(ButtonGrups,vez="Jogador1")
                     linha = resultado[0]
                     coluna = resultado[1]
                     #print(linha,coluna)
@@ -632,8 +626,8 @@ def novo_jogo_normal(nome):
     ButtonGrups = pygame.sprite.Group()
 
     global Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8, Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17, Botao18, Botao19, Botao20, Botao21, Botao22, Botao23, Botao24, Botao25, Botao26, Botao27, Botao28, Botao29, Botao30, Botao31, Botao32, Botao33, Botao34
+    global posx1, posy1, posx1_1, posy1_1, posx2, posy2, posx2_1, posy2_1, posx3, posy3, posx3_1, posy3_1, posx4, posy4, posx4_1, posy4_1, posx5, posy5, posx5_1, posy5_1, posx6, posy6, posx6_1, posy6_1, posx7, posy7, posx7_1, posy7_1, posx8, posy8, posx8_1, posy8_1, posx9, posy9, posx9_1, posy9_1, posx10, posy10, posx10_1, posy10_1, posx11, posy11, posx11_1, posy11_1, posx12, posy12, posx12_1, posy12_1, posx13, posy13, posx13_1, posy13_1, posx14, posy14, posx14_1, posy14_1, posx15, posy15, posx15_1, posy15_1, posx16, posy16, posx16_1, posy16_1
 
-    # cria o botão
     Botao1 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
                    image2="imagens_gerais/red_button02.png", posx=posx1, posy=posy1)
     Botao1.rect.center = (posx1, posy1)
@@ -824,7 +818,7 @@ def novo_jogo_normal(nome):
                 B_preenhido = True
                 J_prenchido = True"""
         # print(trevos)
-def escolha_posicao_trevo(ButtonGrups,screen, Botao1,Botao2,Botao3,Botao4,Botao5,Botao6,Botao7,Botao8,Botao9,Botao10,Botao11,Botao12,Botao13,Botao14,Botao15,Botao16,Botao17,Botao18, posx1, posx2, posx3, posx4, posx5, posx6, posx7,posx8,posx9,posx10,posx11,posx12,posx13,posx14,posx15,posx16,posy1, posy2, posy3, posy4, posy5, posy6, posy7,posy8,posy9,posy10,posy11,posy12,posy13,posy14,posy15,posy16, posy17, posx17):
+def escolha_posicao_trevo(ButtonGrups, vez="Jogador1"):
     while True:
         for event in pygame.event.get():
 
@@ -833,187 +827,188 @@ def escolha_posicao_trevo(ButtonGrups,screen, Botao1,Botao2,Botao3,Botao4,Botao5
                 sys.exit()
 
             ButtonGrups.update()
+        if vez=="Jogador1":
+            if Botao1.touche == True:
 
-        if Botao1.touche == True:
+                print("IMAGEM1")
+                Botao1.touche = False
+                return [0,0]
 
-            print("IMAGEM1")
-            Botao1.touche = False
-            return [0,0]
+            if Botao2.touche == True:
 
-        if Botao2.touche == True:
+                print("IMAGEM2")
+                Botao2.touche = False
+                return [0, 1]
 
-            print("IMAGEM2")
-            Botao2.touche = False
-            return [0, 1]
+            if Botao3.touche == True:
 
-        if Botao3.touche == True:
+                print("IMAGEM3")
+                Botao3.touche = False
+                return [0, 2]
 
-            print("IMAGEM3")
-            Botao3.touche = False
-            return [0, 2]
+            if Botao4.touche == True:
 
-        if Botao4.touche == True:
+                print("IMAGEM4")
+                Botao4.touche = False
+                return [0, 3]
 
-            print("IMAGEM4")
-            Botao4.touche = False
-            return [0, 3]
+            if Botao5.touche == True:
 
-        if Botao5.touche == True:
+                print("IMAGEM5")
+                Botao5.touche = False
+                return [1,0]
 
-            print("IMAGEM5")
-            Botao5.touche = False
-            return [1,0]
+            if Botao6.touche == True:
 
-        if Botao6.touche == True:
+                print("IMAGEM6")
+                Botao6.touche = False
+                return [1,1]
 
-            print("IMAGEM6")
-            Botao6.touche = False
-            return [1,1]
+            if Botao7.touche == True:
 
-        if Botao7.touche == True:
+                print("IMAGEM7")
+                Botao7.touche = False
+                return [1, 2]
 
-            print("IMAGEM7")
-            Botao7.touche = False
-            return [1, 2]
+            if Botao8.touche == True:
 
-        if Botao8.touche == True:
+                print("IMAGEM8")
+                Botao8.touche = False
+                return [1,3]
 
-            print("IMAGEM8")
-            Botao8.touche = False
-            return [1,3]
+            if Botao9.touche == True:
 
-        if Botao9.touche == True:
+                print("IMAGEM9")
+                Botao9.touche = False
+                return [2,0]
 
-            print("IMAGEM9")
-            Botao9.touche = False
-            return [2,0]
+            if Botao10.touche == True:
 
-        if Botao10.touche == True:
+                print("IMAGEM10")
+                Botao10.touche = False
+                return [2,1]
 
-            print("IMAGEM10")
-            Botao10.touche = False
-            return [2,1]
+            if Botao11.touche == True:
 
-        if Botao11.touche == True:
+                print("IMAGEM11")
+                Botao11.touche = False
+                return [2,2]
 
-            print("IMAGEM11")
-            Botao11.touche = False
-            return [2,2]
+            if Botao12.touche == True:
 
-        if Botao12.touche == True:
+                print("IMAGEM12")
+                Botao12.touche = False
+                return [2,3]
 
-            print("IMAGEM12")
-            Botao12.touche = False
-            return [2,3]
+            if Botao13.touche == True:
 
-        if Botao13.touche == True:
+                print("IMAGEM13")
+                Botao13.touche = False
+                return [3,0]
 
-            print("IMAGEM13")
-            Botao13.touche = False
-            return [3,0]
+            if Botao14.touche == True:
 
-        if Botao14.touche == True:
+                print("IMAGEM14")
+                Botao14.touche = False
+                return [3, 1]
 
-            print("IMAGEM14")
-            Botao14.touche = False
-            return [3, 1]
+            if Botao15.touche == True:
 
-        if Botao15.touche == True:
+                print("IMAGEM15")
+                Botao15.touche = False
+                return [3,2]
 
-            print("IMAGEM15")
-            Botao15.touche = False
-            return [3,2]
+            if Botao16.touche == True:
 
-        if Botao16.touche == True:
-
-            print("IMAGEM16")
-            Botao16.touche = False
-            return [3,3]
+                print("IMAGEM16")
+                Botao16.touche = False
+                return [3,3]
         if Botao18.touche == True:
 
             print("TABLE")
             Botao18.touche = False
             return [-9, -9]
-        if Botao19.touche == True:
+        if vez == "Jogador2":
+            if Botao19.touche == True:
 
-            print("IMAGEM19")
-            Botao19.touche = False
-            return [0,0]
-        if Botao20.touche == True:
+                print("IMAGEM19")
+                Botao19.touche = False
+                return [0,0]
+            if Botao20.touche == True:
 
-            print("IMAGEM20")
-            Botao20.touche = False
-            return [0,1]
-        if Botao21.touche == True:
+                print("IMAGEM20")
+                Botao20.touche = False
+                return [0,1]
+            if Botao21.touche == True:
 
-            print("IMAGEM21")
-            Botao21.touche = False
-            return [0,2]
-        if Botao22.touche == True:
+                print("IMAGEM21")
+                Botao21.touche = False
+                return [0,2]
+            if Botao22.touche == True:
 
-            print("IMAGEM22")
-            Botao22.touche = False
-            return [0,3]
-        if Botao23.touche == True:
+                print("IMAGEM22")
+                Botao22.touche = False
+                return [0,3]
+            if Botao23.touche == True:
 
-            print("IMAGEM23")
-            Botao23.touche = False
-            return [1,0]
-        if Botao24.touche == True:
+                print("IMAGEM23")
+                Botao23.touche = False
+                return [1,0]
+            if Botao24.touche == True:
 
-            print("IMAGEM24")
-            Botao24.touche = False
-            return [1,1]
-        if Botao25.touche == True:
+                print("IMAGEM24")
+                Botao24.touche = False
+                return [1,1]
+            if Botao25.touche == True:
 
-            print("IMAGEM25")
-            Botao25.touche = False
-            return [1,2]
-        if Botao26.touche == True:
+                print("IMAGEM25")
+                Botao25.touche = False
+                return [1,2]
+            if Botao26.touche == True:
 
-            print("IMAGEM26")
-            Botao26.touche = False
-            return [1,3]
-        if Botao27.touche == True:
+                print("IMAGEM26")
+                Botao26.touche = False
+                return [1,3]
+            if Botao27.touche == True:
 
-            print("IMAGEM27")
-            Botao27.touche = False
-            return [2,0]
-        if Botao28.touche == True:
+                print("IMAGEM27")
+                Botao27.touche = False
+                return [2,0]
+            if Botao28.touche == True:
 
-            print("IMAGEM28")
-            Botao28.touche = False
-            return [2,1]
-        if Botao29.touche == True:
+                print("IMAGEM28")
+                Botao28.touche = False
+                return [2,1]
+            if Botao29.touche == True:
 
-            print("IMAGEM29")
-            Botao29.touche = False
-            return [2,2]
-        if Botao30.touche == True:
+                print("IMAGEM29")
+                Botao29.touche = False
+                return [2,2]
+            if Botao30.touche == True:
 
-            print("IMAGEM30")
-            Botao30.touche = False
-            return [2,3]
-        if Botao31.touche == True:
+                print("IMAGEM30")
+                Botao30.touche = False
+                return [2,3]
+            if Botao31.touche == True:
 
-            print("IMAGEM31")
-            Botao31.touche = False
-            return [3,0]
-        if Botao32.touche == True:
+                print("IMAGEM31")
+                Botao31.touche = False
+                return [3,0]
+            if Botao32.touche == True:
 
-            print("IMAGEM32")
-            Botao32.touche = False
-            return [3,1]
-        if Botao33.touche == True:
+                print("IMAGEM32")
+                Botao32.touche = False
+                return [3,1]
+            if Botao33.touche == True:
 
-            print("IMAGEM33")
-            Botao33.touche = False
-            return [3,2]
-        if Botao34.touche == True:
+                print("IMAGEM33")
+                Botao33.touche = False
+                return [3,2]
+            if Botao34.touche == True:
 
-            print("IMAGEM34")
-            Botao34.touche = False
-            return [3,3]
+                print("IMAGEM34")
+                Botao34.touche = False
+                return [3,3]
 
 
         pygame.display.flip()

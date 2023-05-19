@@ -1,0 +1,1 @@
+global Botao1 ,Botao2 ,Botao3 ,Botao4 ,Botao5 ,Botao6 ,Botao7 ,Botao8 ,Botao9 ,Botao10 ,Botao11 ,Botao12 ,Botao13 ,Botao14 ,Botao15 ,Botao16 ,Botao17 ,Botao18 ,Botao19 ,Botao20 ,Botao21 ,Botao22 ,Botao23 ,Botao24 ,Botao25 ,Botao26 ,Botao27 ,Botao28 ,Botao29 ,Botao30 ,Botao31 ,Botao32 ,Botao33 ,Botao34 ,

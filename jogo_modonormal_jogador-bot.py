@@ -631,6 +631,8 @@ def novo_jogo_normal(nome):
     # ButtonGrups é uma variável que contém um objeto do tipo Group.
     ButtonGrups = pygame.sprite.Group()
 
+    global Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8, Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17, Botao18, Botao19, Botao20, Botao21, Botao22, Botao23, Botao24, Botao25, Botao26, Botao27, Botao28, Botao29, Botao30, Botao31, Botao32, Botao33, Botao34
+
     # cria o botão
     Botao1 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
                    image2="imagens_gerais/red_button02.png", posx=posx1, posy=posy1)
@@ -729,14 +731,13 @@ def novo_jogo_normal(nome):
                     image2="imagens_gerais/red_button02.png", posx=posx16_1, posy=posy16_1)
     Botao34.rect.center = (posx16_1, posy16_1)
 
-
-
     Botao17 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
                     image2="imagens_gerais/red_button02.png", posx=110, posy=88, dim=44)
     Botao17.rect.center = (110, 88)
     Botao18 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
                     image2="imagens_gerais/red_button02.png", posx=495, posy=87, dim=44)
     Botao18.rect.center = (495, 87)
+
 
     #joana = pygame.image.load("imagens_jogo/joaninha.png").convert_alpha()
 
@@ -933,6 +934,87 @@ def escolha_posicao_trevo(ButtonGrups,screen, Botao1,Botao2,Botao3,Botao4,Botao5
             print("TABLE")
             Botao18.touche = False
             return [-9, -9]
+        if Botao19.touche == True:
+
+            print("IMAGEM19")
+            Botao19.touche = False
+            return [0,0]
+        if Botao20.touche == True:
+
+            print("IMAGEM20")
+            Botao20.touche = False
+            return [0,1]
+        if Botao21.touche == True:
+
+            print("IMAGEM21")
+            Botao21.touche = False
+            return [0,2]
+        if Botao22.touche == True:
+
+            print("IMAGEM22")
+            Botao22.touche = False
+            return [0,3]
+        if Botao23.touche == True:
+
+            print("IMAGEM23")
+            Botao23.touche = False
+            return [1,0]
+        if Botao24.touche == True:
+
+            print("IMAGEM24")
+            Botao24.touche = False
+            return [1,1]
+        if Botao25.touche == True:
+
+            print("IMAGEM25")
+            Botao25.touche = False
+            return [1,2]
+        if Botao26.touche == True:
+
+            print("IMAGEM26")
+            Botao26.touche = False
+            return [1,3]
+        if Botao27.touche == True:
+
+            print("IMAGEM27")
+            Botao27.touche = False
+            return [2,0]
+        if Botao28.touche == True:
+
+            print("IMAGEM28")
+            Botao28.touche = False
+            return [2,1]
+        if Botao29.touche == True:
+
+            print("IMAGEM29")
+            Botao29.touche = False
+            return [2,2]
+        if Botao30.touche == True:
+
+            print("IMAGEM30")
+            Botao30.touche = False
+            return [2,3]
+        if Botao31.touche == True:
+
+            print("IMAGEM31")
+            Botao31.touche = False
+            return [3,0]
+        if Botao32.touche == True:
+
+            print("IMAGEM32")
+            Botao32.touche = False
+            return [3,1]
+        if Botao33.touche == True:
+
+            print("IMAGEM33")
+            Botao33.touche = False
+            return [3,2]
+        if Botao34.touche == True:
+
+            print("IMAGEM34")
+            Botao34.touche = False
+            return [3,3]
+
 
         pygame.display.flip()
         pygame.display.update()

@@ -951,19 +951,19 @@ def novo_jogo_normal(nome_jogador1,nome_jogador2):
                 retangulo_joaninha_remove(retangulo, screen, "jog2")
         else:
             while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):
+                player_nome(nome_jogador1, nome_jogador2, screen)
                 joaninha(joana, screen, "jog1")
                 exibir_taboleiro(Cond_final, taboleiroJ1, screen, Jog2=0)
                 turnoj(Cond_final, imagem_fundo,screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco, table,nome_jogador2, ButtonGrups, posy17=88, posx17=110)
                 exibir_taboleiro(Cond_final, taboleiroJ1, screen, Jog2=0)
                 retangulo_joaninha_remove(retangulo, screen)
 
+                player_nome(nome_jogador1, nome_jogador2, screen)
                 joaninha(joana, screen, "jog2")
                 exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
                 turnoj2(Cond_final, imagem_fundo, screen, nome_jogador2, taboleiroJ2, trevos, 40, Comeco, table, nome_jogador1, ButtonGrups, posy17=88, posx17=110)
                 exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
                 retangulo_joaninha_remove(retangulo, screen, "jog2")
-
-
 
 def escolha_posicao_trevo(ButtonGrups, vez="Jogador1"):
     while True:

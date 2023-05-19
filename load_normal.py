@@ -11,7 +11,7 @@ import random
 import os
 
 def player_nome(nome_player1,nome_player2, screen):
-    player1 = message_to_screen(nome_player1, None, 25, [0, 255, 127])
+    player1 = message_to_screen(nome_player1, None, 25, [0, 100, 0])
     screen.blit(player1, (1075 - player1.get_width() // 2, 116 - player1.get_height() // 2))
 
     if nome_player2 == "BOT":
@@ -468,6 +468,9 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome_jogador1, taboleiroj, 
                             while key1:
 
                                 print("Posicao: ")
+                                baralho = message_to_screen(
+                                    nome_jogador1 + ", escolhe uma posiçao para colocar o trevo", None, 25, [0, 0, 0])
+                                screen.blit(baralho, (500 - baralho.get_width() // 2, 150 - baralho.get_height() // 2))
 
                                 resultado = escolha_posicao_trevo(ButtonGrups, "Jogador1")
                                 linha = resultado[0]
@@ -808,6 +811,9 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome_jogador2, taboleiroj
                     while key1:
 
                         print("Posicao: ")
+                        baralho = message_to_screen(nome_jogador2 + ", escolhe uma posiçao para colocar o trevo", None,
+                                                    25, [0, 0, 0])
+                        screen.blit(baralho, (500 - baralho.get_width() // 2, 150 - baralho.get_height() // 2))
 
                         resultado = escolha_posicao_trevo(ButtonGrups, "Jogador2")
                         linha = resultado[0]
@@ -1240,12 +1246,14 @@ def load_jogo_normal():
         if prox_jogador == nome_jogador1:
             print("O %s começa!" % nome_jogador1)
             while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):
+                player_nome(nome_jogador1, nome_jogador2, screen)
                 joaninha(joana, screen, "jog1")
                 exibir_taboleiro(Cond_final, taboleiroJ1, screen, Jog2=0)
                 turnoj(proxima_acao, Cond_final, imagem_fundo,screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco, table,nome_jogador2, ButtonGrups, posy17=88, posx17=110)
                 exibir_taboleiro(Cond_final, taboleiroJ1, screen, Jog2=0)
                 retangulo_joaninha_remove(retangulo, screen)
 
+                player_nome(nome_jogador1, nome_jogador2, screen)
                 joaninha(joana, screen, "jog2")
                 exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
                 turnoj2(proxima_acao, Cond_final, imagem_fundo, screen, nome_jogador2, taboleiroJ2, trevos, 40, Comeco, table, nome_jogador1, ButtonGrups, posy17=88, posx17=110)
@@ -1255,12 +1263,14 @@ def load_jogo_normal():
         else:
             print("O %s começa!" % nome_jogador2)
             while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):
+                player_nome(nome_jogador1, nome_jogador2, screen)
                 exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
                 joaninha(joana, screen, "jog2")
                 turnoj2(proxima_acao, Cond_final, imagem_fundo, screen, nome_jogador2, taboleiroJ2, trevos, 40, Comeco,table, nome_jogador1, ButtonGrups, posy17=88, posx17=110)
                 exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
                 retangulo_joaninha_remove(retangulo, screen, "jog2")
 
+                player_nome(nome_jogador1, nome_jogador2, screen)
                 joaninha(joana, screen, "jog1")
                 exibir_taboleiro(Cond_final, taboleiroJ1, screen, Jog2=0)
                 turnoj(proxima_acao, Cond_final, imagem_fundo, screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco,

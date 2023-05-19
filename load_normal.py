@@ -888,6 +888,8 @@ def turnob(Cond_final, screen, taboleirob, excluidos,totaltrevos, key_inicial, t
                     taboleirob[linha][coluna] = trevo
                     key1 = False
 
+        screen.blit(imagem_fundo, (0, 0))
+
         for i in range(4):
             print(str(taboleirob[i][0]), " | ", str(taboleirob[i][1]), " | ", str(taboleirob[i][2]), " | ",
                   str(taboleirob[i][3]))
@@ -1030,6 +1032,7 @@ def load_jogo_normal():
     # janela
     screen = pygame.display.set_mode((largura, altura))
 
+    global imagem_fundo
     # dá load da imagem
     imagem_fundo = pygame.image.load("imagens_jogo/template_jogo_final.png").convert_alpha()
     imagem_fundo = pygame.transform.scale(imagem_fundo, (1200, 700))
@@ -1203,13 +1206,15 @@ def load_jogo_normal():
             while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):  # as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
                 player_nome(nome_jogador1,nome_jogador2,screen)
                 joaninha(joana,screen,"jog2")
+                exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
                 turnob(screen, taboleiroJ2, trevos, 40, Comeco, table, nome_jogador1, nome_jogador2)
                 exibir_taboleiro(Cond_final, taboleiroJ2, screen,Jog2=1)
                 retangulo_joaninha_remove(retangulo, screen, "jog2")
+
                 joaninha(joana, screen)
                 player_nome(nome_jogador1,nome_jogador2,screen)
+                exibir_taboleiro(Cond_final, taboleiroJ1, screen)
                 turnoj(proxima_acao, Cond_final, imagem_fundo,screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco, table, nome_jogador2, ButtonGrups)
-
                 exibir_taboleiro(Cond_final, taboleiroJ1, screen)
                 retangulo_joaninha_remove(retangulo, screen)
         else:
@@ -1217,12 +1222,15 @@ def load_jogo_normal():
             while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):  # as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
                 joaninha(joana, screen)
                 player_nome(nome_jogador1, nome_jogador2, screen)
+                exibir_taboleiro(Cond_final, taboleiroJ1, screen)
                 turnoj(proxima_acao, Cond_final, imagem_fundo, screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco,table,nome_jogador2, ButtonGrups, posy17=88, posx17=110)
                 exibir_taboleiro(Cond_final, taboleiroJ1, screen)
                 retangulo_joaninha_remove(retangulo, screen)
+
                 player_nome(nome_jogador1, nome_jogador2, screen)
                 proxima_acao = -1
                 joaninha(joana, screen, "jog2")
+                exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
                 turnob(Cond_final, screen, taboleiroJ2, trevos, 40, Comeco, table, nome_jogador1, nome_jogador2)
                 exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
                 retangulo_joaninha_remove(retangulo, screen, "jog2")
@@ -1249,8 +1257,7 @@ def load_jogo_normal():
             while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):
                 exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
                 joaninha(joana, screen, "jog2")
-                turnoj2(proxima_acao, Cond_final, imagem_fundo, screen, nome_jogador2, taboleiroJ2, trevos, 40, Comeco,
-                       table, nome_jogador1, ButtonGrups, posy17=88, posx17=110)
+                turnoj2(proxima_acao, Cond_final, imagem_fundo, screen, nome_jogador2, taboleiroJ2, trevos, 40, Comeco,table, nome_jogador1, ButtonGrups, posy17=88, posx17=110)
                 exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
                 retangulo_joaninha_remove(retangulo, screen, "jog2")
 
@@ -1421,3 +1428,5 @@ def escolha_posicao_trevo(ButtonGrups, vez="Jogador1"):
 
         pygame.display.flip()
         pygame.display.update()
+
+load_jogo_normal()

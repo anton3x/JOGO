@@ -908,7 +908,6 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome_jogador2, taboleiroj
                     break
 
     guardar_na_mem(nome_jogador2, taboleiroj2, excluidos, table, nome_jogador1,proxima=-1)  # vai alterar na memoria os valores do taboleiro pelos atuais
-
 def turnob(Cond_final, screen, taboleirob, excluidos,totaltrevos, key_inicial, table, jogador1, jogador2="BOT"):#funcao destinada ao turno do bot
         print(jogador2, ", é a tua vez.")
         key = True
@@ -1241,14 +1240,12 @@ def load_jogo_normal():
     trevos = dicionario["excluidos"]  # obter os trevos "excluidos" que ja foram usados
     table = dicionario["table"]  # obter os trevos que estavam na table
     joana = pygame.image.load("imagens_jogo/joaninha.png").convert_alpha()
-    p = True
-    numero = 0#random.randint(0, 1)  # quem comeca
     proxima_acao = dicionario["proxima"][0]
 
     Cond_final = [J1_prenchido, J2_preenhido]
-    exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1 )
+    exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
     exibir_taboleiro(Cond_final, taboleiroJ1, screen,Jog2=0)
-    #time.sleep(100)
+
     if nome_jogador2 == "BOT":
         if prox_jogador == "BOT":
             print("Bot começa!")
@@ -1285,7 +1282,7 @@ def load_jogo_normal():
         if prox_jogador == nome_jogador1:
             print("O %s começa!" % nome_jogador1)
             while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):
-                joaninha(joana, screen)
+                joaninha(joana, screen, "jog1")
                 exibir_taboleiro(Cond_final, taboleiroJ1, screen, Jog2=0)
                 turnoj(proxima_acao, Cond_final, imagem_fundo,screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco, table,nome_jogador2, ButtonGrups, posy17=88, posx17=110)
                 exibir_taboleiro(Cond_final, taboleiroJ1, screen, Jog2=0)
@@ -1305,14 +1302,14 @@ def load_jogo_normal():
                 turnoj2(proxima_acao, Cond_final, imagem_fundo, screen, nome_jogador2, taboleiroJ2, trevos, 40, Comeco,
                        table, nome_jogador1, ButtonGrups, posy17=88, posx17=110)
                 exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
-                retangulo_joaninha_remove(retangulo, screen)
+                retangulo_joaninha_remove(retangulo, screen, "jog2")
 
                 joaninha(joana, screen, "jog1")
                 exibir_taboleiro(Cond_final, taboleiroJ1, screen, Jog2=0)
                 turnoj(proxima_acao, Cond_final, imagem_fundo, screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco,
                        table, nome_jogador2, ButtonGrups, posy17=88, posx17=110)
                 exibir_taboleiro(Cond_final, taboleiroJ1, screen, Jog2=0)
-                retangulo_joaninha_remove(retangulo, screen, "jog2")
+                retangulo_joaninha_remove(retangulo, screen)
 
 
 def escolha_posicao_trevo(ButtonGrups, vez="Jogador1"):

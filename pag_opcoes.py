@@ -122,10 +122,10 @@ def tela1():
     entry_jogador1 = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((200, 100), (200, 50)),
                                                          manager=gerenciador)
 
-    #label_jogador2 = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((100, 175), (100, 50)), text="Jogador 2:",
+    #label_jogador2 = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((100, 200), (100, 50)), text="Jogador 2:",
                                                 # manager=gerenciador)
     label_jogador2 = message_to_screen("Jogador 2:", None, 25, [255, 255, 255])
-    entry_jogador2 = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((200, 175), (200, 50)),
+    entry_jogador2 = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((200, 200), (200, 50)),
                                                          manager=gerenciador)
     entry_jogador2.hide()
     #label_jogador2.hide()
@@ -203,9 +203,9 @@ def tela1():
                             #label_jogador2.show()
                             #label_variante.set_position((100, 300))
                             #label_oponente.set_position((100, 400))
-                            dropdown_variante.set_position((200, 240))
-                            dropdown_oponente.set_position((200, 350))
-                            botao_iniciar.set_position((180, 450))
+                            dropdown_variante.set_position((200, 300))
+                            dropdown_oponente.set_position((200, 400))
+                            botao_iniciar.set_position((160, 540))
                             label2_mostrar = True
 
                             ButtonGrups.update()

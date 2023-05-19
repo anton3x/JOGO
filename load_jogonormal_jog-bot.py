@@ -1231,6 +1231,7 @@ def load_jogo_normal():
                 retangulo_joaninha_remove(retangulo, screen, "jog2")
 
     else:
+
         if prox_jogador == nome_jogador1:
             print("O %s começa!" % nome_jogador1)
             while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):

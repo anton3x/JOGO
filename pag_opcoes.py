@@ -1,8 +1,8 @@
 import pygame
 import pygame_gui
 import sys
-#import jogo_normal_new
-#import load_normal
+from jogo_normal_new import novo_jogo_normal
+from load_normal import load_jogo_normal
 
 def message_to_screen(message, textfont, size, color):
     my_font = pygame.font.Font(textfont, size)
@@ -241,11 +241,9 @@ def tela1():
                         oponente = dropdown_oponente.get_single_selection()
 
                         if variante == "Normal" and oponente == "Bot":
-                            continue
-                            #novo_jogo_normal(jogador1, "BOT")
+                            novo_jogo_normal(jogador1, "BOT")
                         elif variante == "Normal" and oponente =="Outro jogador":
-                            continue
-                            #load_jogo_normal()
+                            novo_jogo_normal(jogador1, jogador2)
                         elif variante == "MICHAEL’S SETUP":
                             jogo_ms(jogador1, jogador2, oponente)
                         else:

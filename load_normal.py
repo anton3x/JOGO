@@ -1260,8 +1260,6 @@ def load_jogo_normal():
                        table, nome_jogador2, ButtonGrups, posy17=88, posx17=110)
                 exibir_taboleiro(Cond_final, taboleiroJ1, screen, Jog2=0)
                 retangulo_joaninha_remove(retangulo, screen)
-
-
 def escolha_posicao_trevo(ButtonGrups, vez="Jogador1"):
     while True:
         for event in pygame.event.get():
@@ -1423,5 +1421,3 @@ def escolha_posicao_trevo(ButtonGrups, vez="Jogador1"):
 
         pygame.display.flip()
         pygame.display.update()
-
-load_jogo_normal()

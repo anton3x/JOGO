@@ -10,6 +10,56 @@ import sys
 import random
 import os
 
+def instrucoes():
+
+
+
+    # Defina a posição e tamanho da caixa de texto
+    pos_x = 960
+    pos_y = 260
+    largura = 218
+    altura = 306
+
+    # Crie a caixa de texto
+    caixa_texto = pygame_gui.elements.UITextBox("",
+                                                relative_rect=pygame.Rect((pos_x, pos_y), (largura, altura)),
+                                                manager=gerenciador)
+
+    # Variável para armazenar os passos do jogador
+    passos = []
+
+    # Loop principal do jogo
+    rodando = True
+    clock = pygame.time.Clock()
+    while rodando:
+        tempo_delta = clock.tick(60) / 1000.0
+
+        # Eventos do jogo
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                rodando = False
+
+            # Atualize a interface do usuário
+            gerenciador.process_events(evento)
+
+            # Adicione a lógica do jogo aqui
+            # Por exemplo, adicione um passo à lista de passos quando o jogador selecionar um trevo
+            if evento.type == pygame.MOUSEBUTTONDOWN:
+                # Adicione um passo à lista de passos
+                passos.append("Passo: Jogador selecionou um trevo")
+
+                # Atualize a caixa de texto com os passos
+                caixa_texto.html_text = "\n".join(passos)
+                caixa_texto.rebuild()
+
+        # Atualize a interface do usuário
+        gerenciador.update(tempo_delta)
+
+        # Desenhe a tela e a interface do usuário
+        tela.fill((0, 0, 0))
+        gerenciador.draw_ui(tela)
+
+        pygame.display.flip()
 def player_nome(nome_player1,nome_player2, screen):
     player1 = message_to_screen(nome_player1, None, 25, [0, 255, 127])
     screen.blit(player1, (1075 - player1.get_width() // 2, 116 - player1.get_height() // 2))

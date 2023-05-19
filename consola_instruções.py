@@ -35,7 +35,7 @@ caixa_texto = pygame_gui.elements.UITextBox("",
                                             manager=gerenciador)
 
 # Variável para armazenar os passos do jogador
-passos = []
+passos = ["asdadsadsa","ASDads"]
 
 # Loop principal do jogo
 rodando = True

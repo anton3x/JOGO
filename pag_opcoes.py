@@ -11,6 +11,7 @@ def message_to_screen(message, textfont, size, color):
 
 def main_menu():
 
+
     #pygame.init()
     fps = pygame.time.Clock()
     largura = 1024

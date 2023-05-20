@@ -1,7 +1,7 @@
 import pygame
 import pygame_gui
 import sys
-from jogo_normal_new import novo_jogo_normal
+from antigo_jogo_normal import novo_jogo_normal
 from load_normal import load_jogo_normal
 
 def message_to_screen(message, textfont, size, color):

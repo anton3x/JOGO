@@ -194,37 +194,24 @@ def verificar_taboleiro(taboleiro, linha, coluna, trevo):
     taboleiro1 = copy.deepcopy(taboleiro)
     taboleiro1[linha][coluna] = trevo
 
-    #print("TASSDADSAD -", taboleiro1)
-
     lista_coluna = []
     lista_linha = []
 
     for i in range(4):
-        if  taboleiro1[i][coluna] > 60:
-            lista_coluna.append(taboleiro1[i][coluna] - 60)
-        elif  taboleiro1[i][coluna] > 40:
-            lista_coluna.append(taboleiro1[i][coluna] - 40)
-        elif  taboleiro1[i][coluna] > 20:
+        if taboleiro1[i][coluna] > 20:
+            print(taboleiro1[i][coluna])
             lista_coluna.append(taboleiro1[i][coluna] - 20)
         else:
-            if taboleiro1[i][coluna] == 0:
-                continue
-            else:
-
-
+            print(taboleiro1[i][coluna])
+            if taboleiro1[i][coluna] != 0:
                 lista_coluna.append(taboleiro1[i][coluna])
 
-        if taboleiro1[linha][i] > 60:
-            lista_linha.append(taboleiro1[linha][i] - 60)
-        elif taboleiro1[linha][i] > 40:
-            lista_linha.append(taboleiro1[linha][i] - 40)
-        elif taboleiro1[linha][i] > 20:
+        if taboleiro1[linha][i] > 20:
+            print(taboleiro1[linha][i])
             lista_linha.append(taboleiro1[linha][i] - 20)
         else:
-            if taboleiro1[linha][i] == 0:
-                continue
-            else:
-
+            print(taboleiro1[linha][i])
+            if taboleiro1[linha][i] != 0:
                 lista_linha.append(taboleiro1[linha][i])
 
     for i in range(len(lista_coluna)):
@@ -724,7 +711,7 @@ def turnob(Cond_final, screen, taboleirob, excluidos, totaltrevos, key_inicial, 
     passos.insert(0, "")
     caixa_texto.html_text = "\n".join(passos)
     caixa_texto.rebuild()
-    guardar_na_mem(jogador2, taboleirob, excluidos, table, jogador1)
+    guardar_na_mem(jogador2, taboleirob, excluidos, table, jogador1, proxima=-1)
 def main_menu():
     #pygame.init()
     fps = pygame.time.Clock()
@@ -1008,7 +995,7 @@ def novo_jogo_normal(nome_jogador1,nome_jogador2):
     taboleiroJ2 = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0]]  # taboleiro do bot
     table = []
     joana = pygame.image.load("imagens_jogo/joaninha.png").convert_alpha()
-    initial_write_to_mem(nome_jogador1, taboleiroJ1, trevos,table)  # guarda os taboleiros na mem com os nomes do bot e do jogador
+    initial_write_to_mem(nome_jogador1, taboleiroJ1, trevos,table, nome_jogador2)  # guarda os taboleiros na mem com os nomes do bot e do jogador
 
     numero = random.randint(0, 1)  # quem comeca
     Comeco = [True, True]
@@ -1304,4 +1291,4 @@ def escolha_posicao_trevo(ButtonGrups, vez="Jogador1"):
 
 
 
-novo_jogo_normal("antonio","manuel")
+novo_jogo_normal("antonio", "manuel")

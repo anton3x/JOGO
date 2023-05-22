@@ -67,6 +67,7 @@ def caixa_trevo_table(nome_jogador, trevo):
 def player_nome(nome_player1,nome_player2, screen):
     player1 = message_to_screen(nome_player1, None, 25, [0, 100, 0])
     screen.blit(player1, (1075 - player1.get_width() // 2, 116 - player1.get_height() // 2))
+    screen.blit(player1, (290 - player1.get_width() // 2, 185 - player1.get_height() // 2))
 
     if nome_player2 == "BOT":
         player2 = message_to_screen("BOT", None, 25, [255, 0, 0])
@@ -74,6 +75,8 @@ def player_nome(nome_player1,nome_player2, screen):
     else:
         player2 = message_to_screen(nome_player2, None, 25, [255, 0, 0])
         screen.blit(player2, (1075 - player2.get_width() // 2, 205 - player2.get_height() // 2))
+
+    screen.blit(player2, (730 - player2.get_width() // 2, 185 - player2.get_height() // 2))
 def remover_message_to_screen(retangulo1, screen):
     retangulo = pygame.transform.scale(retangulo1, (818, 29))
     screen.blit(retangulo, (91, 136))
@@ -1344,6 +1347,7 @@ def load_jogo_normal():
             print("Bot começa!")
 
             while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):  # as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
+
                 gerenciador.draw_ui(screen)
                 gerenciador.update(tempo_delta)
 

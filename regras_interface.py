@@ -9,7 +9,7 @@ altura = 600
 screen = pygame.display.set_mode((largura, altura))
 
 # Cria um gerenciador de interface de usuário e define o tema
-ui_manager = pygame_gui.UIManager((largura, altura ), 'data/themes/theme_1.json')
+ui_manager = pygame_gui.UIManager((largura, altura ))
 
 # Define as dimensões e a posição da caixa de texto
 largura_textbox = 800

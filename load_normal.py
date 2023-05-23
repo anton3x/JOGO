@@ -1600,5 +1600,3 @@ def escolha_posicao_trevo(ButtonGrups, vez="Jogador1"):
 
         pygame.display.flip()
         pygame.display.update()
-
-load_jogo_normal()

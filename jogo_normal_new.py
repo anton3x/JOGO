@@ -1475,4 +1475,3 @@ def escolha_posicao_trevo(ButtonGrups, vez="Jogador1"):
 
 
 
-novo_jogo_normal("antonio", "BOT")

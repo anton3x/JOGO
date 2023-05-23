@@ -1,7 +1,7 @@
 import pygame
 import pygame_gui
 import sys
-from antigo_jogo_normal import novo_jogo_normal
+from jogo_normal_new import novo_jogo_normal
 from load_normal import load_jogo_normal
 
 def message_to_screen(message, textfont, size, color):
@@ -100,8 +100,12 @@ def main_menu():
 
             ButtonGrups.update()
             ButtonGrups.draw(tela)
-            pygame.display.update()
         # Desenha a imagem no lado direito
+
+        imagem = pygame.transform.scale(imagem, (420, 245))
+        tela.blit(imagem, (495, 180))
+        pygame.display.flip()
+
     pygame.quit()
 def tela1():
     pygame.init()
@@ -116,9 +120,7 @@ def tela1():
 
     # Carrega a imagem
     imagem = pygame.image.load("imagens_jogo/Lucky-logo.png")
-    #imagem_jogador1 = pygame.image.load("imagens_gerais/jogador_1.png")
 
-    # Cria os elementos da interface do usuário com font_size maior
 
     label_jogador1 = message_to_screen("Jogador 1:", None, 25, [255, 255, 255])
     entry_jogador1 = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((200, 100), (200, 50)),
@@ -245,9 +247,9 @@ def tela1():
                         if variante == "Normal" and oponente == "Bot":
                             novo_jogo_normal(jogador1, "BOT")
                         elif variante == "Normal" and oponente =="Outro jogador":
-                            novo_jogo_normal(jogador1, jogador2)
+                            continue#novo_jogo_normal(jogador1, jogador2)
                         elif variante == "MICHAEL’S SETUP":
-                            jogo_ms(jogador1, jogador2, oponente)
+                            continue#jogo_ms(jogador1, jogador2, oponente)
                         else:
                             continue
 
@@ -377,6 +379,7 @@ def tela2():
 
     pygame.quit()
 def tela3():
+    print('a')
     pygame.init()
     #fps = pygame.time.Clock()
     largura = 1024
@@ -398,8 +401,7 @@ def tela3():
                 JogoLoop = False
 
 
-            pygame.display.update()
-        #pygame.display.update()
+
     pygame.quit()
 def regras_jogo():
     pygame.init()

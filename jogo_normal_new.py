@@ -1120,9 +1120,6 @@ def novo_jogo_normal(nome_jogador1,nome_jogador2):
                     image2="imagens_gerais/red_button02.png", posx=495, posy=87, dim=44, botao18=1)
     Botao18.rect.center = (471, 80)
 
-
-    #joana = pygame.image.load("imagens_jogo/joaninha.png").convert_alpha()
-
     cores_jogadores = {"Player1":[0, 255, 127], "Player2":[255, 0, 0]}
     retangulo = pygame.image.load("imagens_jogo/retangulo.png").convert_alpha()
 

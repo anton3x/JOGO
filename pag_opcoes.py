@@ -440,13 +440,17 @@ def regras_jogo():
     imagem_regras = pygame.image.load("imagens_gerais/REGRAS.png")
 
     class Botao11(pygame.sprite.Sprite):
-        def __init__(self, *groups, image, image1, image2):
+        def __init__(self, *groups, image, image1, image2, dim):
             super().__init__(*groups)
 
-            self.image = pygame.image.load(image1).convert_alpha()
+            self.image = pygame.image.load(image).convert_alpha()
+            self.image = pygame.transform.scale(self.image, [dim, dim])  # dimensoes botao voltar atras
+            self.rect = pygame.Rect(190, 49, 190, 49)
             self.rect = self.image.get_rect()
+
             self.image1 = pygame.image.load(image1).convert_alpha()
             self.image2 = pygame.image.load(image2).convert_alpha()
+
             self.touche = False
 
         def update(self):
@@ -454,24 +458,24 @@ def regras_jogo():
             self.MousePos = pygame.mouse.get_pos()
 
             if self.rect.collidepoint(self.MousePos):
-                if not self.touche:
-                    self.image = self.image2
-            else:
-                self.image = self.image1
 
-            if self.mouse[0]:
-                self.touche = True
-            else:
-                self.touche = False
+                if self.mouse[0]:
+                    self.touche = True
+                    pygame.mouse.get_rel()
+                    # self.image = self.image2
+
+                else:
+                    self.touche = False
+                    # self.image = self.image1
 
             pass
 
     ButtonGrups = pygame.sprite.Group()
 
     Botao3 = Botao11(ButtonGrups, image="imagens_gerais/x.png", image1="imagens_gerais/x.png",
-                   image2="imagens_gerais/x.png")
+                   image2="imagens_gerais/x.png", dim=60)
     Botao3.rect.center = (50, 50) #localizaçao botão voltar atrás
-
+    i = 1
     # Loop principal do jogo
     clock = pygame.time.Clock()
     while True:
@@ -483,6 +487,10 @@ def regras_jogo():
             if Botao3.touche == True:
                 pygame.quit()
                 main_menu()
+
+            pygame.display.flip()
+            pygame.display.update()
+
             ui_manager.process_events(event)
 
         ui_manager.update(clock.tick(60) / 1000.0)
@@ -493,13 +501,13 @@ def regras_jogo():
         screen.blit(imagem_regras, (280, -40))
 
         ui_manager.draw_ui(screen)
-        pygame.display.flip()
-
         ButtonGrups.update()
         ButtonGrups.draw(screen)
+        if i == 1:
+            pygame.display.flip()
+            pygame.display.update()
+            i=0
 
-        pygame.display.flip()
-        pygame.display.update()
 
 def jogo_ms(jogador1,jogador2,oponente):
     print("Variante MICHAEL’S SETUP")

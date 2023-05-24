@@ -85,7 +85,7 @@ def main_menu():
 
             if Botao2.touche == True:
                 tela.fill(ColorBack["azul"])
-                tela2()
+                load_jogo_normal()
 
             if Botao3.touche == True:
                 tela.fill(ColorBack["azul"])
@@ -103,7 +103,7 @@ def main_menu():
         # Desenha a imagem no lado direito
 
         imagem = pygame.transform.scale(imagem, (420, 245))
-        tela.blit(imagem, (291.5, 5))
+        tela.blit(imagem, (291.5, 20))
         pygame.display.flip()
 
     pygame.quit()

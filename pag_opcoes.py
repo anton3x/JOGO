@@ -58,17 +58,17 @@ def main_menu():
 
     ButtonGrups = pygame.sprite.Group()
 
-    Botao1 = Botao(ButtonGrups,image="imagens_gerais/red_button01_A.png",image1="imagens_gerais/red_button01_A.png",image2="imagens_gerais/red_button02_A.png")
-    Botao1.rect.center = (250, 300)
+    Botao1 = Botao(ButtonGrups,image="imagens_gerais/Novo_Jogo_01.png",image1="imagens_gerais/Novo_Jogo_01.png",image2="imagens_gerais/Novo_Jogo_02.png")
+    Botao1.rect.center = (381, 350)
 
-    Botao2 = Botao(ButtonGrups,image="imagens_gerais/red_button01_B.png",image1="imagens_gerais/red_button01_B.png",image2="imagens_gerais/red_button02_B.png")
-    Botao2.rect.center = (512, 300)
+    Botao2 = Botao(ButtonGrups,image="imagens_gerais/carregar_jogo_01.png",image1="imagens_gerais/carregar_jogo_01.png",image2="imagens_gerais/carregar_jogo_02.png")
+    Botao2.rect.center = (643, 350)
 
-    Botao4 = Botao(ButtonGrups,image="imagens_gerais/red_button01_D.png",image1="imagens_gerais/red_button01_D.png",image2="imagens_gerais/red_button02_D.png")
-    Botao4.rect.center = (512, 400)
+    Botao4 = Botao(ButtonGrups,image="imagens_gerais/Sair_01.png",image1="imagens_gerais/Sair_01.png",image2="imagens_gerais/sair_02.png")
+    Botao4.rect.center = (643, 450)
 
-    Botao3 = Botao(ButtonGrups,image="imagens_gerais/red_button01_C.png",image1="imagens_gerais/red_button01_C.png",image2="imagens_gerais/red_button02_C.png")
-    Botao3.rect.center = (250, 400)
+    Botao3 = Botao(ButtonGrups,image="imagens_gerais/Regras_01.png",image1="imagens_gerais/Regras_01.png",image2="imagens_gerais/Regras_02.png")
+    Botao3.rect.center = (381, 450)
 
 
     while JogoLoop:
@@ -85,7 +85,7 @@ def main_menu():
 
             if Botao2.touche == True:
                 tela.fill(ColorBack["azul"])
-                tela2()
+                load_jogo_normal()
 
             if Botao3.touche == True:
                 tela.fill(ColorBack["azul"])
@@ -103,7 +103,7 @@ def main_menu():
         # Desenha a imagem no lado direito
 
         imagem = pygame.transform.scale(imagem, (420, 245))
-        tela.blit(imagem, (495, 180))
+        tela.blit(imagem, (291.5, 20))
         pygame.display.flip()
 
     pygame.quit()
@@ -379,7 +379,6 @@ def tela2():
 
     pygame.quit()
 def tela3():
-    print('a')
     pygame.init()
     #fps = pygame.time.Clock()
     largura = 1024
@@ -400,7 +399,7 @@ def tela3():
             if event.type == pygame.QUIT:
                 JogoLoop = False
 
-
+    pygame.display.update()
 
     pygame.quit()
 def regras_jogo():

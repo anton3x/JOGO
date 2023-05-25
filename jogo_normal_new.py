@@ -404,7 +404,7 @@ def primeira_rodada(taboleiro, excluidos, totaltrevos): #funcao destinada a gera
 
     print(trevo_final)
     return False    #retorna falso para dizer que ja fez a primeira jogada
-def turnoj(esvaziar, cond_final, imagem_fundo, screen,nome_jogador1, taboleiroj, excluidos, totaltrevos, key_inicial, table, nome_jogador2, ButtonGrups, posy17=88, posx17=110):#funcao destinada ao turno do jogador    print("JOGADOR")
+def turnoj(cond_final, imagem_fundo, screen,nome_jogador1, taboleiroj, excluidos, totaltrevos, key_inicial, table, nome_jogador2, ButtonGrups, posy17=88, posx17=110):#funcao destinada ao turno do jogador    print("JOGADOR")
     key = True
     if key_inicial[1]: #se for a primeira jogada
         key_inicial[1] = primeira_rodada(taboleiroj, excluidos, totaltrevos)
@@ -474,6 +474,8 @@ def turnoj(esvaziar, cond_final, imagem_fundo, screen,nome_jogador1, taboleiroj,
                         pygame.display.flip()
                         pygame.display.update()
                         botao.touche = False
+                        Botao18.touche = False  # se eu clicar em um elemento da table (que nao esta contido em botoes), o botao18 que serve para colocar elementos na table vai ficar a true e vai afetar a funcao em baixo
+
                         # exibe a imagem 1 verde
                         # imagem1_fundo = pygame.transform.scale(imagem1_fundo, (73, 73))
                         # screen.blit(imagem1_fundo, (posx1 - 36, posy1 - 36))
@@ -1166,7 +1168,7 @@ def novo_jogo_normal(nome_jogador1,nome_jogador2):
                 joaninha(joana, screen)
                 player_nome(nome_jogador1, nome_jogador2, screen)
                 exibir_taboleiro(Cond_final, taboleiroJ1, screen)
-                turnoj(esvaziar, Cond_final, imagem_fundo, screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco,table, nome_jogador2, ButtonGrups)
+                turnoj(Cond_final, imagem_fundo, screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco,table, nome_jogador2, ButtonGrups)
                 exibir_taboleiro(Cond_final, taboleiroJ1, screen)
                 retangulo_joaninha_remove(retangulo, screen)
 
@@ -1472,3 +1474,4 @@ def escolha_posicao_trevo(ButtonGrups, vez="Jogador1"):
 
 
 
+novo_jogo_normal("antonio","BOT")

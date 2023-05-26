@@ -1338,4 +1338,4 @@ def novo_jogo_mm(nome_jogador1,nome_jogador2):
             print("empate")
 
 
-novo_jogo_mm("antonio","jose")
+#novo_jogo_mm("antonio","jose")

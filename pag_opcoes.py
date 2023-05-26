@@ -3,6 +3,8 @@ import pygame_gui
 import sys
 from jogo_normal_new import novo_jogo_normal
 from load_normal import load_jogo_normal
+from jogo_tm_new import novo_jogo_tm
+from jogo_mm_new import novo_jogo_mm
 
 def message_to_screen(message, textfont, size, color):
     my_font = pygame.font.Font(textfont, size)
@@ -91,15 +93,13 @@ def main_menu():
                 tela.fill(ColorBack["azul"])
                 tela3()
 
-
             if Botao4.touche == True:
                 pygame.quit()
 
-            else:
-                tela.fill(ColorBack["azul"])
 
-            ButtonGrups.update()
-            ButtonGrups.draw(tela)
+        tela.fill(ColorBack["azul"])
+        ButtonGrups.update()
+        ButtonGrups.draw(tela)
         # Desenha a imagem no lado direito
 
         imagem = pygame.transform.scale(imagem, (420, 245))
@@ -244,14 +244,21 @@ def tela1():
                         variante = dropdown_variante.get_single_selection()
                         oponente = dropdown_oponente.get_single_selection()
 
-                        if variante == "Normal" and oponente == "Bot":
-                            novo_jogo_normal(jogador1, "BOT")
-                        elif variante == "Normal" and oponente =="Outro jogador":
-                            continue#novo_jogo_normal(jogador1, jogador2)
-                        elif variante == "MICHAEL’S SETUP":
-                            continue#jogo_ms(jogador1, jogador2, oponente)
-                        else:
-                            continue
+                        if variante == "Normal":
+                            if oponente == "Bot":
+                                novo_jogo_normal(jogador1, "BOT")
+                            elif oponente =="Outro jogador":
+                                novo_jogo_normal(jogador1, jogador2)
+                        if variante == "MICHAEL’S SETUP":
+                            if oponente == "Bot":
+                                novo_jogo_mm(jogador1, "BOT")
+                            elif oponente == "Outro jogador":
+                                novo_jogo_normal(jogador1, jogador2)
+                        if variante == "TOURNAMENT MODE":
+                            if oponente == "Bot":
+                                novo_jogo_tm(jogador1, "BOT")
+                            elif oponente =="Outro jogador":
+                                novo_jogo_tm(jogador1, jogador2)
 
 
                         print("Jogador 1:", jogador1)
@@ -272,8 +279,8 @@ def tela1():
 
         ButtonGrups.update()
         ButtonGrups.draw(janela)
-        pygame.display.flip()
         gerenciador.update(tempo)
+        pygame.display.flip()
         janela.fill((0, 132, 251))
         gerenciador.draw_ui(janela)
 
@@ -506,10 +513,6 @@ def regras_jogo():
             pygame.display.flip()
             pygame.display.update()
             i=0
-
-
-def jogo_ms(jogador1,jogador2,oponente):
-    print("Variante MICHAEL’S SETUP")
 
 
 main_menu()

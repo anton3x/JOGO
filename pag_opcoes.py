@@ -5,6 +5,7 @@ from jogo_normal_new import novo_jogo_normal
 from load_normal import load_jogo_normal
 from jogo_tm_new import novo_jogo_tm
 from jogo_mm_new import novo_jogo_mm
+from load_mm import load_mm
 
 def message_to_screen(message, textfont, size, color):
     my_font = pygame.font.Font(textfont, size)
@@ -87,7 +88,22 @@ def main_menu():
 
             if Botao2.touche == True:
                 tela.fill(ColorBack["azul"])
-                load_jogo_normal()
+
+                dicionario = {}
+                with open("versao_salva.txt", "r") as f:
+                    linha = f.readline()
+
+                variante, modo = linha.strip().split("/")
+                dicionario[variante] = modo
+
+                if dicionario[variante] == "normal":
+                    print("Jogo normal")
+                    load_jogo_normal()
+                elif dicionario[variante] == "mm":
+                    print("Jogo variante michael")
+                    load_mm()
+                #else:
+                 #   load_tm
 
             if Botao3.touche == True:
                 tela.fill(ColorBack["azul"])
@@ -204,9 +220,6 @@ def tela1():
                     if evento.ui_element == dropdown_oponente:
                         if evento.text == "Outro jogador":
                             entry_jogador2.show()
-                            #label_jogador2.show()
-                            #label_variante.set_position((100, 300))
-                            #label_oponente.set_position((100, 400))
                             dropdown_variante.set_position((200, 240))
                             dropdown_oponente.set_position((200, 350))
                             botao_iniciar.set_position((180, 460))
@@ -214,7 +227,6 @@ def tela1():
                             label2_mostrar = True
                             label_oponente_mostrar_abaixo = True
                             label_variante_mostrar_abaixo = True
-
 
                             ButtonGrups.update()
                             pygame.display.flip()
@@ -253,7 +265,7 @@ def tela1():
                             if oponente == "Bot":
                                 novo_jogo_mm(jogador1, "BOT")
                             elif oponente == "Outro jogador":
-                                novo_jogo_normal(jogador1, jogador2)
+                                novo_jogo_mm(jogador1, jogador2)
                         if variante == "TOURNAMENT MODE":
                             if oponente == "Bot":
                                 novo_jogo_tm(jogador1, "BOT")

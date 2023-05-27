@@ -618,7 +618,10 @@ def guardar_na_mem(name, tabuleiro_player, excluidos, table, jogador, proxima=-1
     with open("save.txt", "w") as f:
         for y in dicionario.keys():
             f.write(y + "/" + str(dicionario[y]) + "\n")
+    f.close()
 
+    with open("versao_salva.txt", "w") as f:
+        f.write("versao/normal")
     f.close()
 
     #print(dicionario)
@@ -784,23 +787,23 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome_jogador1, taboleiroj, 
                             key1 = False
                             break
 
-                        if Botao17.touche == True:  # se ele pressionou o baralho
-                            key = True
-                            while key:
-                                trevo = random.randint(1, totaltrevos)
-                                if trevo not in excluidos:
-                                    key = False
-                                    excluidos.append(trevo)
+                    if Botao17.touche == True:  # se ele pressionou o baralho
+                        key = True
+                        while key:
+                            trevo = random.randint(1, totaltrevos)
+                            if trevo not in excluidos:
+                                key = False
+                                excluidos.append(trevo)
 
 
-                            taboleiroj[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-                            caixa_retirada_baralho(nome_jogador1, taboleiroj[4][0])
-                            exibir_taboleiro(cond_final, taboleiroj, screen,Jog2=0)
-                            pygame.display.flip()
-                            pygame.display.update()
+                        taboleiroj[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
+                        caixa_retirada_baralho(nome_jogador1, taboleiroj[4][0])
+                        exibir_taboleiro(cond_final, taboleiroj, screen,Jog2=0)
+                        pygame.display.flip()
+                        pygame.display.update()
 
-                            Botao17.touche = False
-                            break
+                        Botao17.touche = False
+                        break
 
                 guardar_na_mem(nome_jogador1, taboleiroj, excluidos, table,nome_jogador1, proxima=1)  # vai alterar na memoria os valores do taboleiro pelos atuais
 
@@ -1004,6 +1007,7 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome_jogador2, taboleiroj
     caixa_texto.rebuild()
     guardar_na_mem(nome_jogador2, taboleiroj2, excluidos, table, nome_jogador1,proxima=-1)  # vai alterar na memoria os valores do taboleiro pelos atuais
 def turnob(Cond_final, screen, taboleirob, excluidos,totaltrevos, key_inicial, table, jogador1, jogador2="BOT"):#funcao destinada ao turno do bot
+        msg_to_screen_escolha_posicao(screen, jogador2)
         print(jogador2, ", é a tua vez.")
         key = True
 

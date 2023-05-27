@@ -617,8 +617,12 @@ def guardar_na_mem(name, tabuleiro_player, excluidos, table, jogador, proxima=-1
     with open("save.txt", "w") as f:
         for y in dicionario.keys():
             f.write(y + "/" + str(dicionario[y]) + "\n")
-
     f.close()
+
+    with open("versao_salva.txt", "w") as f:
+        f.write("versao/normal")
+    f.close()
+
 def exibir_taboleiro(cond_final, taboleiro,screen, Jog2=0):
 
     n_botao = 0
@@ -1037,7 +1041,7 @@ def turnoj2(cond_final, imagem_fundo, screen, nome_jogador2, taboleiroj2, exclui
     caixa_texto.rebuild()
     guardar_na_mem(nome_jogador2, taboleiroj2, excluidos, table, nome_jogador1,proxima=-1)  # vai alterar na memoria os valores do taboleiro pelos atuais
 def turnob(Cond_final, screen, taboleirob, excluidos, totaltrevos, key_inicial, table, jogador1,jogador2="BOT"):  # funcao destinada ao turno do bot
-
+    msg_to_screen_escolha_posicao(screen, jogador2)
     print(jogador2, ", é a tua vez.")
     trevo_1 = 0
     if key_inicial[0]: #se for a primeira jogada

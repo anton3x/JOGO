@@ -248,6 +248,9 @@ def jogo(proxima,winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, 
         exibir_taboleiro(Cond_final, taboleiroJ1, screen)
         exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
 
+        if Cond_final[0] == True or Cond_final[1] == True:
+            break
+
         proxima = -1
         ButtonGrups1.empty()
         botoes.clear()
@@ -618,7 +621,12 @@ def guardar_na_mem(name, tabuleiro_player, excluidos, table, jogador, proxima=-1
     with open("save.txt", "w") as f:
         for y in dicionario.keys():
             f.write(y + "/" + str(dicionario[y]) + "\n")
+    f.close()
 
+    with open("versao_salva.txt", "w") as f:
+        f.write("versao/tm"+ "\n")
+        f.write("Jogador1/" + str(winner["Jogador1"]) + "\n")
+        f.write("Jogador2/" + str(winner["Jogador2"]) + "\n")
     f.close()
 
     #print(dicionario)
@@ -784,23 +792,23 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome_jogador1, taboleiroj, 
                             key1 = False
                             break
 
-                        if Botao17.touche == True:  # se ele pressionou o baralho
-                            key = True
-                            while key:
-                                trevo = random.randint(1, totaltrevos)
-                                if trevo not in excluidos:
-                                    key = False
-                                    excluidos.append(trevo)
+                    if Botao17.touche == True:  # se ele pressionou o baralho
+                        key = True
+                        while key:
+                            trevo = random.randint(1, totaltrevos)
+                            if trevo not in excluidos:
+                                key = False
+                                excluidos.append(trevo)
 
 
-                            taboleiroj[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
-                            caixa_retirada_baralho(nome_jogador1, taboleiroj[4][0])
-                            exibir_taboleiro(cond_final, taboleiroj, screen,Jog2=0)
-                            pygame.display.flip()
-                            pygame.display.update()
+                        taboleiroj[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
+                        caixa_retirada_baralho(nome_jogador1, taboleiroj[4][0])
+                        exibir_taboleiro(cond_final, taboleiroj, screen,Jog2=0)
+                        pygame.display.flip()
+                        pygame.display.update()
 
-                            Botao17.touche = False
-                            break
+                        Botao17.touche = False
+                        break
 
                 guardar_na_mem(nome_jogador1, taboleiroj, excluidos, table,nome_jogador1, proxima=1)  # vai alterar na memoria os valores do taboleiro pelos atuais
 
@@ -1004,6 +1012,7 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome_jogador2, taboleiroj
     caixa_texto.rebuild()
     guardar_na_mem(nome_jogador2, taboleiroj2, excluidos, table, nome_jogador1,proxima=-1)  # vai alterar na memoria os valores do taboleiro pelos atuais
 def turnob(Cond_final, screen, taboleirob, excluidos,totaltrevos, key_inicial, table, jogador1, jogador2="BOT"):#funcao destinada ao turno do bot
+        msg_to_screen_escolha_posicao(screen, jogador2)
         print(jogador2, ", é a tua vez.")
         key = True
 
@@ -1057,7 +1066,7 @@ def turnob(Cond_final, screen, taboleirob, excluidos,totaltrevos, key_inicial, t
         caixa_texto.rebuild()
         guardar_na_mem(jogador2, taboleirob, excluidos, table, jogador1, proxima=-1)
 
-def load_jogo_normal():
+def load_tm():
     pygame.init()
 
     largura = 1200
@@ -1238,12 +1247,12 @@ def load_jogo_normal():
     Botao18 = Botao(ButtonGrups, image="imagens_gerais/red_button01.png", image1="imagens_gerais/red_button01.png",
                     image2="imagens_gerais/red_button02.png", posx=495, posy=87, dim=44, botao18=1)
     Botao18.rect.center = (471, 80)
-
-
     cores_jogadores = {"Player1":[0, 255, 127], "Player2":[255, 0, 0]}
     retangulo = pygame.image.load("imagens_jogo/retangulo.png").convert_alpha()
-
+    global botoes, winner
+    winner = {}
     dicionario = {}
+
     with open("save.txt", "r") as f:
         linhas = f.readlines()
     i = 0
@@ -1259,6 +1268,19 @@ def load_jogo_normal():
         tabuleiro = eval(tabuleiro_str)
         dicionario[nome] = tabuleiro
 
+
+    with open("versao_salva.txt", "r") as f:
+        linhas = f.readlines()
+
+    i = 0
+    for linha in linhas:
+        if i == 0:
+            i += 1
+            continue
+        else:
+            jog, pontos = linha.strip().split("/")
+            winner[jog] = int(pontos)
+            i += 1
 
     nome_jogador1 = dicionario["jogador1"]
     nome_jogador2 = dicionario["jogador2"]
@@ -1280,25 +1302,33 @@ def load_jogo_normal():
     exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
     exibir_taboleiro(Cond_final, taboleiroJ1, screen,Jog2=0)
     esvaziar = [False]
-    global botoes
+
     botoes = {}
 
-    winner = {}
-    winner[nome_jogador1] = 0
-    winner[nome_jogador2] = 0
 
     clock = pygame.time.Clock()
     tempo_delta = clock.tick(60) / 1000.0
 
-
+    print(winner)
     if prox_jogador == nome_jogador2:
-        gerenciador.update(tempo_delta)
         print("O %s começa!" % nome_jogador2)
+        gerenciador.update(tempo_delta)
+        if winner["Jogador1"] == 0 and winner["Jogador2"] == 0:
+            print("1 jogo")
+            jogo(proxima_acao, winner, nome_jogador2, nome_jogador1, esvaziar, Cond_final, trevos, screen, table, gerenciador,
+                 tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1, botoes)
+            table = []
+            trevos = []
+            taboleiroJ1 = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0]]  # taboleiro do jogador
+            taboleiroJ2 = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0]]  # taboleiro do bot
+            esvaziar = [False]
+            botoes = {}  # lista com os botoes da table
 
-        jogo(proxima_acao,winner, nome_jogador2, nome_jogador1, esvaziar, Cond_final, trevos, screen, table, gerenciador,
-             tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1,
-             botoes)
-
+        print("2 jogo")
+        jogo(proxima_acao, winner, nome_jogador2, nome_jogador1, esvaziar, Cond_final, trevos, screen, table, gerenciador,
+                 tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1, botoes)
+        apagar_ficheiro_save()
+        print(winner)
         if winner[nome_jogador1] > winner[nome_jogador2]:
             print("Ganhou -> ", nome_jogador1)
         elif winner[nome_jogador1] < winner[nome_jogador2]:
@@ -1307,13 +1337,24 @@ def load_jogo_normal():
             print("empate")
 
     else:
+        print("O %s começa!" % nome_jogador1)
         gerenciador.update(tempo_delta)
-        print("O %s começa!" % nome_jogador2)
+        if winner["Jogador1"] == 0 and winner["Jogador2"] == 0:
+            print("1 jogo")
+            jogo(proxima_acao, winner, nome_jogador1, nome_jogador2, esvaziar, Cond_final, trevos, screen, table, gerenciador,
+                 tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1, botoes)
+            table = []
+            trevos = []
+            taboleiroJ1 = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0]]  # taboleiro do jogador
+            taboleiroJ2 = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0]]  # taboleiro do bot
+            esvaziar = [False]
+            botoes = {}  # lista com os botoes da table
 
-        jogo(proxima_acao,winner, nome_jogador1, nome_jogador2, esvaziar, Cond_final, trevos, screen, table, gerenciador,
-             tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1,
-             botoes)
-
+        print("2 jogo")
+        jogo(proxima_acao, winner, nome_jogador1, nome_jogador2, esvaziar, Cond_final, trevos, screen, table, gerenciador,
+                 tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1, botoes)
+        apagar_ficheiro_save()
+        print(winner)
         if winner[nome_jogador1] > winner[nome_jogador2]:
             print("Ganhou -> ", nome_jogador1)
         elif winner[nome_jogador1] < winner[nome_jogador2]:
@@ -1321,5 +1362,9 @@ def load_jogo_normal():
         else:
             print("empate")
 
-
+pygame.quit()
 #load_jogo_normal()
+
+def apagar_ficheiro_save():
+    with open("versao_salva.txt", "w") as f:
+        f.write("")

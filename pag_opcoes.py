@@ -1,3 +1,5 @@
+import os
+
 import pygame
 import pygame_gui
 import sys
@@ -6,6 +8,7 @@ from load_normal import load_jogo_normal
 from jogo_tm_new import novo_jogo_tm
 from jogo_mm_new import novo_jogo_mm
 from load_mm import load_mm
+from load_tm import load_tm
 
 def message_to_screen(message, textfont, size, color):
     my_font = pygame.font.Font(textfont, size)
@@ -91,19 +94,24 @@ def main_menu():
 
                 dicionario = {}
                 with open("versao_salva.txt", "r") as f:
-                    linha = f.readline()
-
+                    if os.path.getsize("versao_salva.txt") != 0:
+                        linha = f.readline()
+                    else:
+                        break
                 variante, modo = linha.strip().split("/")
                 dicionario[variante] = modo
 
                 if dicionario[variante] == "normal":
                     print("Jogo normal")
                     load_jogo_normal()
+                    main_menu()
                 elif dicionario[variante] == "mm":
                     print("Jogo variante michael")
                     load_mm()
-                #else:
-                 #   load_tm
+                    main_menu()
+                elif dicionario[variante] == "tm":
+                    load_tm()
+                    main_menu()
 
             if Botao3.touche == True:
                 tela.fill(ColorBack["azul"])
@@ -259,18 +267,24 @@ def tela1():
                         if variante == "Normal":
                             if oponente == "Bot":
                                 novo_jogo_normal(jogador1, "BOT")
+                                main_menu()
                             elif oponente =="Outro jogador":
                                 novo_jogo_normal(jogador1, jogador2)
+                                main_menu()
                         if variante == "MICHAEL’S SETUP":
                             if oponente == "Bot":
                                 novo_jogo_mm(jogador1, "BOT")
+                                main_menu()
                             elif oponente == "Outro jogador":
                                 novo_jogo_mm(jogador1, jogador2)
+                                main_menu()
                         if variante == "TOURNAMENT MODE":
                             if oponente == "Bot":
                                 novo_jogo_tm(jogador1, "BOT")
+                                main_menu()
                             elif oponente =="Outro jogador":
                                 novo_jogo_tm(jogador1, jogador2)
+                                main_menu()
 
 
                         print("Jogador 1:", jogador1)

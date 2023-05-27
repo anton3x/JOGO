@@ -1,6 +1,5 @@
 import copy
 import time
-from botoes import *
 from config_jog2 import *
 from config_jog1 import *
 import pygame
@@ -251,6 +250,9 @@ def jogo(winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, trevos, 
         exibir_taboleiro(Cond_final, taboleiroJ1, screen)
         exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
 
+        if Cond_final[0] == True or Cond_final[1] == True:
+            break
+
         ButtonGrups1.empty()
         esvazia_table(esvaziar, screen, table, ButtonGrups1, botoes)
         ButtonGrups1.update()
@@ -288,27 +290,27 @@ def jogo(winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, trevos, 
         print("Taboleiro J1 preenchido")
 
         print("fazer uma funcao")
-        winner[nome_jogador1] += 2
+        winner["Jogador1"] += 2
         empty_spaces = 0
         for i in range(4):
             for j in range(4):
                if taboleiroJ2[i][j] == 0:
                    empty_spaces += 1
 
-        winner[nome_jogador2] += -1 * empty_spaces
+        winner["Jogador2"] += -1 * empty_spaces
 
     elif Cond_final[0] == True:
         print("Taboleiro J2 preenchido")
 
         print("fazer uma funcao")
-        winner[nome_jogador2] += 2
+        winner["Jogador2"] += 2
         empty_spaces = 0
         for i in range(4):
             for j in range(4):
                 if taboleiroJ1[i][j] == 0:
                     empty_spaces += 1
 
-        winner[nome_jogador1    ] += -1 * empty_spaces
+        winner["Jogador1"] += -1 * empty_spaces
     else:
         print("baralho sem trevos")
         empty_spaces_j1 = 0
@@ -325,16 +327,16 @@ def jogo(winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, trevos, 
 
         if empty_spaces_j1 < empty_spaces_j2:
             print("J1 ganhou")
-            winner[nome_jogador1] +=  2
-            winner[nome_jogador2] += -1 * empty_spaces_j2
+            winner["Jogador1"] +=  2
+            winner["Jogador2"] += -1 * empty_spaces_j2
 
         elif empty_spaces_j1 > empty_spaces_j2:
             print("J2 ganhou")
-            winner[nome_jogador1] += -1 * empty_spaces_j2
-            winner[nome_jogador2] += 2
+            winner["Jogador1"] += -1 * empty_spaces_j2
+            winner["Jogador2"] += 2
         else:
-            winner[nome_jogador1] += 2
-            winner[nome_jogador2] += 2
+            winner["Jogador1"] += 2
+            winner["Jogador2"] += 2
 
     Cond_final[0] = False
     Cond_final[1] = False
@@ -602,7 +604,12 @@ def guardar_na_mem(name, tabuleiro_player, excluidos, table, jogador, proxima=-1
     with open("save.txt", "w") as f:
         for y in dicionario.keys():
             f.write(y + "/" + str(dicionario[y]) + "\n")
+    f.close()
 
+    with open("versao_salva.txt", "w") as f:
+        f.write("versao/tm"+ "\n")
+        f.write("Jogador1/" + str(winner["Jogador1"]) + "\n")
+        f.write("Jogador2/" +str(winner["Jogador2"]) + "\n")
     f.close()
 def exibir_taboleiro(cond_final, taboleiro,screen, Jog2=0):
     for i in range(4):
@@ -1129,7 +1136,7 @@ def novo_jogo_tm(nome_jogador1,nome_jogador2):
     ButtonGrups = pygame.sprite.Group()
     ButtonGrups1 = pygame.sprite.Group()
 
-    global botoes, Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8, Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17, Botao18, Botao19, Botao20, Botao21, Botao22, Botao23, Botao24, Botao25, Botao26, Botao27, Botao28, Botao29, Botao30, Botao31, Botao32, Botao33, Botao34
+    global winner, botoes, Botao1, Botao2, Botao3, Botao4, Botao5, Botao6, Botao7, Botao8, Botao9, Botao10, Botao11, Botao12, Botao13, Botao14, Botao15, Botao16, Botao17, Botao18, Botao19, Botao20, Botao21, Botao22, Botao23, Botao24, Botao25, Botao26, Botao27, Botao28, Botao29, Botao30, Botao31, Botao32, Botao33, Botao34
     global posx1, posy1, posx1_1, posy1_1, posx2, posy2, posx2_1, posy2_1, posx3, posy3, posx3_1, posy3_1, posx4, posy4, posx4_1, posy4_1, posx5, posy5, posx5_1, posy5_1, posx6, posy6, posx6_1, posy6_1, posx7, posy7, posx7_1, posy7_1, posx8, posy8, posx8_1, posy8_1, posx9, posy9, posx9_1, posy9_1, posx10, posy10, posx10_1, posy10_1, posx11, posy11, posx11_1, posy11_1, posx12, posy12, posx12_1, posy12_1, posx13, posy13, posx13_1, posy13_1, posx14, posy14, posx14_1, posy14_1, posx15, posy15, posx15_1, posy15_1, posx16, posy16, posx16_1, posy16_1
 
     class Botao(pygame.sprite.Sprite):
@@ -1290,8 +1297,8 @@ def novo_jogo_tm(nome_jogador1,nome_jogador2):
     esvaziar = [False]
 
     winner = {}
-    winner[nome_jogador1] = 0
-    winner[nome_jogador2] = 0
+    winner["Jogador1"] = 0
+    winner["Jogador2"] = 0
 
     clock = pygame.time.Clock()
     tempo_delta = clock.tick(60) / 1000.0
@@ -1312,10 +1319,10 @@ def novo_jogo_tm(nome_jogador1,nome_jogador2):
         jogo(winner, nome_jogador2, nome_jogador1, esvaziar, Cond_final, trevos, screen, table, gerenciador,
              tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1)
         print(winner)
-
-        if winner[nome_jogador1] > winner[nome_jogador2]:
+        apagar_ficheiro_save()
+        if winner["Jogador1"] > winner["Jogador2"]:
             print("Ganhou -> ", nome_jogador1)
-        elif winner[nome_jogador1] < winner[nome_jogador2]:
+        elif winner["Jogador1"] < winner["Jogador2"]:
             print("Ganhou -> ", nome_jogador2)
         else:
             print("empate")
@@ -1334,12 +1341,16 @@ def novo_jogo_tm(nome_jogador1,nome_jogador2):
         jogo(winner, nome_jogador1, nome_jogador2, esvaziar, Cond_final, trevos, screen, table, gerenciador,
              tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1)
         print(winner)
-        if winner[nome_jogador1] > winner[nome_jogador2]:
+        apagar_ficheiro_save()
+        if winner["Jogador1"] > winner["Jogador2"]:
             print("Ganhou -> ", nome_jogador1)
-        elif winner[nome_jogador1] < winner[nome_jogador2]:
+        elif winner["Jogador1"] < winner["Jogador2"]:
             print("Ganhou -> ", nome_jogador2)
         else:
             print("empate")
 
-
+pygame.quit()
 #novo_jogo_tm("antonio","jose")
+def apagar_ficheiro_save():
+    with open("versao_salva.txt", "w") as f:
+        f.write("")

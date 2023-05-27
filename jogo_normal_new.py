@@ -250,6 +250,9 @@ def jogo(winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, trevos, 
         exibir_taboleiro(Cond_final, taboleiroJ1, screen)
         exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
 
+        if Cond_final[0] == True or Cond_final[1] == True:
+            break
+
         ButtonGrups1.empty()
         botoes.clear()
         print(botoes)
@@ -1312,7 +1315,7 @@ def novo_jogo_normal(nome_jogador1,nome_jogador2):
 
         jogo(winner, nome_jogador2, nome_jogador1, esvaziar, Cond_final, trevos, screen, table, gerenciador,
              tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1, botoes)
-
+        apagar_ficheiro_save()
         if winner[nome_jogador1] > winner[nome_jogador2]:
             print("Ganhou -> ", nome_jogador1)
         elif winner[nome_jogador1] < winner[nome_jogador2]:
@@ -1324,7 +1327,7 @@ def novo_jogo_normal(nome_jogador1,nome_jogador2):
 
         jogo(winner, nome_jogador1, nome_jogador2, esvaziar, Cond_final, trevos, screen, table, gerenciador,
              tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1, botoes)
-
+        apagar_ficheiro_save()
         if winner[nome_jogador1] > winner[nome_jogador2]:
             print("Ganhou -> ", nome_jogador1)
         elif winner[nome_jogador1] < winner[nome_jogador2]:
@@ -1332,5 +1335,8 @@ def novo_jogo_normal(nome_jogador1,nome_jogador2):
         else:
             print("empate")
 
-
+pygame.quit()
 #novo_jogo_normal("antonio","manuel")
+def apagar_ficheiro_save():
+    with open("versao_salva.txt", "w") as f:
+        f.write("")

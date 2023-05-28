@@ -458,7 +458,7 @@ def regras_jogo():
         html_text="<body><font color='#FFA500' face='Times New Roman'><b>Ideia de Jogo:</b></font> Cada jogador tenta ser o primeiro a preencher completamente o seu tabuleiro com trevos e deve verificar se os números estão organizados em ordem crescente em cada linha e coluna.</body>"
                   "\n<font color='#FFA500' face='Arial'><b>Estrutura do Jogo:</b></font> Prepara um conjunto completo de trevos por jogador. O máximo é 4 jogadores, se não utilizar as peças devolve à pilha.</body>"
                   "\n<font color='#FFA500' face='Verdana'><b>GamePlay:</b></font> O jogador a começar é escolhido aleatoriamente, em seguida, o jogo prossegue no sentido horário. Na tua vez, para pegares um trevo deves escolher uma das duas opções a seguir: ir buscar à pillha ou à table (caso exita um trevo lá)."
-                  "\n<font color='#FFA500' face='Comic Sans MS'><b>Regras de Colocação:</b></font> Podes adicionar um novo trevo a um espaço vazio no tabuleiro de jogo ou trocá-lo por um trevo colocado anteriormente (e devolver o trevo trocado no meio da mesa)."
+                  "\n<font color='#FFA500' face='Comic Sans MS'><b>Regras de Colocação:</b></font> Podes adicionar um novo trevo a um espaço vazio no tabuleiro de jogo ou trocá-lo por um trevo colocado anteriormente (e devolver o trevo trocado para a table)."
                   "\nO número do trevo que colocas no tabuleiro deve caber, em ordem crescente, com todos os outros números na sua linha e na sua coluna (mas os números em uma linha ou coluna não precisam seguir uns aos outros como 7,8,9...). "
                   "</body>",
         relative_rect=text_box_rect,

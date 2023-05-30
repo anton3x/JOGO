@@ -8,6 +8,15 @@ import sys
 import random
 from tela_leadboard import *
 
+def contagem_trevos(screen,trevos):
+    retangulo1 = pygame.image.load("imagens_jogo/retangulo_contagem_trevos.png").convert_alpha()
+    remover_counter_trevos(retangulo1, screen)
+    player1 = message_to_screen("(" + str(40 - len(trevos)) + " restantes)" , None, 20, [255, 255, 255])
+    screen.blit(player1, (107 - player1.get_width() // 2, 115 - player1.get_height() // 2))
+
+def remover_counter_trevos(retangulo, screen):
+    retangulo = pygame.transform.scale(retangulo, (103, 17))
+    screen.blit(retangulo, (56,108))
 def msg_to_screen_escolha_table_baralho(screen, nome_jogador):
     retangulo1 = pygame.image.load("imagens_jogo/retangulo1.png").convert_alpha()
     remover_message_to_screen(retangulo1, screen)
@@ -230,6 +239,8 @@ def escolha_posicao_trevo(ButtonGrups,B1,  vez="Jogador1"):
 def jogo(proxima,winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, trevos, screen, table, gerenciador, tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1, botoes):
     while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):  # as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
         esvazia_table(esvaziar, screen, table, ButtonGrups1, botoes)
+        if Comeco[0] == False and Comeco[1] == False:
+            contagem_trevos(screen, trevos)
         print(botoes)
         gerenciador.draw_ui(screen)
         gerenciador.update(tempo_delta)
@@ -731,7 +742,7 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome_jogador1, taboleiroj, 
 
             taboleiroj[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
             caixa_retirada_baralho(nome_jogador1, taboleiroj[4][0])
-
+            contagem_trevos(screen, trevos)
             exibir_taboleiro(cond_final, taboleiroj, screen,Jog2=0)
             pygame.display.flip()
             pygame.display.update()
@@ -798,7 +809,7 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome_jogador1, taboleiroj, 
 
                         Botao17.touche = False
                         break
-
+                contagem_trevos(screen, trevos)
                 guardar_na_mem(nome_jogador1, taboleiroj, excluidos, table,nome_jogador1, proxima=1)  # vai alterar na memoria os valores do taboleiro pelos atuais
 
         msg_to_screen_escolha_posicao(screen, nome_jogador1) #escolhe a posicao para por o trevo
@@ -849,6 +860,7 @@ def turnoj(proxima, cond_final, imagem_fundo, screen,nome_jogador1, taboleiroj, 
                             atualiza_screen(screen, cond_final, table, nome_jogador1, nome_jogador2)
                             break
 
+                contagem_trevos(screen, trevos)
                 retangulo1 = pygame.image.load("imagens_jogo/retangulo1.png").convert_alpha()
                 remover_message_to_screen(retangulo1, screen)
 
@@ -874,7 +886,7 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome_jogador2, taboleiroj
         caixa_retirada_baralho(nome_jogador2, trevo)
         taboleiroj2[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
         exibir_taboleiro(cond_final, taboleiroj2, screen, Jog2=1)
-
+        contagem_trevos(screen, trevos)
         pygame.display.flip()
         pygame.display.update()
 
@@ -937,7 +949,7 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome_jogador2, taboleiroj
 
                     Botao17.touche = False
                     break
-
+            contagem_trevos(screen, trevos)
             guardar_na_mem(nome_jogador2, taboleiroj2, excluidos, table, nome_jogador2,proxima=1)  # vai alterar na memoria os valores do taboleiro pelos atuais
 
     msg_to_screen_escolha_posicao(screen, nome_jogador2)
@@ -991,6 +1003,8 @@ def turnoj2(proxima, cond_final, imagem_fundo, screen, nome_jogador2, taboleiroj
                         atualiza_screen(screen, cond_final, table, nome_jogador1, nome_jogador2)
 
                         break
+
+            contagem_trevos(screen, trevos)
             retangulo1 = pygame.image.load("imagens_jogo/retangulo1.png").convert_alpha()
             remover_message_to_screen(retangulo1, screen)
 
@@ -1050,6 +1064,7 @@ def turnob(Cond_final, screen, taboleirob, excluidos,totaltrevos, key_inicial, t
         #time.sleep(1)
         taboleirob[4][0] = 0
 
+        contagem_trevos(screen, trevos)
         passos.insert(0, "")
         caixa_texto.html_text = "\n".join(passos)
         caixa_texto.rebuild()
@@ -1261,7 +1276,7 @@ def load_jogo_normal():
     nome_jogador1 = dicionario["jogador1"]
     nome_jogador2 = dicionario["jogador2"]
 
-    global taboleiroJ1, taboleiroJ2, esvaziar
+    global taboleiroJ1, taboleiroJ2, esvaziar, trevos
     Comeco = [False, False]
     print(dicionario)
     J2_preenhido = False  # o bot ja preencheu o taboleiro?

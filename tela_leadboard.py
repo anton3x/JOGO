@@ -117,9 +117,6 @@ def leaderboard(winner, nome_jogador1, nome_jogador2, com_nome_jogadores = 1):
                 pygame.quit()
                 sys.exit()
 
-
-
-
         # Preenche a tela com a cor de fundo
         tela.fill(cor_fundo)
 
@@ -143,7 +140,7 @@ def leaderboard(winner, nome_jogador1, nome_jogador2, com_nome_jogadores = 1):
         ButtonGrups.draw(tela)
         pygame.display.flip()
 
-
+pygame.quit()
 
 
 

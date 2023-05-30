@@ -2,11 +2,15 @@ import copy
 import time
 from config_jog1 import *
 from config_jog2 import *
+from tela_leadboard import *
 import pygame
 import pygame_gui
 import sys
 import random
 import os
+def apagar_ficheiro_save():
+    with open("versao_salva.txt", "w") as f:
+        f.write("")
 
 def escolha_posicao_trevo(ButtonGrups,B1,  vez="Jogador1"):
 
@@ -293,27 +297,15 @@ def jogo(winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, trevos, 
         print("Taboleiro J1 preenchido")
 
         print("fazer uma funcao")
-        winner[nome_jogador1] += 2
-        empty_spaces = 0
-        for i in range(4):
-            for j in range(4):
-               if taboleiroJ2[i][j] == 0:
-                   empty_spaces += 1
+        winner[nome_jogador1] += 1
 
-        winner[nome_jogador2] += -1 * empty_spaces
 
     elif Cond_final[0] == True:
         print("Taboleiro J2 preenchido")
 
         print("fazer uma funcao")
-        winner[nome_jogador2] += 2
-        empty_spaces = 0
-        for i in range(4):
-            for j in range(4):
-                if taboleiroJ1[i][j] == 0:
-                    empty_spaces += 1
+        winner[nome_jogador2] += 1
 
-        winner[nome_jogador1    ] += -1 * empty_spaces
     else:
         print("baralho sem trevos")
         empty_spaces_j1 = 0
@@ -1316,6 +1308,7 @@ def novo_jogo_normal(nome_jogador1,nome_jogador2):
         jogo(winner, nome_jogador2, nome_jogador1, esvaziar, Cond_final, trevos, screen, table, gerenciador,
              tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1, botoes)
         apagar_ficheiro_save()
+        leaderboard(winner, nome_jogador1, nome_jogador2)
         if winner[nome_jogador1] > winner[nome_jogador2]:
             print("Ganhou -> ", nome_jogador1)
         elif winner[nome_jogador1] < winner[nome_jogador2]:
@@ -1328,6 +1321,7 @@ def novo_jogo_normal(nome_jogador1,nome_jogador2):
         jogo(winner, nome_jogador1, nome_jogador2, esvaziar, Cond_final, trevos, screen, table, gerenciador,
              tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1, botoes)
         apagar_ficheiro_save()
+        leaderboard(winner, nome_jogador1, nome_jogador2)
         if winner[nome_jogador1] > winner[nome_jogador2]:
             print("Ganhou -> ", nome_jogador1)
         elif winner[nome_jogador1] < winner[nome_jogador2]:
@@ -1336,7 +1330,4 @@ def novo_jogo_normal(nome_jogador1,nome_jogador2):
             print("empate")
 
 pygame.quit()
-#novo_jogo_normal("antonio","manuel")
-def apagar_ficheiro_save():
-    with open("versao_salva.txt", "w") as f:
-        f.write("")
+

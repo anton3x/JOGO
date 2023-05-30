@@ -6,6 +6,8 @@ import pygame
 import pygame_gui
 import sys
 import random
+from tela_leadboard import *
+
 def msg_to_screen_escolha_table_baralho(screen, nome_jogador):
     retangulo1 = pygame.image.load("imagens_jogo/retangulo1.png").convert_alpha()
     remover_message_to_screen(retangulo1, screen)
@@ -293,27 +295,15 @@ def jogo(proxima,winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, 
         print("Taboleiro J1 preenchido")
 
         print("fazer uma funcao")
-        winner[nome_jogador1] += 2
-        empty_spaces = 0
-        for i in range(4):
-            for j in range(4):
-               if taboleiroJ2[i][j] == 0:
-                   empty_spaces += 1
+        winner[nome_jogador1] += 1
 
-        winner[nome_jogador2] += -1 * empty_spaces
 
     elif Cond_final[0] == True:
         print("Taboleiro J2 preenchido")
 
         print("fazer uma funcao")
-        winner[nome_jogador2] += 2
-        empty_spaces = 0
-        for i in range(4):
-            for j in range(4):
-                if taboleiroJ1[i][j] == 0:
-                    empty_spaces += 1
+        winner[nome_jogador2] += 1
 
-        winner[nome_jogador1    ] += -1 * empty_spaces
     else:
         print("baralho sem trevos")
         empty_spaces_j1 = 0
@@ -1308,6 +1298,7 @@ def load_jogo_normal():
              botoes)
 
         apagar_ficheiro_save()
+        leaderboard(winner, nome_jogador1, nome_jogador2)
 
         if winner[nome_jogador1] > winner[nome_jogador2]:
             print("Ganhou -> ", nome_jogador1)
@@ -1325,6 +1316,7 @@ def load_jogo_normal():
              botoes)
 
         apagar_ficheiro_save()
+        leaderboard(winner, nome_jogador1, nome_jogador2)
 
         if winner[nome_jogador1] > winner[nome_jogador2]:
             print("Ganhou -> ", nome_jogador1)

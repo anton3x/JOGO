@@ -6,6 +6,8 @@ import pygame
 import pygame_gui
 import sys
 import random
+from tela_leadboard import leaderboard
+
 def msg_to_screen_escolha_table_baralho(screen, nome_jogador):
     retangulo1 = pygame.image.load("imagens_jogo/retangulo1.png").convert_alpha()
     remover_message_to_screen(retangulo1, screen)
@@ -292,27 +294,27 @@ def jogo(proxima,winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, 
         print("Taboleiro J1 preenchido")
 
         print("fazer uma funcao")
-        winner[nome_jogador1] += 2
+        winner["Jogador1"] += 2
         empty_spaces = 0
         for i in range(4):
             for j in range(4):
                if taboleiroJ2[i][j] == 0:
                    empty_spaces += 1
 
-        winner[nome_jogador2] += -1 * empty_spaces
+        winner["Jogador2"] += -1 * empty_spaces
 
     elif Cond_final[0] == True:
         print("Taboleiro J2 preenchido")
 
         print("fazer uma funcao")
-        winner[nome_jogador2] += 2
+        winner["Jogador2"] += 2
         empty_spaces = 0
         for i in range(4):
             for j in range(4):
                 if taboleiroJ1[i][j] == 0:
                     empty_spaces += 1
 
-        winner[nome_jogador1    ] += -1 * empty_spaces
+        winner["Jogador1"] += -1 * empty_spaces
     else:
         print("baralho sem trevos")
         empty_spaces_j1 = 0
@@ -329,16 +331,16 @@ def jogo(proxima,winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, 
 
         if empty_spaces_j1 < empty_spaces_j2:
             print("J1 ganhou")
-            winner[nome_jogador1] +=  2
-            winner[nome_jogador2] += -1 * empty_spaces_j2
+            winner["Jogador1"] +=  2
+            winner["Jogador2"] += -1 * empty_spaces_j2
 
         elif empty_spaces_j1 > empty_spaces_j2:
             print("J2 ganhou")
-            winner[nome_jogador1] += -1 * empty_spaces_j2
-            winner[nome_jogador2] += 2
+            winner["Jogador1"] += -1 * empty_spaces_j2
+            winner["Jogador2"] += 2
         else:
-            winner[nome_jogador1] += 2
-            winner[nome_jogador2] += 2
+            winner["Jogador1"] += 2
+            winner["Jogador2"] += 2
 
     Cond_final[0] = False
     Cond_final[1] = False
@@ -1328,6 +1330,7 @@ def load_tm():
         jogo(proxima_acao, winner, nome_jogador2, nome_jogador1, esvaziar, Cond_final, trevos, screen, table, gerenciador,
                  tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1, botoes)
         apagar_ficheiro_save()
+        leaderboard(winner, nome_jogador1, nome_jogador2, com_nome_jogadores=0)
         print(winner)
         if winner[nome_jogador1] > winner[nome_jogador2]:
             print("Ganhou -> ", nome_jogador1)
@@ -1354,6 +1357,8 @@ def load_tm():
         jogo(proxima_acao, winner, nome_jogador1, nome_jogador2, esvaziar, Cond_final, trevos, screen, table, gerenciador,
                  tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1, botoes)
         apagar_ficheiro_save()
+        leaderboard(winner, nome_jogador1, nome_jogador2, com_nome_jogadores=0)
+
         print(winner)
         if winner[nome_jogador1] > winner[nome_jogador2]:
             print("Ganhou -> ", nome_jogador1)

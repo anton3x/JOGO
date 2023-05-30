@@ -6,6 +6,7 @@ import pygame_gui
 import sys
 import random
 import os
+from tela_leadboard import leaderboard
 
 from config_jog1 import *
 from config_jog2 import *
@@ -321,27 +322,15 @@ def jogo(proxima,winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, 
         print("Taboleiro J1 preenchido")
 
         print("fazer uma funcao")
-        winner[nome_jogador1] += 2
-        empty_spaces = 0
-        for i in range(4):
-            for j in range(4):
-               if taboleiroJ2[i][j] == 0:
-                   empty_spaces += 1
+        winner[nome_jogador1] += 1
 
-        winner[nome_jogador2] += -1 * empty_spaces
 
     elif Cond_final[0] == True:
         print("Taboleiro J2 preenchido")
 
         print("fazer uma funcao")
-        winner[nome_jogador2] += 2
-        empty_spaces = 0
-        for i in range(4):
-            for j in range(4):
-                if taboleiroJ1[i][j] == 0:
-                    empty_spaces += 1
+        winner[nome_jogador2] += 1
 
-        winner[nome_jogador1    ] += -1 * empty_spaces
     else:
         print("baralho sem trevos")
         empty_spaces_j1 = 0
@@ -1450,6 +1439,7 @@ def load_mm():
              tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1, botoes)
 
         apagar_ficheiro_save()
+
         if winner[nome_jogador1] > winner[nome_jogador2]:
             print("Ganhou -> ", nome_jogador1)
         elif winner[nome_jogador1] < winner[nome_jogador2]:
@@ -1457,18 +1447,23 @@ def load_mm():
         else:
             print("empate")
 
+        leaderboard(winner, nome_jogador1, nome_jogador2)
+
     else:
         print("O %s começa!" % nome_jogador1)
         gerenciador.update(tempo_delta)
         jogo(proxima_acao,winner, nome_jogador1, nome_jogador2, esvaziar, Cond_final, trevos, screen, table, gerenciador,
              tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1, botoes)
         apagar_ficheiro_save()
+        leaderboard(winner, nome_jogador1, nome_jogador2)
         if winner[nome_jogador1] > winner[nome_jogador2]:
             print("Ganhou -> ", nome_jogador1)
         elif winner[nome_jogador1] < winner[nome_jogador2]:
             print("Ganhou -> ", nome_jogador2)
         else:
             print("empate")
+
+        leaderboard(winner, nome_jogador1, nome_jogador2)
 
 pygame.quit()
 #load_mm()

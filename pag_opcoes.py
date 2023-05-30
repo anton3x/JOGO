@@ -3,12 +3,12 @@ import os
 import pygame
 import pygame_gui
 import sys
-from jogo_normal_new import novo_jogo_normal
 from load_normal import load_jogo_normal
-from jogo_tm_new import novo_jogo_tm
-from jogo_mm_new import novo_jogo_mm
 from load_mm import load_mm
 from load_tm import load_tm
+from jogo_normal_new import novo_jogo_normal
+from jogo_tm_new import novo_jogo_tm
+from jogo_mm_new import novo_jogo_mm
 
 def message_to_screen(message, textfont, size, color):
     my_font = pygame.font.Font(textfont, size)
@@ -119,6 +119,7 @@ def main_menu():
 
             if Botao4.touche == True:
                 pygame.quit()
+                exit()
 
 
         tela.fill(ColorBack["azul"])
@@ -133,6 +134,7 @@ def main_menu():
     pygame.quit()
 def tela1():
     pygame.init()
+
 
     # Configurações da janela
     tamanho_janela = (1024, 600)
@@ -518,6 +520,7 @@ def regras_jogo():
                 pygame.quit()
                 main_menu()
 
+
             pygame.display.flip()
             pygame.display.update()
 
@@ -539,4 +542,5 @@ def regras_jogo():
             i=0
 
 
-main_menu()
+if __name__ == "__main__":
+    main_menu()

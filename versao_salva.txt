@@ -1,3 +1,0 @@
-versao/tm
-Jogador1/0
-Jogador2/0

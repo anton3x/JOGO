@@ -7,6 +7,7 @@ import pygame_gui
 import sys
 import random
 import os
+from tela_leadboard import leaderboard
 
 def escolha_posicao_trevo(ButtonGrups,B1,  vez="Jogador1"):
 
@@ -1320,6 +1321,7 @@ def novo_jogo_tm(nome_jogador1,nome_jogador2):
              tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1)
         print(winner)
         apagar_ficheiro_save()
+        leaderboard(winner, nome_jogador1, nome_jogador2, com_nome_jogadores=0)
         if winner["Jogador1"] > winner["Jogador2"]:
             print("Ganhou -> ", nome_jogador1)
         elif winner["Jogador1"] < winner["Jogador2"]:
@@ -1342,6 +1344,7 @@ def novo_jogo_tm(nome_jogador1,nome_jogador2):
              tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1)
         print(winner)
         apagar_ficheiro_save()
+        leaderboard(winner, nome_jogador1, nome_jogador2, com_nome_jogadores=0)
         if winner["Jogador1"] > winner["Jogador2"]:
             print("Ganhou -> ", nome_jogador1)
         elif winner["Jogador1"] < winner["Jogador2"]:

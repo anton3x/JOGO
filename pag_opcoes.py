@@ -265,34 +265,41 @@ def tela1():
                         jogador2 = entry_jogador2.get_text()
                         variante = dropdown_variante.get_single_selection()
                         oponente = dropdown_oponente.get_single_selection()
+                        aprovado = False
+                        if label2_mostrar == True:
+                            if jogador2 != "":
+                                aprovado = True
 
-                        if variante == "Normal":
-                            if oponente == "Bot":
-                                novo_jogo_normal(jogador1, "BOT")
-                                main_menu()
-                            elif oponente =="Outro jogador":
-                                novo_jogo_normal(jogador1, jogador2)
-                                main_menu()
-                        if variante == "MICHAEL’S SETUP":
-                            if oponente == "Bot":
-                                novo_jogo_mm(jogador1, "BOT")
-                                main_menu()
-                            elif oponente == "Outro jogador":
-                                novo_jogo_mm(jogador1, jogador2)
-                                main_menu()
-                        if variante == "TOURNAMENT MODE":
-                            if oponente == "Bot":
-                                novo_jogo_tm(jogador1, "BOT")
-                                main_menu()
-                            elif oponente =="Outro jogador":
-                                novo_jogo_tm(jogador1, jogador2)
-                                main_menu()
+                        else:
+                            aprovado = True
+                        if jogador1 != "" and variante != "" and oponente != "" and aprovado:
+                            if variante == "Normal":
+                                if oponente == "Bot":
+                                    novo_jogo_normal(jogador1, "BOT")
+                                    main_menu()
+                                elif oponente =="Outro jogador":
+                                    novo_jogo_normal(jogador1, jogador2)
+                                    main_menu()
+                            if variante == "MICHAEL’S SETUP":
+                                if oponente == "Bot":
+                                    novo_jogo_mm(jogador1, "BOT")
+                                    main_menu()
+                                elif oponente == "Outro jogador":
+                                    novo_jogo_mm(jogador1, jogador2)
+                                    main_menu()
+                            if variante == "TOURNAMENT MODE":
+                                if oponente == "Bot":
+                                    novo_jogo_tm(jogador1, "BOT")
+                                    main_menu()
+                                elif oponente =="Outro jogador":
+                                    novo_jogo_tm(jogador1, jogador2)
+                                    main_menu()
 
 
-                        print("Jogador 1:", jogador1)
-                        print("Jogador 2:", jogador2)
-                        print("Variante escolhida:", variante)
-                        print("Oponente:", oponente)
+                            print("Jogador 1:", jogador1)
+                            print("Jogador 2:", jogador2)
+                            print("Variante escolhida:", variante)
+                            print("Oponente:", oponente)
 
             if Botao1.touche == True:
                 rodando = False

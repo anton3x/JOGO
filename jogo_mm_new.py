@@ -266,8 +266,8 @@ def jogo(winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, trevos, 
         exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
 
         esvazia_table(esvaziar, screen, table, ButtonGrups1, botoes)
-        if Comeco[0] == False and Comeco[1] == False:
-            contagem_trevos(screen, trevos)
+
+        contagem_trevos(screen, trevos)
         print(botoes)
         gerenciador.draw_ui(screen)
         gerenciador.update(tempo_delta)
@@ -284,7 +284,7 @@ def jogo(winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, trevos, 
             turnoj(Cond_final, imagem_fundo, screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco, table,nome_jogador2,ButtonGrups)
             joaninha(joana, screen, "jog1")
             retangulo_joaninha_remove(retangulo, screen)
-
+        contagem_trevos(screen, trevos)
         exibir_taboleiro(Cond_final, taboleiroJ1, screen)
         exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
 
@@ -298,7 +298,7 @@ def jogo(winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, trevos, 
 
         gerenciador.draw_ui(screen)
         player_nome(nome_jogador1, nome_jogador2, screen)
-
+        contagem_trevos(screen, trevos)
 
         if ultimo_jogador != nome_jogador1:
             joaninha(joana, screen, "jog2")
@@ -313,7 +313,7 @@ def jogo(winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, trevos, 
             turnoj(Cond_final, imagem_fundo, screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco, table, nome_jogador2,ButtonGrups)
             retangulo_joaninha_remove(retangulo, screen)
 
-
+        contagem_trevos(screen, trevos)
         exibir_taboleiro(Cond_final, taboleiroJ1, screen)
         exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
 

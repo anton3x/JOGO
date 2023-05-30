@@ -816,7 +816,7 @@ def turnoj(cond_final, imagem_fundo, screen,nome_jogador1, taboleiroj, excluidos
                         taboleiroj[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
 
                         atualiza_screen(screen, cond_final, table, nome_jogador1, nome_jogador2)
-                        contagem_trevos(screen, trevos, taboleiroJ1[4][0], taboleiroJ2[4][0])
+                        contagem_trevos(screen, trevos)
 
                         botao.touche = False
                         Botao18.touche = False  # se eu clicar em um elemento da table (que nao esta contido em botoes), o botao18 que serve para colocar elementos na table vai ficar a true e vai afetar a funcao em baixo

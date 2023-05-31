@@ -1101,8 +1101,8 @@ def turnob(Cond_final, screen, taboleirob, excluidos, totaltrevos, key_inicial, 
                     table.append(taboleirob[linha][coluna])
                     taboleirob[linha][coluna] = trevo
                     key1 = False
-        contagem_trevos(screen, trevos)
         screen.blit(imagem_fundo, (0, 0))
+        contagem_trevos(screen, trevos)
         for i in range(4):
             print(str(taboleirob[i][0]), " | ", str(taboleirob[i][1]), " | ", str(taboleirob[i][2]), " | ",str(taboleirob[i][3]))
         print("\n")

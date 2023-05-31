@@ -1306,7 +1306,7 @@ def novo_jogo_normal(nome_jogador1,nome_jogador2):
     joana = pygame.image.load("imagens_jogo/joaninha.png").convert_alpha()
     initial_write_to_mem(nome_jogador1, taboleiroJ1, trevos,table, nome_jogador2)  # guarda os taboleiros na mem com os nomes do bot e do jogador
 
-    numero = 1#random.randint(0, 1)  # quem comeca
+    numero = random.randint(0, 1)  # quem comeca
     Comeco = [True, True]
     botoes = {} #lista com os botoes da table
     Cond_final = [J1_prenchido, J2_preenhido]

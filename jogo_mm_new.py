@@ -1382,7 +1382,7 @@ def novo_jogo_mm(nome_jogador1,nome_jogador2):
     initial_write_to_mem(nome_jogador1, taboleiroJ1, trevos,table, nome_jogador2)  # guarda os taboleiros na mem com os nomes do bot e do jogador
 
     global vezes, Cond_final, nomee_jogador1, nomee_jogador2
-    numero = 0#random.randint(0, 1)  # quem comeca
+    numero = random.randint(0, 1)  # quem comeca
     Comeco = [True, True]
     botoes = {} #lista com os botoes da table
     Cond_final = [J1_prenchido, J2_preenhido]

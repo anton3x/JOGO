@@ -263,7 +263,8 @@ def atualiza_screen(screen, cond_final, table, nome_jogador1, nome_jogador2):
 def jogo(proxima,winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, trevos, screen, table, gerenciador, tempo_delta, nome_jogador1, nome_jogador2, taboleiroJ2, retangulo, Comeco, joana, ButtonGrups, taboleiroJ1, botoes):
     while (not Cond_final[1] and not Cond_final[0]) and not (len(trevos) == 40):  # as condicoes de fim do jogo sao alguem ja ter preenchido to do o taboleiro ou os trevos esgotarem-se
         esvazia_table(esvaziar, screen, table, ButtonGrups1, botoes)
-
+        if Cond_final[0] == True or Cond_final[1] == True or (len(trevos) == 40):
+            break
         contagem_trevos(screen, trevos)
         print(botoes)
         gerenciador.draw_ui(screen)
@@ -281,14 +282,15 @@ def jogo(proxima,winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, 
                 turnoj2(proxima,Cond_final, imagem_fundo, screen, nome_jogador2, taboleiroJ2, trevos, 40, Comeco, table, nome_jogador1, ButtonGrups, posy17=88, posx17=110)
             retangulo_joaninha_remove(retangulo, screen, "jog2")
         else:
-            turnoj(proxima,Cond_final, imagem_fundo, screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco, table,nome_jogador2,ButtonGrups)
             joaninha(joana, screen, "jog1")
+            turnoj(proxima,Cond_final, imagem_fundo, screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco, table,nome_jogador2,ButtonGrups)
+
             retangulo_joaninha_remove(retangulo, screen)
 
         exibir_taboleiro(Cond_final, taboleiroJ1, screen)
         exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
         contagem_trevos(screen, trevos)
-        if Cond_final[0] == True or Cond_final[1] == True:
+        if Cond_final[0] == True or Cond_final[1] == True or (len(trevos) == 40):
             break
 
         proxima = -1
@@ -673,6 +675,7 @@ def exibir_taboleiro(cond_final, taboleiro,screen, Jog2=0):
             for j in range(4):  # colunas
                 n_botao += 1
                 if taboleiro[i][j] != 0:
+                    contador += 1
                     imagem_fundo = pygame.image.load("trevos/" + str(taboleiro[i][j]) + ".png").convert_alpha()
                     imagem_fundo = pygame.transform.scale(imagem_fundo, (73, 73))
                     x = eval("posx" + str(n_botao) + "_1")

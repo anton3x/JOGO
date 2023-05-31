@@ -3,17 +3,17 @@ from config_jog1 import *
 
 posx1_1 = 594 +0.5
 posy1_1 = 259 + 0.5
-posx2_1 = 680
+posx2_1 = 680 + 1
 posy2_1 = posy1_1
 posx3_1 = 766
 posy3_1 = posy1_1
-posx4_1 = 852
+posx4_1 = 852 + 1
 posy4_1 = posy1_1
 
 posx5_1 = posx1_1
 posy5_1 = 344
 posx6_1 = posx2_1
-posy6_1 = posy5_1
+posy6_1 = posy5_1 - 1
 posx7_1 = posx3_1
 posy7_1 = posy5_1
 posx8_1 = posx4_1
@@ -25,7 +25,7 @@ posx10_1 = posx2_1
 posy10_1 = posy9_1
 posx11_1 = posx3_1
 posy11_1 = posy9_1
-posx12_1 = posx4_1 + 1
+posx12_1 = posx4_1
 posy12_1 = posy9_1
 
 posx13_1 = posx1_1
@@ -34,7 +34,7 @@ posx14_1 = posx2_1
 posy14_1 = posy13_1
 posx15_1 = posx3_1
 posy15_1 = posy13_1
-posx16_1 = posx4_1
+posx16_1 = posx4_1 - 1
 posy16_1 = posy13_1 - 1
 
 

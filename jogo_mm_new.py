@@ -265,6 +265,9 @@ def jogo(winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, trevos, 
         exibir_taboleiro(Cond_final, taboleiroJ1, screen)
         exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
 
+        if Cond_final[0] == True or Cond_final[1] == True or (len(trevos) == 40):
+            break
+
         esvazia_table(esvaziar, screen, table, ButtonGrups1, botoes)
 
         contagem_trevos(screen, trevos)
@@ -281,14 +284,14 @@ def jogo(winner, primeiro_jogador,ultimo_jogador, esvaziar, Cond_final, trevos, 
                 turnoj2(Cond_final, imagem_fundo, screen, nome_jogador2, taboleiroJ2, trevos, 40, Comeco, table, nome_jogador1, ButtonGrups, posy17=88, posx17=110)
             retangulo_joaninha_remove(retangulo, screen, "jog2")
         else:
-            turnoj(Cond_final, imagem_fundo, screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco, table,nome_jogador2,ButtonGrups)
             joaninha(joana, screen, "jog1")
+            turnoj(Cond_final, imagem_fundo, screen, nome_jogador1, taboleiroJ1, trevos, 40, Comeco, table,nome_jogador2,ButtonGrups)
             retangulo_joaninha_remove(retangulo, screen)
         contagem_trevos(screen, trevos)
         exibir_taboleiro(Cond_final, taboleiroJ1, screen)
         exibir_taboleiro(Cond_final, taboleiroJ2, screen, Jog2=1)
 
-        if Cond_final[0] == True or Cond_final[1] == True:
+        if Cond_final[0] == True or Cond_final[1] == True or (len(trevos) == 40):
             break
 
         ButtonGrups1.empty()
@@ -670,6 +673,7 @@ def exibir_taboleiro(cond_final, taboleiro,screen, Jog2=0):
             for j in range(4):  # colunas
                 n_botao += 1
                 if taboleiro[i][j] != 0:
+                    contador += 1
                     imagem_fundo = pygame.image.load("trevos/" + str(taboleiro[i][j]) + ".png").convert_alpha()
                     imagem_fundo = pygame.transform.scale(imagem_fundo, (73, 73))
                     x = eval("posx" + str(n_botao) + "_1")

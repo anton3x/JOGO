@@ -819,6 +819,7 @@ def turnoj(cond_final, imagem_fundo, screen,nome_jogador1, taboleiroj, excluidos
 
                         atualiza_screen(screen, cond_final, table, nome_jogador1, nome_jogador2)
                         contagem_trevos(screen, trevos)
+                        joaninha(joana, screen)
 
                         botao.touche = False
                         Botao18.touche = False  # se eu clicar em um elemento da table (que nao esta contido em botoes), o botao18 que serve para colocar elementos na table vai ficar a true e vai afetar a funcao em baixo
@@ -966,6 +967,8 @@ def turnoj2(cond_final, imagem_fundo, screen, nome_jogador2, taboleiroj2, exclui
                         caixa_retirada_table(nome_jogador2, trevo)
                         taboleiroj2[4][0] = trevo  # trevo escolhido para a parte debaixo do taboleiro
                         atualiza_screen(screen, cond_final, table, nome_jogador1, nome_jogador2)
+                        joaninha(joana, screen, "jog2")
+
                         botao.touche = False
                         Botao18.touche = False # se eu clicar em um elemento da table (que nao esta contido em botoes), o botao18 que serve para colocar elementos na table vai ficar a true e vai afetar a funcao em baixo
                         key1 = False
@@ -1295,7 +1298,7 @@ def novo_jogo_normal(nome_jogador1,nome_jogador2):
     cores_jogadores = {"Player1":[0, 255, 127], "Player2":[255, 0, 0]}
     retangulo = pygame.image.load("imagens_jogo/retangulo.png").convert_alpha()
 
-    global taboleiroJ2, taboleiroJ1, trevos
+    global taboleiroJ2, taboleiroJ1, trevos,joana
     #jogo abaixo
     J2_preenhido = False  # o bot ja preencheu o taboleiro?
     J1_prenchido = False  # o jogador ja preencheu o taboleiro?
